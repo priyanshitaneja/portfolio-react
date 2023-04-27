@@ -6,7 +6,7 @@ import "./index.css";
 
 const social = data.social_icons;
 
-export const ComingSoon = () => {
+const ComingSoon = () => {
   return (
     <div class="coming_soon">
       <h1>coming soon...</h1>
@@ -33,3 +33,5 @@ export const ComingSoon = () => {
     </div>
   );
 };
+
+export default ComingSoon;
