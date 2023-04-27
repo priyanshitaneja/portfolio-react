@@ -1,0 +1,26 @@
+.homepage {
+    background-color: #F8EDE3;
+    color: #D0B8A8;
+}
+
+h1 {
+    margin: 0;
+}
+
+@media screen and (min-width: 460px) {
+    h1 {
+        font-size: 54px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    h1 {
+        font-size: 80px;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    h1 {
+        font-size: 100px;
+    }
+}
