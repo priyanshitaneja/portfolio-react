@@ -1,13 +1,14 @@
 .social_icon {
     display: block;
     width: 20px;
+    fill: #a38a79;
 }
 
 @media screen and (min-width: 1024px) {
     .social_icon {
         width: 30px;
     }
-} 
+}
 
 /* <a> tag is display inline by default.
 The display: inline property prevents height/width from having an effect.

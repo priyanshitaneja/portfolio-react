@@ -1,26 +1,32 @@
-.homepage {
+.homepage_wrapper {
     background-color: #F8EDE3;
     color: #D0B8A8;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-h1 {
-    margin: 0;
+.homepage {
+    margin: 0 auto;
+    text-align: center;
 }
 
-@media screen and (min-width: 460px) {
-    h1 {
-        font-size: 54px;
+
+@media screen and (min-width: 320px) {
+    .homepage {
+        width: 80vw;
     }
 }
 
 @media screen and (min-width: 768px) {
-    h1 {
-        font-size: 80px;
+    .homepage {
+        width: 60vw;
     }
 }
 
 @media screen and (min-width: 1024px) {
-    h1 {
-        font-size: 100px;
+    .homepage {
+        width: 50vw;
     }
 }

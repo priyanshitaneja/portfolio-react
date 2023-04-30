@@ -5,16 +5,3 @@
   align-items: center;
   height: 100vh;
 }
-
-.social_icons {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
-    justify-content: space-around;
-    height: 100px;
-    width: 50vw;
-}
-
-.social_icon {
-    fill: #a38a79;
-}
