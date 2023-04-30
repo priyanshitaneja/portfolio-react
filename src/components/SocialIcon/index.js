@@ -3,11 +3,11 @@ import PropTypes from "prop-types";
 
 import "./index.css";
 
-export const SocialIcon = ({ icon, url, alt, newTab }) => {
-  const tabValue = newTab === "true" ? "_SEJ" : "_self";
+const SocialIcon = ({ icon, url, alt, newTab }) => {
+  const tabValue = newTab === "true" ? "_random" : "_self";
 
   return (
-    <a class="social_icon" href={url} alt={alt} target={tabValue}>
+    <a className="social_icon" href={url} alt={alt} target={tabValue}>
       {icon}
     </a>
   );
@@ -22,6 +22,8 @@ SocialIcon.propTypes = {
 SocialIcon.defaultProps = {
   newTab: "true",
 };
+
+export default SocialIcon;
 
 // _SEJ instead of _blank
 // If a site visitor clicks on the first link, it will spawn a new browser tab.

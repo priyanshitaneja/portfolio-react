@@ -1,0 +1,19 @@
+.social_icons {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-around;
+    height: 100px;
+}
+
+@media screen and (min-width: 320px) {
+    .social_icons {
+        margin: auto 20%;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .social_icons {
+        margin: auto 10%;
+    }
+}
