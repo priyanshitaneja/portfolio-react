@@ -1,7 +1,7 @@
-import ComingSoon from "../ComingSoon";
-import NameSvg from "../NameSvg";
-import Designation from "../Designation"
-import SocialIcons from "../SocialIcons";
+// import ComingSoon from "../../components/ComingSoon";
+import NameSvg from "../../components/NameSvg";
+import Designation from "../../components/Designation"
+import SocialIcons from "../../components/SocialIcons";
 
 import "./index.css";
 

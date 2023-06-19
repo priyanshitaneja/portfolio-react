@@ -1,0 +1,38 @@
+body {
+    font: normal 14px/100% "Andale Mono", AndaleMono, monospace;
+    color: #fff;
+    width: 100vw;
+    margin: 0;
+    background-color: #356888;
+    text-align: center;
+}
+
+.colon, .time {
+    font-size: 100px;
+}
+
+.container {
+    width: 500px;
+    margin: 200px auto;
+}
+
+.clock {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.optimization {
+    margin: 150px auto 50px;
+}
+
+.optimisation-heading {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.optimisation-list li {
+    padding: 10px 0;
+    line-height: 1.5;
+    text-align: left;
+}
