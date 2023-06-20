@@ -1,0 +1,21 @@
+.skills_list-wrapper {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 25px;
+}
+
+.skills_list {
+    display: flex;
+    column-gap: 20px;
+    // flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-around;
+    z-index: 100;
+
+    i {
+        display: block;
+        color: #ddd0c3;
+    }
+}

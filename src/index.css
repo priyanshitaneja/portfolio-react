@@ -2,3 +2,11 @@ body, html {
   margin: 0;
 }
 
+* {
+  background-color: #F8EDE3;
+  color: #875c3e;
+}
+
+ul {
+  list-style-type: none;
+}

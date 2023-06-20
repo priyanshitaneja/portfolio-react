@@ -1,19 +1,21 @@
 .social_icons {
     display: flex;
     flex-direction: row;
-    align-items: flex-end;
-    justify-content: space-around;
+    align-items: center;
+    justify-content: space-between;
     height: 100px;
+    max-width: 200px;
+    margin: auto 20% auto 0;
 }
 
-@media screen and (min-width: 320px) {
+/* @media screen and (min-width: 320px) {
     .social_icons {
         margin: auto 20%;
     }
-}
-
+} */
+/* 
 @media screen and (min-width: 1024px) {
     .social_icons {
         margin: auto 10%;
     }
-}
+} */

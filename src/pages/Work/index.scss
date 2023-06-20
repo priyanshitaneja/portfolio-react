@@ -1,0 +1,21 @@
+.work {
+    padding: 10vh 0;
+    height: calc(80vh - 74px - 45px);
+    overflow: scroll;
+}
+
+@media screen and (min-width: 1024px) {
+    .work {
+        height: calc(80vh - 114px - 45px);
+    }
+}
+
+// overrides
+.collapse {
+    width: 80% !important;
+}
+
+// overrides for antd
+.ant-collapse-header {
+    padding: 0 !important;
+}

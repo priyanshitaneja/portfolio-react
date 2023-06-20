@@ -1,10 +1,11 @@
-import "./index.css";
+import "./index.scss";
 
 const Designation = () => {
   return (
-    <h2 className="designation">
-      FrontEnd Engineer
-    </h2>
+    <div className="designation">
+      <h1>Hi, I'm <span className="designation_name">Priyanshi</span></h1>
+      <h2>I'm a FRONTEND ENGINEER!</h2>
+    </div>
   );
 };
 
