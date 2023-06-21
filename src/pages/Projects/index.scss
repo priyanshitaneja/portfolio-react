@@ -1,0 +1,25 @@
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-row-gap: 20px;
+  place-items: center;
+  padding: 20px;
+  height: calc(90vh - 74px - 45px);
+  overflow: scroll;
+}
+
+@media screen and (min-width: 768px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 20px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .projects-grid {
+    height: calc(88vh - 114px - 45px);
+    grid-template-columns: repeat(3, 1fr);
+    grid-row-gap: 35px;
+    grid-column-gap: 30px;
+  }
+}

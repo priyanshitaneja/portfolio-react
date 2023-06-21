@@ -1,19 +1,18 @@
-body {
+.container {
     font: normal 14px/100% "Andale Mono", AndaleMono, monospace;
     color: #fff;
-    width: 100vw;
     margin: 0;
-    background-color: #356888;
+    background-color: #356888 !important;
     text-align: center;
+    width: 600px;
+    padding-top: 100px;
+    margin: 0 auto;
+    height: 100%;
+    overflow: scroll;
 }
 
 .colon, .time {
     font-size: 100px;
-}
-
-.container {
-    width: 500px;
-    margin: 200px auto;
 }
 
 .clock {
@@ -35,4 +34,5 @@ body {
     padding: 10px 0;
     line-height: 1.5;
     text-align: left;
+    font-size: 18px;
 }
