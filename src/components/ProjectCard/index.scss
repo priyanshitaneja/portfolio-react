@@ -1,0 +1,13 @@
+.project_card {
+    background-color: white !important;
+
+    div, span, svg {
+        background-color: white !important;
+        color: #875c3e !important;
+    }
+}
+
+// overrides
+.ant-card-cover {
+    border-radius: 10px;
+}

@@ -1,12 +1,38 @@
-import React from "react";
+import {
+  GithubOutlined,
+  LinkOutlined
+} from "@ant-design/icons";
+import { Card } from "antd";
 
-const ProjectCard = ({ src, name }) => {
-  return (
-    <div className="project_card">
-      <img className="project_card--img" src={src} alt={name} />
-      <div className="project_card--name">{name}</div>
-    </div>
-  );
-};
+import "./index.scss";
 
+const { Meta } = Card;
+
+const ProjectCard = ({ name, description, imageUrl, githubUrl, deployedUrl }) => (
+  <Card
+    className="project_card"
+    style={{
+      width: 320,
+    }}
+    cover={
+      <img
+        alt={name ? name : "Image Alt"}
+        src={
+          imageUrl
+            ? imageUrl
+            : "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+        }
+      />
+    }
+    actions={[
+      <LinkOutlined onClick={() => deployedUrl && window.open(deployedUrl, "_blank")} />,
+      <GithubOutlined onClick={() => githubUrl && window.open(githubUrl, "_blank")} />
+    ]}
+  >
+    <Meta
+      title={name ? name : "Project Name"}
+      description={description ? description : "Project Description"}
+    />
+  </Card>
+);
 export default ProjectCard;

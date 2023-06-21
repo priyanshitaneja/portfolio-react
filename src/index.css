@@ -10,3 +10,15 @@ body, html {
 ul {
   list-style-type: none;
 }
+
+@media screen and (min-width: 320px) {
+  .routes {
+      height: calc(100vh - 74px);
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .routes {
+      height: calc(100vh - 114px);
+  }
+}

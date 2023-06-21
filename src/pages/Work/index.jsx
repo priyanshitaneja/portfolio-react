@@ -103,7 +103,9 @@ const Work = () => {
                           </p>
                           <p>
                             &#8226; Crafted the{" "}
-                            <a href="https://www.oriserve.com/">Oriserve</a>{" "}
+                            <a href="https://www.oriserve.com/" target="_blank" rel="noreferrer" >
+                              Oriserve
+                            </a>{" "}
                             website using WordPress,ensuring an engaging and
                             visually appealing online presence for the company.
                           </p>

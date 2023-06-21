@@ -3,7 +3,7 @@
     left: 0;
     bottom: 0;
     right: 0;
-    height: 25px;
+    height: 50px;
 }
 
 .skills_list {
@@ -13,6 +13,7 @@
     align-items: flex-end;
     justify-content: space-around;
     z-index: 100;
+    height: 25px;
 
     i {
         display: block;

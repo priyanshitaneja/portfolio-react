@@ -7,8 +7,36 @@
   color: inherit;
 }
 
-li {
+.nav_link {
   font-size: 14px;
+  text-decoration: none;
+
+  &:after{
+    content: '';
+    display: block;
+    height: 1.5px;
+    margin-top: 2px;
+    background: #875c3e;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform .3s;
+  }
+
+  &:hover::after{
+    transform: scaleX(1);
+    transition: transform .3s;
+    transform-origin: left;
+  }
+}
+
+.active {
+  color: #875c3e !important;
+
+  &:after{
+    transform: scaleX(1);
+    transition: transform .3s;
+    transform-origin: left;
+  }
 }
 
 @media screen and (min-width: 320px) {
@@ -22,7 +50,7 @@ li {
     width: 80vw;
   }
 
-  li {
+  .nav_link {
     font-size: 16px;
   }
 }
@@ -32,7 +60,7 @@ li {
     width: 60vw;
   }
 
-  li {
+  .nav_link {
     font-size: 18px;
   }
 }
@@ -44,7 +72,7 @@ li {
     padding: 50px 0;
   }
 
-  li {
+  .nav_link {
     font-size: 24px;
   }
 }
