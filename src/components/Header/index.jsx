@@ -6,11 +6,11 @@ const Header = () => {
 
   return (
     <ul className="header">
-      <li onClick={() => navigate("/about")}>About</li>
-      <li onClick={() => navigate("/work")}>Work Experience</li>
-      <li onClick={() => navigate("/projects")}>Projects</li>
-      <li onClick={() => navigate("/contact")}>Contact</li>
-    </ul>
+      <li className="nav_link" onClick={() => navigate("/about")}>About</li>
+      <li className="nav_link" onClick={() => navigate("/work")}>Work Experience</li>
+      <li className="nav_link" onClick={() => navigate("/projects")}>Projects</li>
+      <li className="nav_link" onClick={() => navigate("/contact")}>Contact</li>
+    </ul> 
   );
 };
 

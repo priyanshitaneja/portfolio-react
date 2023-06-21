@@ -2,6 +2,11 @@
     padding: 10vh 0;
     height: calc(80vh - 74px - 45px);
     overflow: scroll;
+
+    a {
+        color: inherit;
+        text-decoration: underline;
+    }
 }
 
 @media screen and (min-width: 1024px) {
