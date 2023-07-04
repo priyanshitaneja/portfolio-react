@@ -1,27 +1,29 @@
+import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
-
-import Homepage from './pages/Homepage';
-import Projects from './pages/Projects';
-import Work from './pages/Work';
-import Contact from './pages/Contact';
 
 import Header from './components/Header';
 import SkillsList from './components/SkillsList';
+import SpinnerLoader from "./components/SpinnerLoader";
 
 import "./index.css";
 import "./components/Header/index.scss";
+
+const Homepage = lazy(() => import('./pages/Homepage'));
+const Projects = lazy(() => import('./pages/Projects'));
+const Work = lazy(() => import('./pages/Work'));
+const Contact = lazy(() => import('./pages/Contact'));
 
 function App() {
   return (
     <>
       <Header />
       <Routes className="routes">
-        <Route path="/" exact element={<Homepage />} />
+        <Route path="/" exact element={<Suspense fallback={<SpinnerLoader />}><Homepage /></Suspense>} />
         <Route path="/products" element={<h1>Hi</h1>} />
-        <Route path="/about" element={<Homepage />} />
-        <Route path="/work" element={<Work />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/contact" element={<Contact />} />
+        <Route path="/about" element={<Suspense fallback={<SpinnerLoader />}><Homepage /></Suspense>} />
+        <Route path="/work" element={<Suspense fallback={<SpinnerLoader />}><Work /></Suspense>} />
+        <Route path="/projects" element={<Suspense fallback={<SpinnerLoader />}><Projects /></Suspense>} />
+        <Route path="/contact" element={<Suspense fallback={<SpinnerLoader />}><Contact /></Suspense>} />
       </Routes>
       <SkillsList />
     </>

@@ -14,9 +14,11 @@ const ProjectCard = ({ name, description, imageUrl, githubUrl, deployedUrl }) =>
     style={{
       width: 320,
     }}
+    hoverable
     cover={
       <img
         alt={name ? name : "Image Alt"}
+        height={185}
         src={
           imageUrl
             ? imageUrl
