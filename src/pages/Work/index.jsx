@@ -24,8 +24,7 @@ const Work = () => {
             color: "#875c3e",
             children: (
               <>
-                <p>Frontend Development Intern</p>
-                <p>Oriserve</p>
+                <p>Frontend Development Intern @ ORISERVE</p>
               </>
             ),
           },
