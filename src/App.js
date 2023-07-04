@@ -12,6 +12,7 @@ const Homepage = lazy(() => import('./pages/Homepage'));
 const Projects = lazy(() => import('./pages/Projects'));
 const Work = lazy(() => import('./pages/Work'));
 const Contact = lazy(() => import('./pages/Contact'));
+const Error = lazy(() => import('./pages/Error404'));
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/work" element={<Suspense fallback={<SpinnerLoader />}><Work /></Suspense>} />
         <Route path="/projects" element={<Suspense fallback={<SpinnerLoader />}><Projects /></Suspense>} />
         <Route path="/contact" element={<Suspense fallback={<SpinnerLoader />}><Contact /></Suspense>} />
+        <Route path="*" element={<Suspense fallback={<SpinnerLoader />}><Error /></Suspense>} />
       </Routes>
       <SkillsList />
     </>
