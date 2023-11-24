@@ -10,6 +10,12 @@
     
 }
 
+.text-image {
+    margin-top: 20vh;
+    display: flex;
+    align-items: center;
+}
+
 @media screen and (min-width: 320px) {
     .homepage {
         width: 90vw;
