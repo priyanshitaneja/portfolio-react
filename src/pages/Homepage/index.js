@@ -1,4 +1,5 @@
 import Designation from "../../components/Designation"
+import ProfileImage from "../../components/ProfileImage"
 import SocialIcons from "../../components/SocialIcons";
 
 import "./index.css";
@@ -8,7 +9,10 @@ const Homepage = () => {
     <div className="homepage_wrapper">
       <div className="homepage">
         <section>
-          <Designation />
+          <div className="text-image-section">
+            <Designation />
+            <ProfileImage />
+          </div>
           <SocialIcons />
         </section>
       </div>

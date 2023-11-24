@@ -7,7 +7,12 @@
 .homepage {
     margin: 0 auto;
     text-align: center;
-    
+}
+
+.text-image-section {
+    margin-top: 20vh;
+    display: flex;
+    align-items: center;
 }
 
 @media screen and (min-width: 320px) {

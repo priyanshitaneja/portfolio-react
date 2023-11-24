@@ -9,6 +9,7 @@
 
 .nav_link {
   font-size: 14px;
+  font-family: "Poppins", sans-serif;
   text-decoration: none;
 
   &:after{
@@ -73,6 +74,7 @@
   }
 
   .nav_link {
-    font-size: 24px;
+    font-size: 22px;
+    letter-spacing: .4px;
   }
 }
