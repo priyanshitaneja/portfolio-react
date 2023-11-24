@@ -1,4 +1,5 @@
 .skills_list-wrapper {
+    width: 100%;
     position: absolute;
     left: 0;
     bottom: 0;
@@ -17,6 +18,20 @@
 
     i {
         display: block;
-        color: #ddd0c3;
+        // color: #ddd0c3; old value
+        // slightly higher value for better contrast
+        color: #ceb499; 
     }
 }
+
+@media screen and (max-width: 1024px) {
+    .skills_list {
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+        
+        i {
+            padding: 24px;
+            text-align: center;
+        }
+    }
+  }
