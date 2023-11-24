@@ -9,7 +9,7 @@ const Homepage = () => {
     <div className="homepage_wrapper">
       <div className="homepage">
         <section>
-          <div className="text-image">
+          <div className="text-image-section">
             <Designation />
             <ProfileImage />
           </div>

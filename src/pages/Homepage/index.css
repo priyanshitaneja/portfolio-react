@@ -7,10 +7,9 @@
 .homepage {
     margin: 0 auto;
     text-align: center;
-    
 }
 
-.text-image {
+.text-image-section {
     margin-top: 20vh;
     display: flex;
     align-items: center;
