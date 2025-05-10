@@ -5,36 +5,38 @@
   display: flex;
   justify-content: space-between;
   color: inherit;
+  font-family: "Montserrat", sans-serif;
 }
 
 .nav_link {
   font-size: 14px;
   text-decoration: none;
+  font-family: "Montserrat", sans-serif;
 
-  &:after{
-    content: '';
+  &:after {
+    content: "";
     display: block;
     height: 1.5px;
     margin-top: 2px;
-    background: #875c3e;
+    background: #f8ede3;
     transform: scaleX(0);
     transform-origin: right;
-    transition: transform .3s;
+    transition: transform 0.3s;
   }
 
-  &:hover::after{
+  &:hover::after {
     transform: scaleX(1);
-    transition: transform .3s;
+    transition: transform 0.3s;
     transform-origin: left;
   }
 }
 
 .active {
-  color: #875c3e !important;
+  color: #f8ede3 !important;
 
-  &:after{
+  &:after {
     transform: scaleX(1);
-    transition: transform .3s;
+    transition: transform 0.3s;
     transform-origin: left;
   }
 }

@@ -1,7 +1,8 @@
 .social_icon {
     display: block;
     width: 20px;
-    fill: #a38a79;
+    /* fill: #a38a79; */
+    fill: #F8EDE3
 }
 
 @media screen and (min-width: 1024px) {
@@ -13,3 +14,10 @@
 /* <a> tag is display inline by default.
 The display: inline property prevents height/width from having an effect.
 Try setting display to something other than inline. */
+
+.social_icons .social_icon:nth-child(1):hover, /* LinkedIn */
+.social_icons .social_icon:nth-child(2):hover, /* GitHub */
+.social_icons .social_icon:nth-child(3):hover { /* Mail */
+    transform: scale(1.12);
+    transition: transform 0.2s;
+}
