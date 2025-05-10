@@ -1,6 +1,8 @@
 import { Collapse, Timeline } from "antd";
 import "./index.scss";
 
+const color = "#875c3e";
+
 const Work = () => {
   return (
     <div className='work'>
@@ -11,7 +13,7 @@ const Work = () => {
         items={[
           {
             label: "2020",
-            color: "#875c3e",
+            color: color,
             children: (
               <>
                 <p>GRADUATION</p>
@@ -21,17 +23,17 @@ const Work = () => {
           },
           {
             label: "April 2020",
-            color: "#875c3e",
+            color: color,
             children: <p>Frontend Development Intern @ ORISERVE</p>,
           },
           {
             label: "August 2020",
-            color: "#875c3e",
+            color: color,
             children: <p>Junior Software Engineer @ ORISERVE</p>,
           },
           {
             label: "April 2021",
-            color: "#875c3e",
+            color: color,
             children: (
               <Collapse
                 size='small'
@@ -108,7 +110,7 @@ const Work = () => {
           },
           {
             label: "June 2022",
-            color: "#875c3e",
+            color: color,
             children: (
               <>
                 <Collapse
@@ -151,7 +153,7 @@ const Work = () => {
           },
           {
             label: "August 2023",
-            color: "#875c3e",
+            color: color,
             children: (
               <Collapse
                 size='small'
@@ -189,7 +191,7 @@ const Work = () => {
           },
           {
             label: "October 2024 - Present",
-            color: "#875c3e",
+            color: color,
             children: (
               <>
                 <Collapse
@@ -241,7 +243,7 @@ const Work = () => {
           {
             label: "",
             children: "",
-            color: "#875c3e",
+            color: color,
           },
         ]}
       />

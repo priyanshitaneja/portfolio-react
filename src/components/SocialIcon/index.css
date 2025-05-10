@@ -1,7 +1,8 @@
 .social_icon {
     display: block;
     width: 20px;
-    fill: #a38a79;
+    /* fill: #a38a79; */
+    fill: #F8EDE3
 }
 
 @media screen and (min-width: 1024px) {

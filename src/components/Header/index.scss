@@ -16,7 +16,7 @@
     display: block;
     height: 1.5px;
     margin-top: 2px;
-    background: #875c3e;
+    background: #F8EDE3;
     transform: scaleX(0);
     transform-origin: right;
     transition: transform .3s;
@@ -30,7 +30,7 @@
 }
 
 .active {
-  color: #875c3e !important;
+  color: #F8EDE3 !important;
 
   &:after{
     transform: scaleX(1);
