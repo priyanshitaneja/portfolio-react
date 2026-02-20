@@ -1,7 +1,7 @@
 import { Collapse, Timeline } from "antd";
 import "./index.scss";
 
-const color = "#875c3e";
+const color = "var(--color-accent)";
 
 const Work = () => {
   return (

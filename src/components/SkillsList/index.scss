@@ -1,9 +1,10 @@
 .skills_list-wrapper {
-  position: absolute;
+  position: fixed;
   left: 0;
   bottom: 0;
   right: 0;
   height: 50px;
+  z-index: 100;
 }
 
 .skills_list {
@@ -17,7 +18,7 @@
 
   i {
     display: block;
-    color: #ddd0c3;
+    color: var(--color-muted);
     opacity: 0;
     /* Default entrance */
     transform: translateY(-5px);
@@ -92,9 +93,8 @@
   }
 
   i:hover {
-    color: #f8ede3;
+    color: var(--color-text);
     transform: scale(1.25) translateY(-5px);
-    animation: wobble 0.5s;
     transition: color 0.2s, transform 0.2s;
     opacity: 1;
   }
