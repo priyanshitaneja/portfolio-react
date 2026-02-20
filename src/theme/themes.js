@@ -1,5 +1,4 @@
-export const THEME_STORAGE_KEY = 'portfolio-theme';
-export const DEFAULT_THEME = 'dark-minimal';
+export const DEFAULT_THEME = 'poetcore';
 
 const themes = {
   'dark-minimal': {
@@ -52,22 +51,22 @@ const themes = {
     colors: {
       bg: '#E3DADB',
       'bg-alt': '#D9D0D1',
-      text: '#2B1D0E',
-      'text-muted': '#7A6A5E',
-      accent: '#8B4513',
-      'accent-hover': '#A0522D',
+      text: '#2D2420',
+      'text-muted': '#786D64',
+      accent: '#7B6354',
+      'accent-hover': '#8E7466',
       border: '#BFB3A5',
-      link: '#6B3A2A',
-      'link-hover': '#8B4513',
-      'selection-bg': '#C9A87C',
-      'selection-text': '#2B1D0E',
+      link: '#5C473B',
+      'link-hover': '#7B6354',
+      'selection-bg': '#C4B5A7',
+      'selection-text': '#2D2420',
       'scrollbar-track': '#D9D0D1',
       'scrollbar-thumb': '#BFB3A5',
-      'scrollbar-thumb-hover': '#8B4513',
+      'scrollbar-thumb-hover': '#7B6354',
       'loader-bg': '#E3DADB',
       'card-bg': '#D9D0D1',
       'card-border': '#BFB3A5',
-      'timeline-dot': '#8B4513',
+      'timeline-dot': '#7B6354',
       'timeline-tail': '#BFB3A5',
     },
     fonts: {
