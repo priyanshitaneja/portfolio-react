@@ -2,7 +2,7 @@
     display: block;
     width: 20px;
     /* fill: #a38a79; */
-    fill: var(--color-text)
+    fill: var(--color-link)
 }
 
 @media screen and (min-width: 1024px) {

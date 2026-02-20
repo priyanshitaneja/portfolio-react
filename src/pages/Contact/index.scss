@@ -1,10 +1,11 @@
 .contact {
     margin: 20vh auto;
     text-align: center;
-    font-family: var(--font-heading);
+    font-family: var(--font-nav);
 
     h1 {
         font-weight: 200;
+        color: var(--color-link);
     }
 
     .social_icons {

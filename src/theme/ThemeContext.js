@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useCallback, useEffect } from 'react';
-import { getTheme, getThemeIds, THEME_STORAGE_KEY, DEFAULT_THEME } from './themes';
+import { getTheme, getThemeIds, DEFAULT_THEME } from './themes';
 
 const ThemeContext = createContext(null);
 
@@ -18,7 +18,7 @@ function loadGoogleFonts(theme) {
     .map((f) => `family=${f}`)
     .join('&')}&display=swap`;
 
-  // Don't inject if an identical link already exists (e.g. from FOUC script)
+  // Don't inject if an identical link already exists
   const existing = document.querySelector('link[data-theme-fonts]');
   if (existing && existing.href === href) return;
 
@@ -33,23 +33,7 @@ function loadGoogleFonts(theme) {
 }
 
 export function ThemeProvider({ children }) {
-  const [themeId, setThemeId] = useState(() => {
-    try {
-      return localStorage.getItem(THEME_STORAGE_KEY) || DEFAULT_THEME;
-    } catch {
-      return DEFAULT_THEME;
-    }
-  });
-
-  const [isFirstVisit] = useState(() => {
-    try {
-      return !localStorage.getItem(THEME_STORAGE_KEY);
-    } catch {
-      return true;
-    }
-  });
-
-  const [firstVisitDismissed, setFirstVisitDismissed] = useState(false);
+  const [themeId, setThemeId] = useState(DEFAULT_THEME);
 
   const theme = getTheme(themeId);
 
@@ -58,24 +42,15 @@ export function ThemeProvider({ children }) {
     setThemeId(newTheme.id);
     applyThemeToDOM(newTheme.id);
     loadGoogleFonts(newTheme);
-    try {
-      localStorage.setItem(THEME_STORAGE_KEY, newTheme.id);
-    } catch {
-      // localStorage unavailable
-    }
   }, []);
 
-  const dismissFirstVisit = useCallback(() => {
-    setFirstVisitDismissed(true);
-  }, []);
-
-  // Apply theme on mount (FOUC script already set data-theme, but ensure React is in sync)
+  // Apply theme on mount
   useEffect(() => {
     applyThemeToDOM(themeId);
     loadGoogleFonts(getTheme(themeId));
   }, [themeId]);
 
-  // Enable transitions after first paint to prevent FOUC
+  // Enable transitions after first paint
   useEffect(() => {
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
@@ -89,8 +64,6 @@ export function ThemeProvider({ children }) {
     theme,
     setTheme,
     themes: getThemeIds().map(getTheme),
-    isFirstVisit: isFirstVisit && !firstVisitDismissed,
-    dismissFirstVisit,
   };
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;

@@ -3,7 +3,6 @@ import { Routes, Route } from 'react-router-dom';
 
 import Header from './components/Header';
 import SkillsList from './components/SkillsList';
-import ThemeModal from './components/ThemeModal';
 // SpinnerLoader removed — MainLoader handles the initial wait
 import MainLoader from "./components/MainLoader";
 
@@ -25,7 +24,6 @@ function App() {
 
   return (
     <div className="app-content-enter">
-      <ThemeModal />
       <Header />
       <Routes className="routes">
         <Route path="/" exact element={<Suspense fallback={null}><Homepage /></Suspense>} />
