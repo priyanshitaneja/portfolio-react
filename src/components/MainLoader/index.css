@@ -9,7 +9,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #0F0F0F !important;
+  background-color: var(--color-loader-bg) !important;
   z-index: 9999;
 }
 

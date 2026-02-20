@@ -1,0 +1,92 @@
+/* ── Poetcore — aged parchment & old books ── */
+
+/* Paper grain texture — subtle noise over parchment */
+html[data-theme="poetcore"] body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10000;
+  background-color: transparent !important;
+  opacity: var(--texture-opacity, 0.04);
+  mix-blend-mode: multiply;
+  background: repeating-conic-gradient(
+    #8B7B6B 0% 25%,
+    transparent 0% 50%
+  ) 0 0 / 3px 3px;
+}
+
+/* Global italic + scrollbar — flowy text & warm leather tones (html only to avoid overflow) */
+html[data-theme="poetcore"] {
+  font-style: italic;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-scrollbar-thumb) var(--color-scrollbar-track);
+}
+html[data-theme="poetcore"]::-webkit-scrollbar {
+  display: block;
+  width: 6px;
+}
+html[data-theme="poetcore"]::-webkit-scrollbar-track {
+  background: var(--color-scrollbar-track);
+}
+html[data-theme="poetcore"]::-webkit-scrollbar-thumb {
+  background: var(--color-scrollbar-thumb);
+  border-radius: 3px;
+}
+html[data-theme="poetcore"]::-webkit-scrollbar-thumb:hover {
+  background: var(--color-scrollbar-thumb-hover);
+}
+
+/* Text selection — amber highlight */
+html[data-theme="poetcore"] ::selection {
+  background: var(--color-selection-bg);
+  color: var(--color-selection-text);
+}
+
+/* Body text opacity — slightly faded ink look */
+html[data-theme="poetcore"] p {
+  opacity: var(--body-opacity, 0.8);
+}
+
+/* Link styling — warm brown ink */
+html[data-theme="poetcore"] a {
+  color: var(--color-link);
+}
+html[data-theme="poetcore"] a:hover {
+  color: var(--color-link-hover);
+}
+
+/* Card frames — leather-bound book edge effect */
+html[data-theme="poetcore"] .project_card {
+  box-shadow: inset 0 0 0 1px var(--color-card-border),
+              inset 0 0 0 3px var(--color-card-bg),
+              inset 0 0 0 4px var(--color-card-border);
+}
+
+/* Ambient warmth — subtle box-shadow instead of pseudo-elements (no overflow) */
+html[data-theme="poetcore"] .app-content-enter {
+  box-shadow: inset 0 0 200px rgba(201, 168, 124, 0.08);
+}
+
+/* Card hover — lift with warm shadow */
+html[data-theme="poetcore"] .project_card:hover {
+  transform: translateY(-4px);
+  box-shadow: inset 0 0 0 1px var(--color-accent),
+              0 8px 24px rgba(43, 29, 14, 0.15);
+}
+
+/* Loader icon — sepia warmth */
+html[data-theme="poetcore"] .cl-sq--fa i {
+  filter: sepia(0.3) brightness(0.9);
+}
+
+/* Nav links — italic serif elegance */
+html[data-theme="poetcore"] .nav_link {
+  font-style: italic;
+  letter-spacing: 0.5px;
+}
+
+/* Nav underline — use accent brown instead of text color */
+html[data-theme="poetcore"] .nav_link:after {
+  background: var(--color-accent) !important;
+}

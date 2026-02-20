@@ -1,0 +1,21 @@
+/* ── Theme Transitions ── */
+/* Only active after first paint to prevent FOUC */
+html.theme-transitions-enabled *,
+html.theme-transitions-enabled *::before,
+html.theme-transitions-enabled *::after {
+  transition:
+    background-color 350ms ease,
+    color 350ms ease,
+    border-color 350ms ease,
+    fill 350ms ease,
+    box-shadow 350ms ease;
+}
+
+/* Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  html.theme-transitions-enabled *,
+  html.theme-transitions-enabled *::before,
+  html.theme-transitions-enabled *::after {
+    transition: none !important;
+  }
+}

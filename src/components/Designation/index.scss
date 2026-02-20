@@ -5,10 +5,23 @@
   h1,
   h2 {
     // color: #a38a79;
-    font-family: "Poppins", sans-serif;
-    font-weight: 100;
+    font-family: var(--font-heading);
+    font-weight: var(--fw-heading-primary);
     letter-spacing: 1px;
     line-height: 1.2;
+  }
+
+  h1 {
+    font-family: var(--font-nav);
+  }
+
+  h2 {
+    font-family: var(--font-heading-alt, var(--font-heading));
+  }
+
+  .designation_an {
+    font-family: var(--font-nav);
+    text-transform: lowercase;
   }
 
   .designation_name {

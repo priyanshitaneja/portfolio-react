@@ -1,0 +1,66 @@
+/* ── Theme Variables ── */
+/* Dark Minimal (default) */
+html,
+html[data-theme="dark-minimal"] {
+  --color-bg: #000000;
+  --color-bg-alt: #0A0A0A;
+  --color-text: #F8EDE3;
+  --color-text-muted: #ddd0c3;
+  --color-accent: #875c3e;
+  --color-accent-hover: #a06d4a;
+  --color-border: #454545;
+  --color-link: #F8EDE3;
+  --color-link-hover: #875c3e;
+  --color-selection-bg: #875c3e;
+  --color-selection-text: #F8EDE3;
+  --color-scrollbar-track: #000000;
+  --color-scrollbar-thumb: #454545;
+  --color-scrollbar-thumb-hover: #875c3e;
+  --color-loader-bg: #0F0F0F;
+  --color-card-bg: #000000;
+  --color-card-border: #454545;
+  --color-timeline-dot: #875c3e;
+  --color-timeline-tail: #F8EDE3;
+  --font-heading: 'Poppins', sans-serif;
+  --font-body: 'Montserrat', sans-serif;
+  --font-nav: 'Montserrat', sans-serif;
+  --font-accent: 'Poppins', sans-serif;
+  --fw-heading-primary: 100;
+  --fw-heading-secondary: 200;
+  --body-opacity: 1;
+  --texture-opacity: 0;
+  --ornament-display: none;
+}
+
+/* Poetcore — rosy greige, old books */
+html[data-theme="poetcore"] {
+  --color-bg: #E3DADB;
+  --color-bg-alt: #D9D0D1;
+  --color-text: #2B1D0E;
+  --color-text-muted: #7A6A5E;
+  --color-accent: #8B4513;
+  --color-accent-hover: #A0522D;
+  --color-border: #BFB3A5;
+  --color-link: #6B3A2A;
+  --color-link-hover: #8B4513;
+  --color-selection-bg: #C9A87C;
+  --color-selection-text: #2B1D0E;
+  --color-scrollbar-track: #D9D0D1;
+  --color-scrollbar-thumb: #BFB3A5;
+  --color-scrollbar-thumb-hover: #8B4513;
+  --color-loader-bg: #E3DADB;
+  --color-card-bg: #D9D0D1;
+  --color-card-border: #BFB3A5;
+  --color-timeline-dot: #8B4513;
+  --color-timeline-tail: #BFB3A5;
+  --font-heading: 'Pinyon Script', cursive;
+  --font-body: 'EB Garamond', serif;
+  --font-nav: 'EB Garamond', serif;
+  --font-accent: 'Bodoni Moda', serif;
+  --font-heading-alt: 'Cinzel', serif;
+  --fw-heading-primary: 400;
+  --fw-heading-secondary: 400;
+  --body-opacity: 0.8;
+  --texture-opacity: 0.04;
+  --ornament-display: block;
+}
