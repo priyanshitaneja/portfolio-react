@@ -1,7 +1,7 @@
 .work {
   padding: 10vh 0;
   height: calc(80vh - 74px - 45px);
-  overflow: scroll;
+  overflow-y: auto;
 
   a {
     color: inherit;
@@ -26,5 +26,5 @@
 }
 
 .ant-timeline-item-tail {
-  background-color: #f8ede3;
+  background-color: var(--color-text);
 }

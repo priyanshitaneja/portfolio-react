@@ -1,15 +1,33 @@
+:root {
+  --color-bg: black;
+  --color-text: #F8EDE3;
+  --color-accent: #875c3e;
+  --color-border: #454545;
+  --color-muted: #ddd0c3;
+}
+
 body, html {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
 }
 
 * {
-  background-color: black;
-  color: #F8EDE3
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  scrollbar-width: none;           /* Firefox */
+  -ms-overflow-style: none;        /* IE/Edge */
+}
+*::-webkit-scrollbar {
+  display: none;                   /* Chrome/Safari/Opera */
 }
 
 ul {
   list-style-type: none;
+}
+
+.app-content-enter {
+  position: relative;
+  min-height: 100vh;
 }
 
 @media screen and (min-width: 320px) {

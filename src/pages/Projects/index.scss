@@ -5,7 +5,7 @@
   place-items: center;
   padding: 20px;
   height: calc(90vh - 74px - 45px);
-  overflow: scroll;
+  overflow-y: auto;
 }
 
 @media screen and (min-width: 768px) {

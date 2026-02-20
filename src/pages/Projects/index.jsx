@@ -7,6 +7,27 @@ const Projects = () => {
   return (
     <div className="projects-grid">
       <ProjectCard
+        name="AI Micro Therapist"
+        description="AI-powered mood tracker & personal mental health companion with daily insights"
+        imageUrl="/images/ai-micro-therapist.png"
+        deployedUrl="https://ai-micro-therapist.vercel.app/"
+        githubUrl="https://github.com/priyanshitaneja/ai-micro-therapist"
+      />
+      <ProjectCard
+        name="AI Color Analysis"
+        description="AI-powered seasonal color palette analyzer — upload a photo to discover your best colors"
+        imageUrl="/images/ai-color-analysis.png"
+        deployedUrl="https://ai-color-analysis.vercel.app"
+        githubUrl="https://github.com/priyanshitaneja/ai-color-analysis"
+      />
+      <ProjectCard
+        name="Pure Pilates"
+        description="A Pilates studio website with class booking, virtual sessions & pre/post-natal programs"
+        imageUrl="/images/pure-pilates.png"
+        deployedUrl="https://pure-pilates.vercel.app"
+        githubUrl="https://github.com/priyanshitaneja/pure-pilates"
+      />
+      <ProjectCard
         name="MGemi"
         imageUrl="https://i.imgur.com/I0CGwKO.jpg"
         description={<>Optimised the website of MGemi<br/><br/></>}

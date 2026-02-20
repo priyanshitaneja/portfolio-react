@@ -1,0 +1,297 @@
+/* ── MainLoader — Tech-icon grid spinner ── */
+
+.main-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0F0F0F !important;
+  z-index: 9999;
+}
+
+/* ── Override global * { background-color: var(--color-bg) } ── */
+.main-loader .cl-spinner,
+.main-loader .cl-sq,
+.main-loader .cl-sq svg,
+.main-loader .cl-sq svg *,
+.main-loader .cl-sq i {
+  background-color: transparent !important;
+}
+
+/* ── Spinner container ── */
+.cl-spinner {
+  --square: 40px;
+  --offset: 48px;
+  --duration: 1.6s;
+  --delay: 0.1s;
+  --timing-function: ease-in-out;
+  --in-duration: 0.25s;
+  --in-delay: 0.06s;
+  --in-timing-function: ease-out;
+  width: calc(3 * var(--offset) + var(--square));
+  height: calc(2 * var(--offset) + var(--square));
+  position: relative;
+  /* Shift up by half an offset so the visual mass is centered */
+  transform: translateY(calc(-0.5 * var(--offset)));
+}
+
+/* ── Each icon tile ── */
+.cl-sq {
+  display: inline-block;
+  width: var(--square);
+  height: var(--square);
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  border: none;
+  border-radius: 2px;
+}
+
+.cl-sq svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Font Awesome icon tile */
+.cl-sq--fa {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34px;
+}
+
+
+/* ── Individual positions & animations ── */
+.cl-sq--1 {
+  left: calc(0 * var(--offset));
+  top: calc(0 * var(--offset));
+  animation: sq1 var(--duration) var(--delay) var(--timing-function) infinite,
+             sqfadein var(--in-duration) calc(1 * var(--in-delay)) var(--in-timing-function) both;
+}
+
+.cl-sq--2 {
+  left: calc(0 * var(--offset));
+  top: calc(1 * var(--offset));
+  animation: sq2 var(--duration) var(--delay) var(--timing-function) infinite,
+             sqfadein var(--in-duration) calc(1 * var(--in-delay)) var(--in-timing-function) both;
+}
+
+.cl-sq--3 {
+  left: calc(1 * var(--offset));
+  top: calc(1 * var(--offset));
+  animation: sq3 var(--duration) var(--delay) var(--timing-function) infinite,
+             sqfadein var(--in-duration) calc(2 * var(--in-delay)) var(--in-timing-function) both;
+}
+
+.cl-sq--4 {
+  left: calc(2 * var(--offset));
+  top: calc(1 * var(--offset));
+  animation: sq4 var(--duration) var(--delay) var(--timing-function) infinite,
+             sqfadein var(--in-duration) calc(3 * var(--in-delay)) var(--in-timing-function) both;
+}
+
+.cl-sq--5 {
+  left: calc(3 * var(--offset));
+  top: calc(1 * var(--offset));
+  animation: sq5 var(--duration) var(--delay) var(--timing-function) infinite,
+             sqfadein var(--in-duration) calc(4 * var(--in-delay)) var(--in-timing-function) both;
+}
+
+/* ── Keyframes: grid-shuffle pattern ── */
+@keyframes sq1 {
+  0% {
+    left: calc(0 * var(--offset));
+    top: calc(0 * var(--offset));
+  }
+  8.333% {
+    left: calc(0 * var(--offset));
+    top: calc(1 * var(--offset));
+  }
+  100% {
+    left: calc(0 * var(--offset));
+    top: calc(1 * var(--offset));
+  }
+}
+
+@keyframes sq2 {
+  0% {
+    left: calc(0 * var(--offset));
+    top: calc(1 * var(--offset));
+  }
+  8.333% {
+    left: calc(0 * var(--offset));
+    top: calc(2 * var(--offset));
+  }
+  16.67% {
+    left: calc(1 * var(--offset));
+    top: calc(2 * var(--offset));
+  }
+  25.00% {
+    left: calc(1 * var(--offset));
+    top: calc(1 * var(--offset));
+  }
+  83.33% {
+    left: calc(1 * var(--offset));
+    top: calc(1 * var(--offset));
+  }
+  91.67% {
+    left: calc(1 * var(--offset));
+    top: calc(0 * var(--offset));
+  }
+  100% {
+    left: calc(0 * var(--offset));
+    top: calc(0 * var(--offset));
+  }
+}
+
+@keyframes sq3 {
+  0%, 100% {
+    left: calc(1 * var(--offset));
+    top: calc(1 * var(--offset));
+  }
+  16.67% {
+    left: calc(1 * var(--offset));
+    top: calc(1 * var(--offset));
+  }
+  25.00% {
+    left: calc(1 * var(--offset));
+    top: calc(0 * var(--offset));
+  }
+  33.33% {
+    left: calc(2 * var(--offset));
+    top: calc(0 * var(--offset));
+  }
+  41.67% {
+    left: calc(2 * var(--offset));
+    top: calc(1 * var(--offset));
+  }
+  66.67% {
+    left: calc(2 * var(--offset));
+    top: calc(1 * var(--offset));
+  }
+  75.00% {
+    left: calc(2 * var(--offset));
+    top: calc(2 * var(--offset));
+  }
+  83.33% {
+    left: calc(1 * var(--offset));
+    top: calc(2 * var(--offset));
+  }
+  91.67% {
+    left: calc(1 * var(--offset));
+    top: calc(1 * var(--offset));
+  }
+}
+
+@keyframes sq4 {
+  0% {
+    left: calc(2 * var(--offset));
+    top: calc(1 * var(--offset));
+  }
+  33.33% {
+    left: calc(2 * var(--offset));
+    top: calc(1 * var(--offset));
+  }
+  41.67% {
+    left: calc(2 * var(--offset));
+    top: calc(2 * var(--offset));
+  }
+  50.00% {
+    left: calc(3 * var(--offset));
+    top: calc(2 * var(--offset));
+  }
+  58.33% {
+    left: calc(3 * var(--offset));
+    top: calc(1 * var(--offset));
+  }
+  100% {
+    left: calc(3 * var(--offset));
+    top: calc(1 * var(--offset));
+  }
+}
+
+@keyframes sq5 {
+  0% {
+    left: calc(3 * var(--offset));
+    top: calc(1 * var(--offset));
+  }
+  50.00% {
+    left: calc(3 * var(--offset));
+    top: calc(1 * var(--offset));
+  }
+  58.33% {
+    left: calc(3 * var(--offset));
+    top: calc(0 * var(--offset));
+  }
+  66.67% {
+    left: calc(2 * var(--offset));
+    top: calc(0 * var(--offset));
+  }
+  75.00% {
+    left: calc(2 * var(--offset));
+    top: calc(1 * var(--offset));
+  }
+  100% {
+    left: calc(2 * var(--offset));
+    top: calc(1 * var(--offset));
+  }
+}
+
+@keyframes sqfadein {
+  0% {
+    transform: scale(0.75);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ── Screen-reader only text ── */
+.main-loader .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+  background-color: transparent !important;
+}
+
+/* ── App content entrance after loader completes ── */
+.app-content-enter {
+  animation: appFadeIn 0.35s ease-out forwards;
+}
+
+@keyframes appFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .main-loader {
+    display: none !important;
+  }
+  .app-content-enter {
+    animation: none !important;
+  }
+  .cl-sq--1, .cl-sq--2, .cl-sq--3, .cl-sq--4, .cl-sq--5 {
+    animation: none !important;
+  }
+}

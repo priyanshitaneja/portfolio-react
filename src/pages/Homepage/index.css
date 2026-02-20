@@ -5,9 +5,8 @@
 }
 
 .homepage {
-    margin: 0 auto;
+    margin: 0 auto -16px;
     text-align: center;
-    
 }
 
 @media screen and (min-width: 320px) {

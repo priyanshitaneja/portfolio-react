@@ -18,7 +18,7 @@
     display: block;
     height: 1.5px;
     margin-top: 2px;
-    background: #f8ede3;
+    background: var(--color-text);
     transform: scaleX(0);
     transform-origin: right;
     transition: transform 0.3s;
@@ -32,7 +32,7 @@
 }
 
 .active {
-  color: #f8ede3 !important;
+  color: var(--color-text) !important;
 
   &:after {
     transform: scaleX(1);

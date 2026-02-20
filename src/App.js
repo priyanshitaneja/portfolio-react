@@ -1,9 +1,10 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import Header from './components/Header';
 import SkillsList from './components/SkillsList';
-import SpinnerLoader from "./components/SpinnerLoader";
+// SpinnerLoader removed — MainLoader handles the initial wait
+import MainLoader from "./components/MainLoader";
 
 import "./index.css";
 import "./components/Header/index.scss";
@@ -15,20 +16,26 @@ const Contact = lazy(() => import('./pages/Contact'));
 const Error = lazy(() => import('./pages/Error404'));
 
 function App() {
+  const [loading, setLoading] = useState(true);
+
+  if (loading) {
+    return <MainLoader onComplete={() => setLoading(false)} />;
+  }
+
   return (
-    <>
+    <div className="app-content-enter">
       <Header />
       <Routes className="routes">
-        <Route path="/" exact element={<Suspense fallback={<SpinnerLoader />}><Homepage /></Suspense>} />
+        <Route path="/" exact element={<Suspense fallback={null}><Homepage /></Suspense>} />
         <Route path="/products" element={<h1>Hi</h1>} />
-        <Route path="/about" element={<Suspense fallback={<SpinnerLoader />}><Homepage /></Suspense>} />
-        <Route path="/work" element={<Suspense fallback={<SpinnerLoader />}><Work /></Suspense>} />
-        <Route path="/projects" element={<Suspense fallback={<SpinnerLoader />}><Projects /></Suspense>} />
-        <Route path="/contact" element={<Suspense fallback={<SpinnerLoader />}><Contact /></Suspense>} />
-        <Route path="*" element={<Suspense fallback={<SpinnerLoader />}><Error /></Suspense>} />
+        <Route path="/about" element={<Suspense fallback={null}><Homepage /></Suspense>} />
+        <Route path="/work" element={<Suspense fallback={null}><Work /></Suspense>} />
+        <Route path="/projects" element={<Suspense fallback={null}><Projects /></Suspense>} />
+        <Route path="/contact" element={<Suspense fallback={null}><Contact /></Suspense>} />
+        <Route path="*" element={<Suspense fallback={null}><Error /></Suspense>} />
       </Routes>
       <SkillsList />
-    </>
+    </div>
   );
 }
 
