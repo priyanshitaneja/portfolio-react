@@ -8,6 +8,24 @@
   <meta name="theme-color" content="#000000" />
   <meta name="description" content="Web site created using create-react-app" />
   <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+  <script>
+    (function() {
+      var THEME_KEY = 'portfolio-theme';
+      var BG_MAP = { 'dark-minimal': '#000000', 'poetcore': '#E3DADB' };
+      var saved = '';
+      try { saved = localStorage.getItem(THEME_KEY) || ''; } catch(e) {}
+      if (!BG_MAP[saved]) saved = 'dark-minimal';
+      document.documentElement.setAttribute('data-theme', saved);
+      document.documentElement.style.backgroundColor = BG_MAP[saved];
+      if (saved === 'poetcore') {
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = 'https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Pinyon+Script&family=Bodoni+Moda:wght@400;700&family=Cinzel:wght@400;500;600;700&display=swap';
+        link.setAttribute('data-theme-fonts', 'true');
+        document.head.appendChild(link);
+      }
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;700&display=swap" rel="stylesheet">

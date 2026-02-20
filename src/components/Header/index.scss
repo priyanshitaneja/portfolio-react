@@ -5,13 +5,13 @@
   display: flex;
   justify-content: space-between;
   color: inherit;
-  font-family: "Montserrat", sans-serif;
+  font-family: var(--font-nav);
 }
 
 .nav_link {
   font-size: 14px;
   text-decoration: none;
-  font-family: "Montserrat", sans-serif;
+  font-family: var(--font-nav);
 
   &:after {
     content: "";

@@ -1,14 +1,10 @@
-:root {
-  --color-bg: black;
-  --color-text: #F8EDE3;
-  --color-accent: #875c3e;
-  --color-border: #454545;
-  --color-muted: #ddd0c3;
-}
+@import './theme/theme-variables.css';
+@import './theme/theme-transition.css';
+@import './theme/poetcore.css';
 
 body, html {
   margin: 0;
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-body);
 }
 
 * {

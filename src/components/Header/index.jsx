@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import ThemeToggle from "../ThemeToggle";
 import "./index.scss";
 
 const Header = () => {
@@ -23,6 +24,9 @@ const Header = () => {
         <NavLink to={"/contact"} className="nav_link">
           Contact
         </NavLink>
+      </li>
+      <li>
+        <ThemeToggle />
       </li>
     </ul>
   );
