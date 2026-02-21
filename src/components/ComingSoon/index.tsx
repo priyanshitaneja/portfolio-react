@@ -1,4 +1,3 @@
-import React from "react";
 import SocialIcons from "../SocialIcons";
 
 import "./index.css";

@@ -1,6 +1,8 @@
+import type { Theme } from './types';
+
 export const DEFAULT_THEME = 'poetcore';
 
-const themes = {
+const themes: Record<string, Theme> = {
   'dark-minimal': {
     id: 'dark-minimal',
     label: 'Dark Minimal',
@@ -93,11 +95,11 @@ const themes = {
   },
 };
 
-export function getTheme(id) {
+export function getTheme(id: string): Theme {
   return themes[id] || themes[DEFAULT_THEME];
 }
 
-export function getThemeIds() {
+export function getThemeIds(): string[] {
   return Object.keys(themes);
 }
 

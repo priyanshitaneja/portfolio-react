@@ -1,6 +1,5 @@
 import { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
-import PropTypes from 'prop-types';
 import './index.css';
 
 /**
@@ -10,9 +9,14 @@ import './index.css';
  * a grid-shuffle pattern via CSS keyframes. GSAP handles the
  * overall fade-in/fade-out and fires onComplete.
  */
-const MainLoader = ({ onComplete }) => {
-  const loaderRef = useRef(null);
-  const spinnerRef = useRef(null);
+
+interface MainLoaderProps {
+  onComplete?: () => void;
+}
+
+const MainLoader = ({ onComplete }: MainLoaderProps) => {
+  const loaderRef = useRef<HTMLDivElement>(null);
+  const spinnerRef = useRef<HTMLDivElement>(null);
 
   const onCompleteRef = useRef(onComplete);
   onCompleteRef.current = onComplete;
@@ -86,10 +90,6 @@ const MainLoader = ({ onComplete }) => {
       <span className="sr-only">Loading...</span>
     </div>
   );
-};
-
-MainLoader.propTypes = {
-  onComplete: PropTypes.func,
 };
 
 export default MainLoader;

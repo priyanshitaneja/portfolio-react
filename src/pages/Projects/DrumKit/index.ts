@@ -9,7 +9,7 @@ var numberOfDrumButtons = document.querySelectorAll(".drum").length;
 for (var i = 0; i < numberOfDrumButtons; i++) {
 
     // Using Anonymous function Instead
-    document.querySelectorAll(".drum")[i].addEventListener("click", function () { /* detect click */
+    document.querySelectorAll(".drum")[i].addEventListener("click", function (this: HTMLElement) { /* detect click */
 
         var buttonInnerHTML = this.innerHTML;
 
@@ -26,7 +26,7 @@ for (var i = 0; i < numberOfDrumButtons; i++) {
 
 
 // initiating a keypress
-document.addEventListener("keypress", function (event) { /* detect keyboard press */
+document.addEventListener("keypress", function (event: KeyboardEvent) { /* detect keyboard press */
 
     // console.log(event); /* console.log the event (key that was pressed) */
 
@@ -36,7 +36,7 @@ document.addEventListener("keypress", function (event) { /* detect keyboard pres
 
 });
 
-function makeSound(key) {
+function makeSound(key: string) {
 
     switch (key) {
         case "w":
@@ -75,7 +75,7 @@ function makeSound(key) {
             break;
 
         default:
-            console.log(buttonInnerHTML);
+            console.log(key);
 
     }
 
@@ -83,14 +83,17 @@ function makeSound(key) {
 
 
 
-function buttonAnimation(currentKey) {
+function buttonAnimation(currentKey: string) {
 
     var activeButton = document.querySelector("." + currentKey);
 
+    if (!activeButton) return;
+
     activeButton.classList.add("pressed");
 
+    var btn = activeButton;
     setTimeout(function () {
-        activeButton.classList.remove("pressed");
+        btn.classList.remove("pressed");
     }, 100);
     // 100 = 100 ms= 0.1 s here
 

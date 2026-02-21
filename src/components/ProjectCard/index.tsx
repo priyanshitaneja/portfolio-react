@@ -1,3 +1,4 @@
+import { type ReactNode } from "react";
 import {
   GithubOutlined,
   LinkOutlined
@@ -8,7 +9,15 @@ import "./index.scss";
 
 const { Meta } = Card;
 
-const ProjectCard = ({ name, description, imageUrl, githubUrl, deployedUrl }) => (
+interface ProjectCardProps {
+  name?: string;
+  description?: ReactNode;
+  imageUrl?: string;
+  githubUrl?: string;
+  deployedUrl?: string;
+}
+
+const ProjectCard = ({ name, description, imageUrl, githubUrl, deployedUrl }: ProjectCardProps) => (
   <Card
     className="project_card"
     style={{
