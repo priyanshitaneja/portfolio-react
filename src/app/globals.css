@@ -1,6 +1,6 @@
-@import './theme/theme-variables.css';
-@import './theme/theme-transition.css';
-@import './theme/poetcore.css';
+@import '../theme/theme-variables.css';
+@import '../theme/theme-transition.css';
+@import '../theme/poetcore.css';
 
 body, html {
   margin: 0;

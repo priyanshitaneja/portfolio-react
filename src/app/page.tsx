@@ -1,9 +1,9 @@
-import Designation from "../../components/Designation"
-import SocialIcons from "../../components/SocialIcons";
+import Designation from '@/components/Designation';
+import SocialIcons from '@/components/SocialIcons';
 
-import "./index.css";
+import './page.css';
 
-const Homepage = () => {
+export default function Home() {
   return (
     <div className="homepage_wrapper">
       <div className="homepage">
@@ -14,6 +14,4 @@ const Homepage = () => {
       </div>
     </div>
   );
-};
-
-export default Homepage;
+}

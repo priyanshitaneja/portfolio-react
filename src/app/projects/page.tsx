@@ -1,7 +1,6 @@
-import React from "react";
-import ProjectCard from "../../components/ProjectCard";
+import ProjectCard from "@/components/ProjectCard";
 
-import "./index.scss";
+import "./page.scss";
 
 const Projects = () => {
   return (

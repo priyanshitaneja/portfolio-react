@@ -1,5 +1,7 @@
+"use client";
+
 import { Collapse, Timeline } from "antd";
-import "./index.scss";
+import "./page.scss";
 
 const color = "var(--color-accent)";
 

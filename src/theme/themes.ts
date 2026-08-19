@@ -1,6 +1,19 @@
 export const DEFAULT_THEME = 'poetcore';
 
-const themes = {
+export type ThemeId = 'poetcore' | 'dark-minimal';
+
+export type Theme = {
+  id: ThemeId;
+  label: string;
+  description: string;
+  colors: Record<string, string>;
+  fonts: Record<string, string>;
+  fontWeights: Record<string, number>;
+  extra: Record<string, string | number>;
+  googleFonts: string[];
+};
+
+const themes: Record<ThemeId, Theme> = {
   'dark-minimal': {
     id: 'dark-minimal',
     label: 'Dark Minimal',
@@ -93,12 +106,12 @@ const themes = {
   },
 };
 
-export function getTheme(id) {
-  return themes[id] || themes[DEFAULT_THEME];
+export function getTheme(id: string): Theme {
+  return themes[id as ThemeId] ?? themes[DEFAULT_THEME];
 }
 
-export function getThemeIds() {
-  return Object.keys(themes);
+export function getThemeIds(): ThemeId[] {
+  return Object.keys(themes) as ThemeId[];
 }
 
 export default themes;
