@@ -2,19 +2,37 @@
 @import '../theme/theme-transition.css';
 @import '../theme/poetcore.css';
 
-body, html {
+/*
+ * These rules used to live on the universal selector:
+ *
+ *   * { background-color: var(--color-bg); color: var(--color-text); ... }
+ *
+ * That was incompatible with inline SVG icons. `*` *declares* colour on every
+ * element including every <path>, and a declaration at (0,0,0) still beats an
+ * inherited value — so the moment the icon font became <svg fill="currentColor">,
+ * MainLoader's five brand colours and SkillsList's muted grey would all have
+ * collapsed to --color-text. Nothing would have errored.
+ *
+ * Painting the ground on html/body and letting colour inherit does the same
+ * visible job, and it makes surface hierarchy possible again: --color-bg-alt
+ * had zero consumers precisely because `*` painted everything identically.
+ */
+
+html {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  scrollbar-width: none; /* Firefox */
+}
+
+body {
   margin: 0;
+  background-color: var(--color-bg);
   font-family: var(--font-body);
 }
 
-* {
-  background-color: var(--color-bg);
-  color: var(--color-text);
-  scrollbar-width: none;           /* Firefox */
-  -ms-overflow-style: none;        /* IE/Edge */
-}
-*::-webkit-scrollbar {
-  display: none;                   /* Chrome/Safari/Opera */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none; /* Chrome/Safari/Opera */
 }
 
 ul {
@@ -24,16 +42,4 @@ ul {
 .app-content-enter {
   position: relative;
   min-height: 100vh;
-}
-
-@media screen and (min-width: 320px) {
-  .routes {
-      height: calc(100vh - 74px);
-  }
-}
-
-@media screen and (min-width: 1024px) {
-  .routes {
-      height: calc(100vh - 114px);
-  }
 }

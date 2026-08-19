@@ -7,7 +7,6 @@ html[data-theme="poetcore"] body::before {
   inset: 0;
   pointer-events: none;
   z-index: 10000;
-  background-color: transparent !important;
   opacity: var(--texture-opacity, 0.04);
   mix-blend-mode: multiply;
   background: repeating-conic-gradient(
@@ -76,7 +75,7 @@ html[data-theme="poetcore"] .project_card:hover {
 }
 
 /* Loader icon — sepia warmth */
-html[data-theme="poetcore"] .cl-sq--fa i {
+html[data-theme="poetcore"] .cl-sq--fa svg {
   filter: sepia(0.3) brightness(0.9);
 }
 

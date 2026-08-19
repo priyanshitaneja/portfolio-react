@@ -76,17 +76,6 @@ export default function RootLayout({
      * the browser knows the stored value.
      */
     <html lang="en" data-theme="poetcore" className={fontVariables}>
-      <head>
-        {/*
-          Icons still load from a third-party origin. The inlined SVG icons
-          land in their own commit, so this stays a like-for-like port.
-        */}
-        <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css"
-          crossOrigin="anonymous"
-        />
-      </head>
       <body>
         <ThemeProvider>
           <div className="app-content-enter">

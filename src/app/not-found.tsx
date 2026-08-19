@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import Icon from '@/components/Icon';
+import { iconArrowUp } from '@/components/Icon/icons';
 import './not-found.scss';
 
 /* Static metadata object only; async generateMetadata is not supported in
@@ -14,8 +16,7 @@ export default function NotFound() {
       <h1>404</h1>
       <h3>
         Please select a page from header &nbsp;{' '}
-        {/* was `class=`, which React ignored with a warning and TS rejects outright */}
-        <i className="fa-solid fa-arrow-up fa-bounce" aria-hidden="true" />
+        <Icon icon={iconArrowUp} className="error__arrow" />
       </h3>
     </div>
   );

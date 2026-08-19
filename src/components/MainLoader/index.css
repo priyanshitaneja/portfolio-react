@@ -9,7 +9,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--color-loader-bg) !important;
+  background-color: var(--color-loader-bg);
   z-index: 9999;
   /* Decorative overlay — never intercept interaction with the content below. */
   pointer-events: none;
@@ -25,15 +25,6 @@
     opacity: 0;
     visibility: hidden;
   }
-}
-
-/* ── Override global * { background-color: var(--color-bg) } ── */
-.main-loader .cl-spinner,
-.main-loader .cl-sq,
-.main-loader .cl-sq svg,
-.main-loader .cl-sq svg *,
-.main-loader .cl-sq i {
-  background-color: transparent !important;
 }
 
 /* ── Spinner container ── */
@@ -67,8 +58,6 @@
 
 .cl-sq svg {
   display: block;
-  width: 100%;
-  height: 100%;
 }
 
 /* Font Awesome icon tile */
@@ -278,7 +267,6 @@
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
-  background-color: transparent !important;
 }
 
 /* ── Reduced motion ── */

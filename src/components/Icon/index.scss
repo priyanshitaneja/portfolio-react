@@ -1,0 +1,19 @@
+/* Sizing mirrors FontAwesome's utility classes, which were never icons —
+   they were CSS. fa-2xl was font-size: 2em with vertical-align: -0.1875em;
+   for an inline SVG the equivalent is explicit width/height in em, since
+   font-size does not size an SVG box the way it sizes a glyph. */
+
+.icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.125em;
+  /* Inherit colour exactly as the <i> glyphs did. */
+  fill: currentColor;
+}
+
+.icon--2xl {
+  width: 2em;
+  height: 2em;
+  vertical-align: -0.1875em;
+}

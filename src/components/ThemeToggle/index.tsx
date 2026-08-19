@@ -2,6 +2,8 @@
 
 import { useTheme } from '../../theme/ThemeContext';
 import { getThemeIds } from '../../theme/themes';
+import Icon from '../Icon';
+import { iconPalette } from '../Icon/icons';
 import './index.scss';
 
 const ThemeToggle = () => {
@@ -21,7 +23,7 @@ const ThemeToggle = () => {
       aria-label={`Switch to ${nextLabel} theme`}
       title={`Switch to ${nextLabel} theme`}
     >
-      <i className="fa-solid fa-palette" aria-hidden="true" />
+      <Icon icon={iconPalette} />
     </button>
   );
 };

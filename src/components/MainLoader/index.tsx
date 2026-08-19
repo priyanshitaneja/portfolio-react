@@ -2,7 +2,21 @@
 
 import { useRef, useEffect, useState } from 'react';
 import { gsap } from 'gsap';
+
+import Icon, { type IconData } from '../Icon';
+import { iconReact, iconJs, iconCode, iconClaude, iconCss3Alt } from '../Icon/icons';
 import './index.css';
+
+/* Brand colours are per-icon and inline, as before. Now that they are real
+ * <svg fill="currentColor"> elements rather than icon-font glyphs, `color`
+ * still drives them. */
+const BADGES: { key: string; icon: IconData; color: string }[] = [
+  { key: 'react', icon: iconReact, color: 'rgb(94, 212, 244)' },
+  { key: 'js', icon: iconJs, color: 'rgb(247, 209, 58)' },
+  { key: 'code', icon: iconCode, color: 'rgb(59, 174, 130)' },
+  { key: 'claude', icon: iconClaude, color: 'rgb(208, 115, 83)' },
+  { key: 'css3', icon: iconCss3Alt, color: 'rgb(102, 50, 153)' },
+];
 
 /**
  * MainLoader — Grid-shuffle spinner with tech icons.
@@ -82,30 +96,11 @@ const MainLoader = () => {
       aria-label="Loading portfolio"
     >
       <div ref={spinnerRef} className="cl-spinner">
-        {/* React */}
-        <div className="cl-sq cl-sq--1 cl-sq--fa">
-          <i className="fa-brands fa-react" style={{ color: 'rgb(94, 212, 244)' }} aria-hidden="true" />
-        </div>
-
-        {/* JavaScript */}
-        <div className="cl-sq cl-sq--2 cl-sq--fa">
-          <i className="fa-brands fa-js" style={{ color: 'rgb(247, 209, 58)' }} aria-hidden="true" />
-        </div>
-
-        {/* Code */}
-        <div className="cl-sq cl-sq--3 cl-sq--fa">
-          <i className="fa-solid fa-code" style={{ color: 'rgb(59, 174, 130)' }} aria-hidden="true" />
-        </div>
-
-        {/* Claude */}
-        <div className="cl-sq cl-sq--4 cl-sq--fa">
-          <i className="fa-brands fa-claude" style={{ color: 'rgb(208, 115, 83)' }} aria-hidden="true" />
-        </div>
-
-        {/* CSS3 */}
-        <div className="cl-sq cl-sq--5 cl-sq--fa">
-          <i className="fa-brands fa-css3-alt" style={{ color: 'rgb(102, 50, 153)' }} aria-hidden="true" />
-        </div>
+        {BADGES.map(({ key, icon, color }, i) => (
+          <div key={key} className={`cl-sq cl-sq--${i + 1} cl-sq--fa`}>
+            <Icon icon={icon} style={{ color }} />
+          </div>
+        ))}
       </div>
 
       <span className="sr-only">Loading...</span>

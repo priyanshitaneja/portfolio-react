@@ -24,3 +24,27 @@
     }
   }
 }
+
+/* fa-bounce was a FontAwesome utility class, not an icon — it needs
+   reimplementing, not swapping. Keyframes match FA 7's. FontAwesome shipped a
+   prefers-reduced-motion guard with it; hand-rolling would have silently
+   dropped that, so it is restated below. */
+.error__arrow {
+  animation: iconBounce 1s infinite;
+}
+
+@keyframes iconBounce {
+  0%   { transform: scale(1, 1)       translateY(0); }
+  10%  { transform: scale(1.1, 0.9)   translateY(0); }
+  30%  { transform: scale(0.9, 1.1)   translateY(-0.5em); }
+  50%  { transform: scale(1.05, 0.95) translateY(0); }
+  57%  { transform: scale(1, 1)       translateY(-0.125em); }
+  64%  { transform: scale(1, 1)       translateY(0); }
+  100% { transform: scale(1, 1)       translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .error__arrow {
+    animation: none;
+  }
+}
