@@ -3,11 +3,56 @@
 
 <head>
   <meta charset="utf-8" />
-  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#000000" />
-  <meta name="description" content="Web site created using create-react-app" />
-  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+  <meta name="theme-color" content="#E3DADB" />
+
+  <title>Priyanshi Taneja — AI Frontend Engineer</title>
+  <meta name="description"
+    content="AI Frontend Engineer building React and TypeScript interfaces for fintech and e-commerce, with a focus on web performance and accessibility." />
+  <meta name="author" content="Priyanshi Taneja" />
+
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/apple-touch-icon.png" />
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Priyanshi Taneja" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:title" content="Priyanshi Taneja — AI Frontend Engineer" />
+  <meta property="og:description"
+    content="AI Frontend Engineer building React and TypeScript interfaces for fintech and e-commerce, with a focus on web performance and accessibility." />
+  <meta property="og:url" content="https://www.priyanshitaneja.com/" />
+  <meta property="og:image" content="https://www.priyanshitaneja.com/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:alt" content="Priyanshi Taneja — AI Frontend Engineer" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Priyanshi Taneja — AI Frontend Engineer" />
+  <meta name="twitter:description"
+    content="AI Frontend Engineer building React and TypeScript interfaces for fintech and e-commerce, with a focus on web performance and accessibility." />
+  <meta name="twitter:image" content="https://www.priyanshitaneja.com/og-image.png" />
+  <meta name="twitter:image:alt" content="Priyanshi Taneja — AI Frontend Engineer" />
+
+  <script>
+    // Self-referencing canonical.
+    // CRA serves this one document for every route, so a hardcoded canonical would
+    // declare /work, /projects and /contact duplicates of / and de-index them.
+    // /about renders the same component as / and is folded into it deliberately.
+    // Replaced by the Next.js Metadata API in the App Router migration.
+    (function () {
+      var path = window.location.pathname.replace(/\/+$/, '') || '/';
+      if (path === '/about') path = '/';
+      var link = document.createElement('link');
+      link.rel = 'canonical';
+      link.href = 'https://www.priyanshitaneja.com' + (path === '/' ? '/' : path);
+      document.head.appendChild(link);
+    })();
+  </script>
+
   <script>
     // Default to poetcore — toggle icon available to switch themes
     document.documentElement.setAttribute('data-theme', 'poetcore');
@@ -25,7 +70,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" crossorigin="anonymous" />
-  <title>Priyanshi Taneja</title>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-05E6B86LJ9"></script>
   <script>

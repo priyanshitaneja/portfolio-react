@@ -1,15 +1,21 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Priyanshi Taneja",
+  "name": "Priyanshi Taneja — AI Frontend Engineer",
+  "description": "AI Frontend Engineer building React and TypeScript interfaces for fintech and e-commerce, with a focus on web performance and accessibility.",
   "icons": [
     {
       "src": "favicon.ico",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
+    },
+    {
+      "src": "apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
     }
   ],
-  "start_url": ".",
+  "start_url": "/",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#fff"
+  "theme_color": "#E3DADB",
+  "background_color": "#E3DADB"
 }
