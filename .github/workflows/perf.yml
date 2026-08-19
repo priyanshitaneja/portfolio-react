@@ -1,0 +1,49 @@
+name: Performance budget
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  budget:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.x
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Build
+        run: npm run build
+
+      # Cheap and deterministic, so it runs first — a blown bundle budget
+      # fails in seconds rather than after a full Lighthouse pass.
+      - name: Bundle size budget
+        run: node scripts/check-bundle-size.mjs
+
+      - name: Lighthouse CI
+        run: |
+          npm install -g @lhci/cli@0.14.x
+          lhci autorun
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+
+      - name: Accessibility (axe)
+        run: |
+          npm run start &
+          npx --yes wait-on http://localhost:3000 --timeout 60000
+          npx --yes @axe-core/cli@4 \
+            http://localhost:3000/ \
+            http://localhost:3000/work \
+            http://localhost:3000/projects \
+            http://localhost:3000/contact \
+            --exit
