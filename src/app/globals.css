@@ -39,6 +39,32 @@ ul {
   list-style-type: none;
 }
 
+/*
+ * Anchor colour has to live here, theme-independently.
+ *
+ * It used to be supplied two different ways at once: `*` painted every element
+ * --color-text, and poetcore.css separately styled `a`. dark-minimal had no
+ * anchor rule of its own and never needed one, because `*` covered it. Removing
+ * `*` exposed that gap, and links in dark-minimal fell all the way back to the
+ * browser defaults — #0000EE unvisited, purple visited, red active.
+ *
+ * :visited and :active are stated explicitly rather than left to inherit from
+ * `a`, because the UA stylesheet targets those pseudo-classes directly.
+ */
+a {
+  color: var(--color-link);
+}
+
+a:visited {
+  color: var(--color-link);
+}
+
+a:hover,
+a:focus-visible,
+a:active {
+  color: var(--color-link-hover);
+}
+
 .app-content-enter {
   position: relative;
   min-height: 100vh;
