@@ -9,6 +9,11 @@ import './index.css';
  * Five tech-logo badges (React, JS, TS, Claude, CSS) cycle through
  * a grid-shuffle pattern via CSS keyframes. GSAP handles the
  * overall fade-in/fade-out and fires onComplete.
+ *
+ * This is a decorative overlay, not a gate: App renders page content
+ * underneath it on the first frame. It is pointer-events: none so it never
+ * intercepts interaction with the content it covers, and index.css carries a
+ * 3s failsafe fade in case this component's JS never runs.
  */
 const MainLoader = ({ onComplete }) => {
   const loaderRef = useRef(null);
@@ -38,12 +43,12 @@ const MainLoader = ({ onComplete }) => {
         ease: 'power2.out',
       }, 0);
 
-      /* Fade out after ~1 cycle (total ≤ 2s) */
+      /* Fade out (total ≈ 1.15s) */
       tl.to(loaderRef.current, {
         opacity: 0,
         duration: 0.25,
         ease: 'power2.inOut',
-      }, 1.75);
+      }, 0.9);
     }, loaderRef);
 
     return () => ctx.revert();

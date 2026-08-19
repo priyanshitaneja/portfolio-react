@@ -18,23 +18,24 @@ const Error = lazy(() => import('./pages/Error404'));
 function App() {
   const [loading, setLoading] = useState(true);
 
-  if (loading) {
-    return <MainLoader onComplete={() => setLoading(false)} />;
-  }
-
+  // The loader is an overlay, not a gate. Content mounts and paints on the
+  // first frame; the loader fades over the top of it and then unmounts.
   return (
-    <div className="app-content-enter">
-      <Header />
-      <Routes className="routes">
-        <Route path="/" exact element={<Suspense fallback={null}><Homepage /></Suspense>} />
-        <Route path="/about" element={<Suspense fallback={null}><Homepage /></Suspense>} />
-        <Route path="/work" element={<Suspense fallback={null}><Work /></Suspense>} />
-        <Route path="/projects" element={<Suspense fallback={null}><Projects /></Suspense>} />
-        <Route path="/contact" element={<Suspense fallback={null}><Contact /></Suspense>} />
-        <Route path="*" element={<Suspense fallback={null}><Error /></Suspense>} />
-      </Routes>
-      <SkillsList />
-    </div>
+    <>
+      <div className="app-content-enter">
+        <Header />
+        <Routes className="routes">
+          <Route path="/" exact element={<Suspense fallback={null}><Homepage /></Suspense>} />
+          <Route path="/about" element={<Suspense fallback={null}><Homepage /></Suspense>} />
+          <Route path="/work" element={<Suspense fallback={null}><Work /></Suspense>} />
+          <Route path="/projects" element={<Suspense fallback={null}><Projects /></Suspense>} />
+          <Route path="/contact" element={<Suspense fallback={null}><Contact /></Suspense>} />
+          <Route path="*" element={<Suspense fallback={null}><Error /></Suspense>} />
+        </Routes>
+        <SkillsList />
+      </div>
+      {loading && <MainLoader onComplete={() => setLoading(false)} />}
+    </>
   );
 }
 

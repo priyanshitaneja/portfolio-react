@@ -11,6 +11,20 @@
   justify-content: center;
   background-color: var(--color-loader-bg) !important;
   z-index: 9999;
+  /* Decorative overlay — never intercept interaction with the content below. */
+  pointer-events: none;
+  /* Failsafe. If the GSAP chunk fails to load, or JS is disabled, the overlay
+     must not strand the page behind an opaque panel. The 3s delay is
+     load-bearing: CSS animations outrank inline styles in the cascade, so a
+     shorter delay would fight GSAP's opacity tween, which ends at ~1.15s. */
+  animation: loaderFailsafe 0.3s ease-in-out 3s forwards;
+}
+
+@keyframes loaderFailsafe {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
 }
 
 /* ── Override global * { background-color: var(--color-bg) } ── */
@@ -267,31 +281,23 @@
   background-color: transparent !important;
 }
 
-/* ── App content entrance after loader completes ── */
-.app-content-enter {
-  animation: appFadeIn 0.35s ease-out forwards;
-}
-
-@keyframes appFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 /* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
   .main-loader {
     display: none !important;
-  }
-  .app-content-enter {
     animation: none !important;
   }
   .cl-sq--1, .cl-sq--2, .cl-sq--3, .cl-sq--4, .cl-sq--5 {
     animation: none !important;
   }
 }
+
+/* The app-content entrance animation that used to live here has been removed.
+   It was correct while the loader gated rendering: content mounted only once
+   the loader finished, so the fade was visible. Now that content is on screen
+   from the first frame, the animation ran underneath an opaque overlay and
+   finished long before the loader faded — invisible, and it parked the <h1> at
+   opacity: 0 for 350ms. Chrome's LCP algorithm discards opacity: 0 elements,
+   so keeping it delayed LCP for an animation nobody could see.
+   .app-content-enter still carries its layout rules in src/index.css, and
+   poetcore.css hangs the ambient inset shadow off the same class. */
