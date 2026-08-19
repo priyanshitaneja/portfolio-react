@@ -12,6 +12,19 @@ import '@/components/Header/index.scss';
 
 const SITE_URL = 'https://www.priyanshitaneja.com';
 
+/*
+ * The prerendered HTML carries data-theme="poetcore"; only the browser knows
+ * whether this visitor chose otherwise. So the markup ships the default and
+ * this script only ever *overrides* it — a first-time visitor sees no effect
+ * at all, and the flash window is bounded to returning visitors who picked the
+ * non-default theme.
+ *
+ * The value is validated rather than trusted: localStorage is user-writable,
+ * and an unrecognised string would otherwise put data-theme into a state no
+ * stylesheet matches.
+ */
+const THEME_INIT = `try{var t=localStorage.getItem('theme');if(t==='dark-minimal'||t==='poetcore'){document.documentElement.setAttribute('data-theme',t)}}catch(e){}`;
+
 const DESCRIPTION =
   'AI Frontend Engineer building React and TypeScript interfaces for fintech and ' +
   'e-commerce, with a focus on web performance and accessibility.';
@@ -75,7 +88,28 @@ export default function RootLayout({
      * persistence lands, since the prerendered HTML is theme-agnostic and only
      * the browser knows the stored value.
      */
-    <html lang="en" data-theme="poetcore" className={fontVariables}>
+    <html
+      lang="en"
+      data-theme="poetcore"
+      className={fontVariables}
+      /* Scoped to <html> only, one level deep — the sole node THEME_INIT
+         mutates. It does not leak to descendants. */
+      suppressHydrationWarning>
+      <head>
+        {/*
+          A raw inline script, deliberately not next/script
+          strategy="beforeInteractive".
+
+          What is needed here is a spec guarantee, not a framework one: a
+          classic, non-async, non-defer inline script blocks the parser at its
+          exact position and runs before any subsequent node is constructed,
+          therefore always before first paint. beforeInteractive gives no
+          positional guarantee, drags a client boundary into the root layout,
+          and behaves differently in `next dev` than in a production build —
+          which would make "I checked for flash locally" meaningless.
+        */}
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT }} />
+      </head>
       <body>
         <ThemeProvider>
           <div className="app-content-enter">
