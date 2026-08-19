@@ -27,7 +27,6 @@ function App() {
       <Header />
       <Routes className="routes">
         <Route path="/" exact element={<Suspense fallback={null}><Homepage /></Suspense>} />
-        <Route path="/products" element={<h1>Hi</h1>} />
         <Route path="/about" element={<Suspense fallback={null}><Homepage /></Suspense>} />
         <Route path="/work" element={<Suspense fallback={null}><Work /></Suspense>} />
         <Route path="/projects" element={<Suspense fallback={null}><Projects /></Suspense>} />
