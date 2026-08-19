@@ -1,13 +1,25 @@
-import React from "react";
 import PropTypes from "prop-types";
 
 import "./index.css";
 
-const SocialIcon = ({ icon, url, alt, newTab }) => {
-  const tabValue = newTab === "true" ? "_random" : "_self";
+/**
+ * SocialIcon — an icon-only link.
+ *
+ * Icon-only links have no text content, so the accessible name has to come
+ * from aria-label. The SVG passed in as `icon` is marked aria-hidden by its
+ * source in assets/data.js, leaving aria-label as the only name.
+ */
+const SocialIcon = ({ icon, url, label, newTab = true }) => {
+  // mailto: hands off to a mail client; a new browsing context is pointless there.
+  const opensNewTab = newTab && !url.startsWith("mailto:");
 
   return (
-    <a className="social_icon" href={url} alt={alt} target={tabValue}>
+    <a
+      className="social_icon"
+      href={url}
+      aria-label={opensNewTab ? `${label} (opens in a new tab)` : label}
+      {...(opensNewTab ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+    >
       {icon}
     </a>
   );
@@ -15,26 +27,9 @@ const SocialIcon = ({ icon, url, alt, newTab }) => {
 
 SocialIcon.propTypes = {
   icon: PropTypes.element.isRequired,
-  alt: PropTypes.string.isRequired,
-  newTab: PropTypes.string.isRequired,
-};
-
-SocialIcon.defaultProps = {
-  newTab: "true",
+  url: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  newTab: PropTypes.bool,
 };
 
 export default SocialIcon;
-
-// _SEJ instead of _blank
-// If a site visitor clicks on the first link, it will spawn a new browser tab.
-// If the site visitor clicks the second link,
-// it will open the link in the same browser tab as the first link that was clicked,
-// essentially reusing that same browser tab.
-
-// _blank HAS SECURITY ISSUES
-// if you want to send websites referrer information
-// while protecting yourself from the _blank link attribute security issues,
-// use the “noopener” link attribute.
-// If you’d rather stay private and not pass along referrer information
-// while also protecting yourself from security issues associated with using the _blank link attribute,
-// then use the rel=”noreferrer” link attribute.

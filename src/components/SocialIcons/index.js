@@ -9,22 +9,19 @@ const SocialIcons = () => {
     return (
         <div className="social_icons">
             <SocialIcon
-                className="social_icon"
                 icon={social.linkedin.icon}
                 url={social.linkedin.url}
-                alt={social.linkedin.alt}
+                label={social.linkedin.label}
             />
             <SocialIcon
-                className="social_icon"
                 icon={social.github.icon}
                 url={social.github.url}
-                alt={social.github.alt}
+                label={social.github.label}
             />
             <SocialIcon
-                className="social_icon"
                 icon={social.gmail.icon}
                 url={social.gmail.url}
-                alt={social.gmail.alt}
+                label={social.gmail.label}
             />
         </div>
     )
