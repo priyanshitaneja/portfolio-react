@@ -15,16 +15,165 @@
   }
 }
 
-// overrides
-.collapse {
-  width: 80% !important;
+/* ── Timeline ──
+   Replaces antd's <Timeline mode="left">. Labels sit in the left column,
+   content in the right, with a continuous rail between them. */
+
+$rail-gap: 44px;
+$dot-size: 9px;
+$dot-border: 2px;
+
+.timeline {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: $rail-gap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-// overrides for antd
-.ant-collapse-header {
-  padding: 0 !important;
-}
-
-.ant-timeline-item-tail {
+/* One continuous rail rather than antd's per-item tails — same result, and it
+   cannot leave a stray tail hanging off the final item. */
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-1px);
+  top: 0.6em;
+  bottom: 0.6em;
+  width: 2px;
   background-color: var(--color-timeline-tail);
+}
+
+/* display: contents lets each row's two cells land directly in the parent
+   grid, so the rail stays continuous and the columns stay aligned. */
+.timeline__item {
+  display: contents;
+}
+
+.timeline__label {
+  position: relative;
+  grid-column: 1;
+  text-align: right;
+  padding-bottom: 28px;
+  /* Not --color-text-muted: #786D64 on the #E3DADB page ground fails contrast.
+     The antd labels rendered at full --color-text regardless, because
+     index.css declares colour on the universal selector. */
+  color: var(--color-text);
+}
+
+/* The dot hangs off the label because a display: contents element generates
+   no box of its own, and therefore no pseudo-elements. */
+.timeline__label::after {
+  content: '';
+  position: absolute;
+  right: calc(-1 * ($rail-gap / 2) - ($dot-size / 2) - $dot-border);
+  top: 0.42em;
+  width: $dot-size;
+  height: $dot-size;
+  border: $dot-border solid var(--color-timeline-dot);
+  border-radius: 50%;
+  background-color: var(--color-bg);
+}
+
+.timeline__content {
+  grid-column: 2;
+  padding-bottom: 28px;
+
+  p {
+    margin: 0 0 0.6em;
+  }
+}
+
+.timeline__item--pending .timeline__label::after {
+  border-style: dashed;
+}
+
+/* ── Collapsible entries ──
+   <details>/<summary> replaces antd's ghost <Collapse>: keyboard operable and
+   announced correctly with no JavaScript. */
+
+.collapse {
+  width: 80%;
+}
+
+.collapse summary {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  cursor: pointer;
+  list-style: none;
+}
+
+/* Suppress the native disclosure triangle in both engines. */
+.collapse summary::-webkit-details-marker {
+  display: none;
+}
+
+.collapse summary::before {
+  content: '';
+  flex: 0 0 auto;
+  width: 6px;
+  height: 6px;
+  margin-top: 0.35em;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(-45deg);
+  transform-origin: center;
+  transition: transform 200ms ease;
+}
+
+.collapse[open] summary::before {
+  transform: rotate(45deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .collapse summary::before {
+    transition: none;
+  }
+}
+
+.collapse summary:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.collapse__body {
+  padding: 8px 0 0 18px;
+}
+
+/* ── Narrow screens ──
+   antd stacked to a single column below its md breakpoint; match that rather
+   than squeezing two columns into 320px. */
+@media screen and (max-width: 767px) {
+  .timeline {
+    grid-template-columns: 1fr;
+    column-gap: 0;
+    padding-left: 22px;
+  }
+
+  .timeline::before {
+    left: 4px;
+    transform: none;
+  }
+
+  .timeline__label,
+  .timeline__content {
+    grid-column: 1;
+    text-align: left;
+  }
+
+  .timeline__label {
+    padding-bottom: 4px;
+  }
+
+  .timeline__label::after {
+    right: auto;
+    left: -22px;
+  }
+
+  .collapse {
+    width: 100%;
+  }
 }

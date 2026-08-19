@@ -1,6 +1,10 @@
 .projects-grid {
   display: grid;
   grid-template-columns: 1fr;
+  /* Rows must size to their content. The container has a definite height and
+     scrolls, and with the default `auto` the implicit rows get divided across
+     that height instead — 70px rows holding 345px cards, which overlap. */
+  grid-auto-rows: max-content;
   grid-row-gap: 20px;
   place-items: center;
   padding: 20px;
