@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import Script from 'next/script';
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 import Header from '@/components/Header';
 import SkillsList from '@/components/SkillsList';
@@ -102,20 +102,12 @@ export default function RootLayout({
         </ThemeProvider>
 
         {/*
-          Like-for-like port of the gtag snippet that lived in index.html.
-          It still misses pageviews on client-side navigation, exactly as the
-          original did; @next/third-parties fixes that in its own commit.
+          Replaces the hand-rolled gtag snippet. Besides loading non-blocking,
+          this tracks pageviews on client-side navigation — the inline snippet
+          only ever fired on a full document load, so every route change after
+          the first went unrecorded.
         */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-05E6B86LJ9"
-          strategy="afterInteractive"
-        />
-        <Script id="ga4" strategy="afterInteractive">
-          {`window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-05E6B86LJ9');`}
-        </Script>
+        <GoogleAnalytics gaId="G-05E6B86LJ9" />
       </body>
     </html>
   );
