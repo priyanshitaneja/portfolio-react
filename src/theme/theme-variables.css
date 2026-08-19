@@ -26,7 +26,10 @@ html[data-theme="poetcore"] {
   --color-accent-hover: #8E7466;
   --color-border: #BFB3A5;
   --color-link: #5C473B;
-  --color-link-hover: #7B6354;
+  /* Hover *raises* contrast rather than lowering it: 6.33:1 -> 8.08:1 on the
+     #E3DADB ground. The previous #7B6354 dropped it to 4.08:1, below AA for
+     the 14-18px nav. Still a warm brown, and distinct from --color-text. */
+  --color-link-hover: #4A382D;
   --color-selection-bg: #C4B5A7;
   --color-selection-text: #2D2420;
   --color-scrollbar-track: #D9D0D1;
@@ -59,7 +62,10 @@ html[data-theme="dark-minimal"] {
   --color-accent-hover: #a06d4a;
   --color-border: #454545;
   --color-link: #F8EDE3;
-  --color-link-hover: #875c3e;
+  /* Stays in the cream family. The accent brown #875c3e is only 3.63:1 on
+     black — hovering dimmed the link and pushed it below AA. The nav's
+     animated underline carries the interaction signal. */
+  --color-link-hover: #ddd0c3;
   --color-selection-bg: #875c3e;
   --color-selection-text: #F8EDE3;
   --color-scrollbar-track: #000000;
