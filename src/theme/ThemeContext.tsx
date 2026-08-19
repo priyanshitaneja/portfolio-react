@@ -23,27 +23,12 @@ function applyThemeToDOM(themeId: ThemeId) {
   document.documentElement.setAttribute('data-theme', themeId);
 }
 
-function loadGoogleFonts(theme: Theme) {
-  if (!theme.googleFonts || theme.googleFonts.length === 0) {
-    document.querySelectorAll('link[data-theme-fonts]').forEach((el) => el.remove());
-    return;
-  }
-
-  const href = `https://fonts.googleapis.com/css2?${theme.googleFonts
-    .map((f) => `family=${f}`)
-    .join('&')}&display=swap`;
-
-  const existing = document.querySelector<HTMLLinkElement>('link[data-theme-fonts]');
-  if (existing && existing.href === href) return;
-
-  document.querySelectorAll('link[data-theme-fonts]').forEach((el) => el.remove());
-
-  const link = document.createElement('link');
-  link.rel = 'stylesheet';
-  link.href = href;
-  link.setAttribute('data-theme-fonts', 'true');
-  document.head.appendChild(link);
-}
+/*
+ * The runtime Google Fonts <link> injection that used to live here is gone.
+ * Every family is self-hosted through next/font and its CSS variable is always
+ * defined on <html>, so switching theme only re-resolves --font-* and the
+ * browser fetches the new faces from our own origin on demand.
+ */
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [themeId, setThemeId] = useState<ThemeId>(DEFAULT_THEME);
@@ -54,17 +39,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     const newTheme = getTheme(id);
     setThemeId(newTheme.id);
     applyThemeToDOM(newTheme.id);
-    loadGoogleFonts(newTheme);
   }, []);
-
-  /*
-   * data-theme is server-rendered on <html> now, so this no longer has to set
-   * the initial attribute — it would only rewrite the same value. It stays
-   * scoped to loading the theme's fonts.
-   */
-  useEffect(() => {
-    loadGoogleFonts(getTheme(themeId));
-  }, [themeId]);
 
   /*
    * Enable transitions after first paint, so a cold load doesn't animate from

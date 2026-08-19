@@ -10,7 +10,6 @@ export type Theme = {
   fonts: Record<string, string>;
   fontWeights: Record<string, number>;
   extra: Record<string, string | number>;
-  googleFonts: string[];
 };
 
 const themes: Record<ThemeId, Theme> = {
@@ -54,7 +53,6 @@ const themes: Record<ThemeId, Theme> = {
       'texture-opacity': 0,
       'ornament-display': 'none',
     },
-    googleFonts: [],
   },
 
   poetcore: {
@@ -97,12 +95,6 @@ const themes: Record<ThemeId, Theme> = {
       'texture-opacity': 0.04,
       'ornament-display': 'block',
     },
-    googleFonts: [
-      'EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500',
-      'Pinyon+Script',
-      'Bodoni+Moda:wght@400;700',
-      'Cinzel:wght@400;500;600;700',
-    ],
   },
 };
 

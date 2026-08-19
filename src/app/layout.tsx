@@ -5,6 +5,7 @@ import Header from '@/components/Header';
 import SkillsList from '@/components/SkillsList';
 import MainLoader from '@/components/MainLoader';
 import { ThemeProvider } from '@/theme/ThemeContext';
+import { fontVariables } from './fonts';
 
 import './globals.css';
 import '@/components/Header/index.scss';
@@ -74,27 +75,12 @@ export default function RootLayout({
      * persistence lands, since the prerendered HTML is theme-agnostic and only
      * the browser knows the stored value.
      */
-    <html lang="en" data-theme="poetcore">
+    <html lang="en" data-theme="poetcore" className={fontVariables}>
       <head>
         {/*
-          Fonts and icons still load from third-party origins here. next/font
-          self-hosting and the inlined SVG icons land in their own commits, so
-          this step is a like-for-like port with no regression.
+          Icons still load from a third-party origin. The inlined SVG icons
+          land in their own commit, so this stays a like-for-like port.
         */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Pinyon+Script&family=Bodoni+Moda:wght@400;700&family=Cinzel:wght@400;500;600;700&display=swap"
-        />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;700&display=swap"
-        />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
-        />
         <link
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css"
