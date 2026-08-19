@@ -1,4 +1,14 @@
+import type { Metadata } from 'next';
 import './page.scss';
+
+export const metadata: Metadata = {
+  title: 'Work Experience',
+  description:
+    'Frontend engineering roles since 2020 — Oriserve, Anatta and Novo — ' +
+    'spanning conversational AI, e-commerce performance work and fintech ' +
+    'product development.',
+  alternates: { canonical: '/work' },
+};
 
 /*
  * Was an antd <Timeline> of <Collapse> panels. Now an ordered list of

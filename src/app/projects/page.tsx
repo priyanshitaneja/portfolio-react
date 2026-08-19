@@ -1,6 +1,14 @@
+import type { Metadata } from 'next';
 import ProjectCard from "@/components/ProjectCard";
-
 import "./page.scss";
+
+export const metadata: Metadata = {
+  title: 'Projects',
+  description:
+    'Selected frontend projects: AI tools, e-commerce builds and interface ' +
+    'experiments in React, TypeScript and JavaScript.',
+  alternates: { canonical: '/projects' },
+};
 
 const Projects = () => {
   return (
