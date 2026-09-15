@@ -22,6 +22,11 @@ jobs:
       - name: Typecheck
         run: npm run typecheck
 
+      # Ahead of the build: unit tests are the fastest thing that can fail for
+      # a real reason, and they need no build output.
+      - name: Unit tests
+        run: npm test
+
       - name: Build
         run: npm run build
 
