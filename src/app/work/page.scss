@@ -86,8 +86,30 @@ $dot-border: 2px;
   }
 }
 
+/* The pending marker was antd's <Timeline pending> dot: a LoadingOutlined that
+   spun continuously. Replacing the Timeline (c6bb373) left a static dashed
+   ring in its place, which reads as a rendering artefact rather than "still
+   going". This restores the motion with no JS and no dependency — one
+   transparent side turns the ring into an arc, and the arc rotates. */
 .timeline__item--pending .timeline__label::after {
-  border-style: dashed;
+  border-top-color: transparent;
+  animation: timeline-pending-spin 0.9s linear infinite;
+}
+
+@keyframes timeline-pending-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Motion is the whole point of the marker, so with it suppressed fall back to
+   the dashed ring — still visibly distinct from the solid dots below it. */
+@media (prefers-reduced-motion: reduce) {
+  .timeline__item--pending .timeline__label::after {
+    border-top-color: var(--color-timeline-dot);
+    border-style: dashed;
+    animation: none;
+  }
 }
 
 /* ── Collapsible entries ──
