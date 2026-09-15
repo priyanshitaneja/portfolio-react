@@ -21,6 +21,14 @@ const nextConfig: NextConfig = {
    * output — while keeping the redirect and status layer.
    */
 
+  /*
+   * The on-screen route indicator, bottom-left by default. Dev-only — it is
+   * never part of a production build — but it sits on top of the page while
+   * working on layout. `false` hides it without suppressing compile or
+   * runtime error overlays.
+   */
+  devIndicators: false,
+
   async redirects() {
     return [
       {
