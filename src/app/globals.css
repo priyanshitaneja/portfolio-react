@@ -69,3 +69,20 @@ a:active {
   position: relative;
   min-height: 100vh;
 }
+
+/*
+ * Promoted from MainLoader/index.css, where it was scoped to
+ * `.main-loader .sr-only` and therefore unusable anywhere else. Needed
+ * site-wide now that link text carries context for screen readers.
+ */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

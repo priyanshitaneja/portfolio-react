@@ -56,7 +56,17 @@ const ProjectCard = ({
       />
 
       <div className="project_card__body">
-        <h3 className="project_card__title">{title}</h3>
+        {/*
+          h2, not h3. /projects now opens with an <h1>, and h1 -> h3 skips a
+          level, which axe's heading-order flags (Lighthouse scores that rule
+          at weight 3). It went unnoticed before only because the page had no
+          h1 at all: the first heading on a page is compared against
+          prevLevel = -1 and always passes, so an all-h3 page was fine.
+
+          This returns to h3 once the categorised sections land and each card
+          sits under a section <h2>.
+        */}
+        <h2 className="project_card__title">{title}</h2>
         <p className="project_card__description">
           {description ? description : 'Project Description'}
         </p>

@@ -49,13 +49,19 @@ const SKILLS: { key: string; icon: IconData }[] = [
 
 const SkillsList = () => {
   return (
-    <div className="skills_list-wrapper">
+    /*
+     * <footer> rather than a <div>: this strip is the last thing in the
+     * document and axe's `region` rule wants every node inside a landmark.
+     * The element carries the existing class, so the fixed positioning and the
+     * nth-child entrance stagger are untouched.
+     */
+    <footer className="skills_list-wrapper" aria-label="Technologies">
       <div className="skills_list">
         {SKILLS.map(({ key, icon }) => (
           <Icon key={key} icon={icon} size="2xl" />
         ))}
       </div>
-    </div>
+    </footer>
   );
 };
 

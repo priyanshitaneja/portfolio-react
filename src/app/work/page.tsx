@@ -23,6 +23,14 @@ export const metadata: Metadata = {
 export default function Work() {
   return (
     <div className="work">
+      {/*
+        axe's `page-has-heading-one` was failing here — the timeline was the
+        whole page and the only headings were the <summary> elements. .sr-only
+        rather than visible: the rule needs the heading in the accessibility
+        tree, not on screen, and this pass is not changing what the page looks
+        like. The document <title> already reads "Work Experience".
+      */}
+      <h1 className="sr-only">Work Experience</h1>
       <ol className="timeline">
         <li className="timeline__item timeline__item--pending">
           <div className="timeline__label" />

@@ -23,23 +23,32 @@ const NAV = [
 const Header = () => {
   const pathname = usePathname();
 
+  /*
+   * The <header>/<nav> wrappers carry two landmarks that the document was
+   * missing entirely. The measure stays on .header (60vw, centred) rather than
+   * moving out to the wrapper, so nothing about the current layout changes.
+   */
   return (
-    <ul className="header">
-      {NAV.map(({ href, label }) => (
-        <li key={href}>
-          <Link
-            href={href}
-            className={`nav_link${pathname === href ? ' active' : ''}`}
-            aria-current={pathname === href ? 'page' : undefined}
-          >
-            {label}
-          </Link>
-        </li>
-      ))}
-      <li>
-        <ThemeToggle />
-      </li>
-    </ul>
+    <header>
+      <nav aria-label="Main">
+        <ul className="header">
+          {NAV.map(({ href, label }) => (
+            <li key={href}>
+              <Link
+                href={href}
+                className={`nav_link${pathname === href ? ' active' : ''}`}
+                aria-current={pathname === href ? 'page' : undefined}
+              >
+                {label}
+              </Link>
+            </li>
+          ))}
+          <li>
+            <ThemeToggle />
+          </li>
+        </ul>
+      </nav>
+    </header>
   );
 };
 

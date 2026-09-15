@@ -114,7 +114,16 @@ export default function RootLayout({
         <ThemeProvider>
           <div className="app-content-enter">
             <Header />
-            {children}
+            {/*
+              Every route's content goes inside one <main>. axe runs with no
+              --tags, so its best-practice rules are live: `region` wants every
+              node in a landmark and `landmark-one-main` wants exactly one
+              <main>, and both were failing on all four routes because the
+              document had no landmarks at all. Lighthouse never caught it —
+              its gatherer runs only wcag2a/wcag2aa, which excludes `region`,
+              and scores `landmark-one-main` at weight 0.
+            */}
+            <main>{children}</main>
             <SkillsList />
           </div>
           {/*
