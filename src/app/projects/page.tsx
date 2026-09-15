@@ -21,8 +21,16 @@ const Projects = () => {
         below to subtract its height.
       */}
       <h1 className="sr-only">Projects</h1>
+      {/*
+        `eager` on the top row only. The grid is a fixed-height scroll
+        container, so the remaining cards are off screen and <Image>
+        lazy-loads them; the LCP candidate is up here and must not be
+        deferred. Three because that is the column count at the desktop
+        widths Lighthouse measures.
+      */}
       <div className="projects-grid">
         <ProjectCard
+          eager
           name="AI Micro Therapist"
           description="AI-powered mood tracker & personal mental health companion with daily insights"
           imageUrl="/images/ai-micro-therapist.png"
@@ -30,6 +38,7 @@ const Projects = () => {
           githubUrl="https://github.com/priyanshitaneja/ai-micro-therapist"
         />
         <ProjectCard
+          eager
           name="AI Color Analysis"
           description="AI-powered seasonal color palette analyzer — upload a photo to discover your best colors"
           imageUrl="/images/ai-color-analysis.png"
@@ -37,6 +46,7 @@ const Projects = () => {
           githubUrl="https://github.com/priyanshitaneja/ai-color-analysis"
         />
         <ProjectCard
+          eager
           name="Pure Pilates"
           description="A Pilates studio website with class booking, virtual sessions & pre/post-natal programs"
           imageUrl="/images/pure-pilates.png"

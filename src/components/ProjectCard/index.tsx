@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import Image from 'next/image';
 
 import './index.scss';
 
@@ -18,6 +19,8 @@ type ProjectCardProps = {
   imageUrl?: string;
   githubUrl?: string;
   deployedUrl?: string;
+  /* Above the fold on the widest grid — see the eager note on <Image> below. */
+  eager?: boolean;
 };
 
 const GithubIcon = () => (
@@ -38,22 +41,65 @@ const ProjectCard = ({
   imageUrl,
   githubUrl,
   deployedUrl,
+  eager = false,
 }: ProjectCardProps) => {
   const title = name ? name : 'Project Name';
 
   return (
     <article className="project_card">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        className="project_card__cover"
-        alt={name ? name : 'Image Alt'}
-        height={185}
-        src={
-          imageUrl
-            ? imageUrl
-            : 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png'
-        }
-      />
+      {/*
+        A raw <img> here shipped every cover at full size: 15 of the 19 are
+        hot-linked from imgur and the three local ones are 0.5-1.6 MB PNGs,
+        ~15.9 MB in total to fill a 320x185 box. Lighthouse put the saving from
+        correct sizing alone at 15.8 MB, and /projects was the one route under
+        the performance budget.
+
+        <Image> resolves both halves: it serves AVIF/WebP at the size actually
+        rendered, and it lazy-loads by default, which matters more here than
+        usual because .projects-grid is a fixed-height scroll container — most
+        of the 19 cards are never on screen.
+
+        The card is a fixed 320px at every breakpoint (index.scss:2), so the
+        dimensions are exact. No `sizes`: with it, next/image emits every
+        configured width from 32w to 1200w, and for a box that never changes
+        size the 1x/2x pair it generates without one is the whole useful set.
+      */}
+      {imageUrl ? (
+        <Image
+          className="project_card__cover"
+          alt={name ? name : 'Image Alt'}
+          width={320}
+          height={185}
+          /*
+           * The first row must not be lazy — deferring the LCP candidate is
+           * the thing Lighthouse penalises. Next 16 deprecated `priority` in
+           * favour of `preload`, but the docs steer to `loading`/
+           * `fetchPriority` for exactly this case, which is also what the
+           * plain attributes mean.
+           */
+          loading={eager ? 'eager' : 'lazy'}
+          fetchPriority={eager ? 'high' : undefined}
+          src={imageUrl}
+        />
+      ) : (
+        /*
+         * Defensive: `imageUrl` is optional and <Image> requires a src, so a
+         * card declared without one needs a branch. Every card currently
+         * passes one, so nothing renders this today.
+         *
+         * What it replaces is the old fallback — antd's demo PNG on
+         * gw.alipayobjects.com, a hot-link the antd removal missed. That was
+         * already unreachable for the same reason, but it would have become a
+         * 400 under next/image, since the host is not in remotePatterns.
+         *
+         * Decorative, so it is hidden from assistive tech rather than given a
+         * fake alt.
+         */
+        <div
+          className="project_card__cover project_card__cover--placeholder"
+          aria-hidden="true"
+        />
+      )}
 
       <div className="project_card__body">
         {/*

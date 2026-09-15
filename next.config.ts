@@ -29,6 +29,24 @@ const nextConfig: NextConfig = {
    */
   devIndicators: false,
 
+  /*
+   * /projects hot-links 15 of its 19 covers from imgur, and next/image will
+   * only optimise a remote host that is explicitly allowed. Scoped to the
+   * exact protocol, host and empty search rather than left to the implied
+   * `**` wildcards, so this cannot be used to proxy arbitrary URLs.
+   */
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'i.imgur.com',
+        port: '',
+        pathname: '/**',
+        search: '',
+      },
+    ],
+  },
+
   async redirects() {
     return [
       {

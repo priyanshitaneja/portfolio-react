@@ -30,6 +30,15 @@
   object-position: center;
 }
 
+/* Cover slot for a card declared without an imageUrl. Unused today — every
+   card passes one — but <Image> needs a src, so the component branches and
+   this is what that branch paints. --color-border reads as a distinct surface
+   against --color-card-bg in both themes: #BFB3A5 on #D9D0D1, #454545 on
+   #000000. */
+.project_card__cover--placeholder {
+  background-color: var(--color-border);
+}
+
 .project_card__body {
   padding: 24px;
 }
