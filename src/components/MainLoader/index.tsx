@@ -1,7 +1,6 @@
 'use client';
 
 import { useRef, useEffect, useState } from 'react';
-import { gsap } from 'gsap';
 
 import Icon, { type IconData } from '../Icon';
 import { iconReact, iconJs, iconCode, iconClaude, iconCss3Alt } from '../Icon/icons';
@@ -22,13 +21,17 @@ const BADGES: { key: string; icon: IconData; color: string }[] = [
  * MainLoader — Grid-shuffle spinner with tech icons.
  *
  * Five tech-logo badges (React, JS, TS, Claude, CSS) cycle through
- * a grid-shuffle pattern via CSS keyframes. GSAP handles the
- * overall fade-in/fade-out.
+ * a grid-shuffle pattern via CSS keyframes, and the overall fade-in/fade-out
+ * is CSS too. This used to be a GSAP timeline; GSAP was this component's only
+ * consumer in the whole app, and because the component is a static import in
+ * the root layout it put ~36 kB gzip on the critical path of every route to
+ * run a 0.2s fade in and a 0.25s fade out.
  *
  * This is a decorative overlay, not a gate: page content renders underneath it
  * on the first frame. It is pointer-events: none so it never intercepts
- * interaction with the content it covers, and index.css carries a 3s failsafe
- * fade in case this component's JS never runs.
+ * interaction with the content it covers, and the fade-out living in CSS means
+ * it clears itself even if this component's JS never runs — which is what the
+ * old 3s failsafe was for.
  *
  * It renders in the static HTML deliberately. Mounting it only after hydration
  * would keep it out of the prerendered document, but the visible result is
@@ -42,9 +45,14 @@ const BADGES: { key: string; icon: IconData; color: string }[] = [
  */
 const MainLoader = () => {
   const loaderRef = useRef<HTMLDivElement>(null);
-  const spinnerRef = useRef<HTMLDivElement>(null);
   const [done, setDone] = useState(false);
 
+  /*
+   * All this does now is drop the node once the CSS fade has finished. The
+   * animation is not driven from here — if this effect never runs, the overlay
+   * still fades and still stops intercepting nothing (pointer-events: none);
+   * it just stays in the DOM, invisible.
+   */
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       // CSS has already hidden it; this just drops the node.
@@ -52,38 +60,17 @@ const MainLoader = () => {
       return;
     }
 
-    const ctx = gsap.context(() => {
-      gsap.set(spinnerRef.current, { opacity: 0, scale: 0.92 });
+    const el = loaderRef.current;
+    if (!el) return;
 
-      const tl = gsap.timeline({
-        onComplete: () => setDone(true),
-      });
+    const handleAnimationEnd = (event: AnimationEvent) => {
+      /* animationend bubbles, and the five tiles each end their own
+         `sqfadein` on the way past — only the overlay's own fade means done. */
+      if (event.animationName === 'loaderFade') setDone(true);
+    };
 
-      /* Fade in the spinner */
-      tl.to(
-        spinnerRef.current,
-        {
-          opacity: 1,
-          scale: 1,
-          duration: 0.2,
-          ease: 'power2.out',
-        },
-        0
-      );
-
-      /* Fade out (total ≈ 1.15s) */
-      tl.to(
-        loaderRef.current,
-        {
-          opacity: 0,
-          duration: 0.25,
-          ease: 'power2.inOut',
-        },
-        0.9
-      );
-    }, loaderRef);
-
-    return () => ctx.revert();
+    el.addEventListener('animationend', handleAnimationEnd);
+    return () => el.removeEventListener('animationend', handleAnimationEnd);
   }, []);
 
   if (done) return null;
@@ -95,7 +82,7 @@ const MainLoader = () => {
       role="status"
       aria-label="Loading portfolio"
     >
-      <div ref={spinnerRef} className="cl-spinner">
+      <div className="cl-spinner">
         {BADGES.map(({ key, icon, color }, i) => (
           <div key={key} className={`cl-sq cl-sq--${i + 1} cl-sq--fa`}>
             <Icon icon={icon} style={{ color }} />

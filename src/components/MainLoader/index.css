@@ -13,14 +13,16 @@
   z-index: 9999;
   /* Decorative overlay — never intercept interaction with the content below. */
   pointer-events: none;
-  /* Failsafe. If the GSAP chunk fails to load, or JS is disabled, the overlay
-     must not strand the page behind an opaque panel. The 3s delay is
-     load-bearing: CSS animations outrank inline styles in the cascade, so a
-     shorter delay would fight GSAP's opacity tween, which ends at ~1.15s. */
-  animation: loaderFailsafe 0.3s ease-in-out 3s forwards;
+  /* The fade-out itself, previously a GSAP tween. Same shape as before: hold
+     while the tiles play, then fade at 0.9s over 0.25s, ending at ~1.15s.
+
+     Being CSS rather than JS, this *is* the failsafe the old 3s
+     `loaderFailsafe` existed to provide — if JS never runs the overlay still
+     clears itself, so the page cannot be stranded behind an opaque panel. */
+  animation: loaderFade 0.25s ease-in-out 0.9s forwards;
 }
 
-@keyframes loaderFailsafe {
+@keyframes loaderFade {
   to {
     opacity: 0;
     visibility: hidden;
@@ -42,6 +44,24 @@
   position: relative;
   /* Shift up by half an offset so the visual mass is centered */
   transform: translateY(calc(-0.5 * var(--offset)));
+  /* Container fade-in, previously `gsap.set` plus a 0.2s tween. The tiles
+     already stagger themselves in via `sqfadein`; this is the group settling
+     as one on top of that. */
+  animation: loaderSpinnerIn 0.2s var(--in-timing-function) both;
+}
+
+/* transform is a single property, so the keyframes have to restate the
+   centring translateY — a scale-only keyframe would silently drop it and the
+   spinner would jump half an offset down as the animation took over. */
+@keyframes loaderSpinnerIn {
+  from {
+    opacity: 0;
+    transform: translateY(calc(-0.5 * var(--offset))) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(calc(-0.5 * var(--offset))) scale(1);
+  }
 }
 
 /* ── Each icon tile ── */
