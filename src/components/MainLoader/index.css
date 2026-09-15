@@ -9,17 +9,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--color-loader-bg) !important;
+  background-color: var(--color-loader-bg);
   z-index: 9999;
+  /* Decorative overlay — never intercept interaction with the content below. */
+  pointer-events: none;
+  /* The fade-out itself, previously a GSAP tween. Same shape as before: hold
+     while the tiles play, then fade at 0.9s over 0.25s, ending at ~1.15s.
+
+     Being CSS rather than JS, this *is* the failsafe the old 3s
+     `loaderFailsafe` existed to provide — if JS never runs the overlay still
+     clears itself, so the page cannot be stranded behind an opaque panel. */
+  animation: loaderFade 0.25s ease-in-out 0.9s forwards;
 }
 
-/* ── Override global * { background-color: var(--color-bg) } ── */
-.main-loader .cl-spinner,
-.main-loader .cl-sq,
-.main-loader .cl-sq svg,
-.main-loader .cl-sq svg *,
-.main-loader .cl-sq i {
-  background-color: transparent !important;
+@keyframes loaderFade {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
 }
 
 /* ── Spinner container ── */
@@ -37,6 +44,24 @@
   position: relative;
   /* Shift up by half an offset so the visual mass is centered */
   transform: translateY(calc(-0.5 * var(--offset)));
+  /* Container fade-in, previously `gsap.set` plus a 0.2s tween. The tiles
+     already stagger themselves in via `sqfadein`; this is the group settling
+     as one on top of that. */
+  animation: loaderSpinnerIn 0.2s var(--in-timing-function) both;
+}
+
+/* transform is a single property, so the keyframes have to restate the
+   centring translateY — a scale-only keyframe would silently drop it and the
+   spinner would jump half an offset down as the animation took over. */
+@keyframes loaderSpinnerIn {
+  from {
+    opacity: 0;
+    transform: translateY(calc(-0.5 * var(--offset))) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(calc(-0.5 * var(--offset))) scale(1);
+  }
 }
 
 /* ── Each icon tile ── */
@@ -53,8 +78,6 @@
 
 .cl-sq svg {
   display: block;
-  width: 100%;
-  height: 100%;
 }
 
 /* Font Awesome icon tile */
@@ -264,34 +287,25 @@
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
-  background-color: transparent !important;
-}
-
-/* ── App content entrance after loader completes ── */
-.app-content-enter {
-  animation: appFadeIn 0.35s ease-out forwards;
-}
-
-@keyframes appFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 /* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
   .main-loader {
     display: none !important;
-  }
-  .app-content-enter {
     animation: none !important;
   }
   .cl-sq--1, .cl-sq--2, .cl-sq--3, .cl-sq--4, .cl-sq--5 {
     animation: none !important;
   }
 }
+
+/* The app-content entrance animation that used to live here has been removed.
+   It was correct while the loader gated rendering: content mounted only once
+   the loader finished, so the fade was visible. Now that content is on screen
+   from the first frame, the animation ran underneath an opaque overlay and
+   finished long before the loader faded — invisible, and it parked the <h1> at
+   opacity: 0 for 350ms. Chrome's LCP algorithm discards opacity: 0 elements,
+   so keeping it delayed LCP for an animation nobody could see.
+   .app-content-enter still carries its layout rules in src/index.css, and
+   poetcore.css hangs the ambient inset shadow off the same class. */

@@ -1,0 +1,65 @@
+name: Performance budget
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  budget:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.x
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      # Ahead of the build: unit tests are the fastest thing that can fail for
+      # a real reason, and they need no build output.
+      - name: Unit tests
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+      # Cheap and deterministic, so it runs first — a blown bundle budget
+      # fails in seconds rather than after a full Lighthouse pass.
+      - name: Bundle size budget
+        run: node scripts/check-bundle-size.mjs
+
+      - name: Lighthouse CI
+        run: |
+          npm install -g @lhci/cli@0.14.x
+          lhci autorun
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+
+      # @axe-core/cli bundles a ChromeDriver pinned to one Chrome major, and the
+      # runner image ships whatever it ships — the first run of this workflow
+      # died with "ChromeDriver only supports Chrome version 153 / current
+      # browser version is 152". browser-driver-manager installs a matched
+      # pair and writes their paths to its own .env, which is sourced below so
+      # axe is pointed at the driver that matches the browser it just got.
+      - name: Accessibility (axe)
+        run: |
+          npx --yes browser-driver-manager install chrome
+          if [ -f "$HOME/.browser-driver-manager/.env" ]; then
+            set -a; . "$HOME/.browser-driver-manager/.env"; set +a
+          fi
+          npm run start &
+          npx --yes wait-on http://localhost:3000 --timeout 60000
+          npx --yes @axe-core/cli@4 \
+            ${CHROMEDRIVER_TEST_PATH:+--chromedriver-path "$CHROMEDRIVER_TEST_PATH"} \
+            http://localhost:3000/ \
+            http://localhost:3000/work \
+            http://localhost:3000/projects \
+            http://localhost:3000/contact \
+            --exit

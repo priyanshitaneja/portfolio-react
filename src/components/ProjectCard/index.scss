@@ -1,26 +1,100 @@
 .project_card {
-  background-color: var(--color-card-bg) !important;
-  border: 1px solid var(--color-card-border) !important;
-
-  div,
-  span,
-  svg {
-    background-color: var(--color-card-bg) !important;
-    color: var(--color-text) !important;
-  }
+  width: 320px;
+  overflow: hidden;
+  border: 1px solid var(--color-card-border);
+  border-radius: 8px;
+  transition: transform 200ms ease, box-shadow 200ms ease;
 }
 
-// overrides
-.ant-card-cover {
-  border-radius: 10px;
-
-  img {
-    object-fit: cover;
-    object-position: center;
-  }
+/* index.css still paints `background-color` on the universal selector, so every
+   descendant would otherwise take --color-bg instead of the card surface.
+   These selectors are (0,1,0)+ and beat `*` at (0,0,0) on specificity alone —
+   the !important that used to be here was never needed. The whole block goes
+   away with the universal selector. */
+.project_card,
+.project_card__body,
+.project_card__actions,
+.project_card__title,
+.project_card__description,
+.project_card__action,
+.project_card svg {
+  background-color: var(--color-card-bg);
+  color: var(--color-text);
 }
 
-.ant-card-actions {
-  background-color: var(--color-card-bg) !important;
-  border-top: 0.5px solid var(--color-card-border) !important;
+.project_card__cover {
+  display: block;
+  width: 100%;
+  height: 185px;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Cover slot for a card declared without an imageUrl. Unused today — every
+   card passes one — but <Image> needs a src, so the component branches and
+   this is what that branch paints. --color-border reads as a distinct surface
+   against --color-card-bg in both themes: #BFB3A5 on #D9D0D1, #454545 on
+   #000000. */
+.project_card__cover--placeholder {
+  background-color: var(--color-border);
+}
+
+.project_card__body {
+  padding: 24px;
+}
+
+.project_card__title {
+  margin: 0 0 8px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.project_card__description {
+  margin: 0;
+  /* Full text colour, not --color-text-muted. The muted tone is #786D64 on a
+     #D9D0D1 card, which fails contrast — axe flags it on all 18 cards. The
+     antd version rendered this at full --color-text anyway, forced by a
+     descendant !important rule, so this is also the faithful colour. */
+  color: var(--color-text);
+}
+
+.project_card__actions {
+  display: flex;
+  border-top: 0.5px solid var(--color-card-border);
+}
+
+.project_card__action {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 0;
+  color: var(--color-text-muted);
+  transition: color 200ms ease;
+}
+
+.project_card__action + .project_card__action {
+  border-left: 0.5px solid var(--color-card-border);
+}
+
+a.project_card__action:hover,
+a.project_card__action:focus-visible {
+  color: var(--color-accent);
+}
+
+a.project_card__action:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -2px;
+}
+
+/* No destination — shown for layout parity, but not focusable or announced. */
+.project_card__action--disabled {
+  opacity: 0.35;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project_card,
+  .project_card__action {
+    transition: none;
+  }
 }

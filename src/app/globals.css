@@ -1,0 +1,88 @@
+@import '../theme/theme-variables.css';
+@import '../theme/theme-transition.css';
+@import '../theme/poetcore.css';
+
+/*
+ * These rules used to live on the universal selector:
+ *
+ *   * { background-color: var(--color-bg); color: var(--color-text); ... }
+ *
+ * That was incompatible with inline SVG icons. `*` *declares* colour on every
+ * element including every <path>, and a declaration at (0,0,0) still beats an
+ * inherited value — so the moment the icon font became <svg fill="currentColor">,
+ * MainLoader's five brand colours and SkillsList's muted grey would all have
+ * collapsed to --color-text. Nothing would have errored.
+ *
+ * Painting the ground on html/body and letting colour inherit does the same
+ * visible job, and it makes surface hierarchy possible again: --color-bg-alt
+ * had zero consumers precisely because `*` painted everything identically.
+ */
+
+html {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  scrollbar-width: none; /* Firefox */
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-bg);
+  font-family: var(--font-body);
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none; /* Chrome/Safari/Opera */
+}
+
+ul {
+  list-style-type: none;
+}
+
+/*
+ * Anchor colour has to live here, theme-independently.
+ *
+ * It used to be supplied two different ways at once: `*` painted every element
+ * --color-text, and poetcore.css separately styled `a`. dark-minimal had no
+ * anchor rule of its own and never needed one, because `*` covered it. Removing
+ * `*` exposed that gap, and links in dark-minimal fell all the way back to the
+ * browser defaults — #0000EE unvisited, purple visited, red active.
+ *
+ * :visited and :active are stated explicitly rather than left to inherit from
+ * `a`, because the UA stylesheet targets those pseudo-classes directly.
+ */
+a {
+  color: var(--color-link);
+}
+
+a:visited {
+  color: var(--color-link);
+}
+
+a:hover,
+a:focus-visible,
+a:active {
+  color: var(--color-link-hover);
+}
+
+.app-content-enter {
+  position: relative;
+  min-height: 100vh;
+}
+
+/*
+ * Promoted from MainLoader/index.css, where it was scoped to
+ * `.main-loader .sr-only` and therefore unusable anywhere else. Needed
+ * site-wide now that link text carries context for screen readers.
+ */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

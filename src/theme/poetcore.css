@@ -7,7 +7,6 @@ html[data-theme="poetcore"] body::before {
   inset: 0;
   pointer-events: none;
   z-index: 10000;
-  background-color: transparent !important;
   opacity: var(--texture-opacity, 0.04);
   mix-blend-mode: multiply;
   background: repeating-conic-gradient(
@@ -48,13 +47,9 @@ html[data-theme="poetcore"] p {
   opacity: var(--body-opacity, 0.8);
 }
 
-/* Link styling — warm brown ink */
-html[data-theme="poetcore"] a {
-  color: var(--color-link);
-}
-html[data-theme="poetcore"] a:hover {
-  color: var(--color-link-hover);
-}
+/* Link colour is now theme-independent, in globals.css — both themes drive it
+   from --color-link / --color-link-hover, so the poetcore-only duplicate that
+   used to live here has been removed. */
 
 /* Card frames — leather-bound book edge effect */
 html[data-theme="poetcore"] .project_card {
@@ -76,7 +71,7 @@ html[data-theme="poetcore"] .project_card:hover {
 }
 
 /* Loader icon — sepia warmth */
-html[data-theme="poetcore"] .cl-sq--fa i {
+html[data-theme="poetcore"] .cl-sq--fa svg {
   filter: sepia(0.3) brightness(0.9);
 }
 
