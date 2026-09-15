@@ -343,10 +343,17 @@ it is useful. The real SEO problem this migration fixes does not appear in that 
 
 ## Open items
 
-- **CI budget.** No CI exists — Vercel builds on push, and that is all. Proposal is a
-  `perf.yml` running Lighthouse CI plus a gzip bundle-size assertion on pull requests,
-  with thresholds set from measured post-migration numbers rather than guessed.
+- ~~**CI budget.**~~ Done. `.github/workflows/perf.yml` runs typecheck, unit tests,
+  build, a gzip bundle-size assertion, Lighthouse CI and axe on pull requests and on
+  pushes to `main`. Thresholds in `scripts/check-bundle-size.mjs` are set from measured
+  numbers, as proposed.
 - **Vercel settings.** The project builds CRA and outputs `build/`; Next outputs `.next`.
   If the Framework Preset is pinned to Create React App rather than Auto-detect, the
-  first deploy after merge fails. This needs checking in the dashboard before merge:
-  Preset = Next.js, Build Command and Output Directory cleared, Node 24.x.
+  first deploy after merge fails. Preset = Next.js, Build Command and Output Directory
+  cleared, Node 24.x.
+
+  **This happened.** The preset was not changed before #18 merged, and the production
+  deploy for `319614d` failed exactly as described. The previous CRA deployment keeps
+  serving, so the site is up but stale — priyanshitaneja.com still returns the old
+  bundle. Fixing the preset and redeploying is the outstanding action; nothing in the
+  repo can do it.
