@@ -1,3 +1,14 @@
+/* Sticky rather than fixed. Sticky keeps the header in flow, so it reserves
+   its own height and contributes no layout shift, and the routes no longer
+   need to subtract a header height from a container — they were doing exactly
+   that with `calc(100vh - 74px)` until the inner scroll containers went away. */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  background-color: var(--color-bg);
+}
+
 .header {
   width: 100%;
   padding: 30px 0;

@@ -28,7 +28,7 @@ const Header = () => {
    * moving out to the wrapper, so nothing about the current layout changes.
    */
   return (
-    <header>
+    <header className="site-header">
       <nav aria-label="Main">
         <ul className="header">
           {NAV.map(({ href, label }) => (

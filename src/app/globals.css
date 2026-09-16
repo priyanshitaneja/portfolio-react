@@ -37,6 +37,15 @@
   --color-timeline-tail: #BFB3A5;
 
   /*
+   * There is no --body-opacity. `p { opacity: 0.8 }` gave paragraphs a faded
+   * ink look by compositing them against the page ground, which silently ate
+   * contrast: --color-link #5C473B is 6.33:1 on its own and 4.08:1 through
+   * that veil, below AA. axe factors element opacity into its foreground
+   * computation and flagged it on every route the moment a link appeared
+   * inside a <p>. Faded ink is a colour decision, so it belongs in a colour
+   * token.
+   */
+  /*
    * Font *roles* are mapped onto the next/font variables declared in
    * src/app/fonts.ts, which carries the hashed family names. Components consume
    * roles (--font-body, --font-nav, ...) and next/font owns what a family
@@ -50,7 +59,6 @@
   --font-accent: var(--font-bodoni), Georgia, serif;
   --fw-heading-primary: 400;
   --fw-heading-secondary: 400;
-  --body-opacity: 0.8;
   --texture-opacity: 0.04;
 }
 
@@ -124,11 +132,6 @@ body::before {
 
 ul {
   list-style-type: none;
-}
-
-/* Body text opacity — slightly faded ink look. */
-p {
-  opacity: var(--body-opacity, 0.8);
 }
 
 /*

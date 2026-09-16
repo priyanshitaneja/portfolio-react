@@ -1,3 +1,14 @@
+/* ── Home ──
+ *
+ * The hero used to be `height: calc(100vh - 74px)` inside a wrapper that never
+ * scrolled. min-height replaces it so the section can grow past the viewport
+ * once there is more than a name on the page, and svh replaces vh because vh
+ * on mobile measures the viewport *without* browser chrome, which pushed the
+ * bottom of the hero under Safari's toolbar. The vh line is the fallback for
+ * engines that do not know svh; a later declaration of the same property wins
+ * where it is understood.
+ */
+
 .homepage_wrapper {
     display: flex;
     flex-direction: column;
@@ -5,14 +16,18 @@
 }
 
 .homepage {
-    margin: 0 auto -16px;
+    margin: 0 auto;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 @media screen and (min-width: 320px) {
     .homepage {
         width: 90vw;
-        height: calc(100vh - 74px);
+        min-height: calc(100vh - 74px);
+        min-height: calc(100svh - 74px);
     }
 }
 
@@ -32,6 +47,7 @@
     .homepage {
         width: 65vw;
         max-width: 800px;
-        height: calc(100vh - 114px);
+        min-height: calc(100vh - 114px);
+        min-height: calc(100svh - 114px);
     }
 }

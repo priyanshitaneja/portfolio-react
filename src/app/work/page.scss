@@ -1,17 +1,13 @@
+/* The fixed height and overflow-y are gone. An inner scroll container breaks
+   browser find-in-page scrolling, breaks anchor links and deep linking into a
+   role, and cannot hold long-form content — which is what the case study pages
+   will be. The document scrolls instead. */
 .work {
-  padding: 10vh 0;
-  height: calc(80vh - 74px - 45px);
-  overflow-y: auto;
+  padding: 48px 0;
 
   a {
     color: inherit;
     text-decoration: underline;
-  }
-}
-
-@media screen and (min-width: 1024px) {
-  .work {
-    height: calc(80vh - 114px - 45px);
   }
 }
 
