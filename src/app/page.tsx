@@ -27,11 +27,17 @@ export default function Home() {
   return (
     <div className="home">
       <section className="home__hero shell">
-        <h1 className="home__name">{PROFILE.name}</h1>
+        {/*
+          The h1 is the positioning line, not the name. The name is already
+          the wordmark in the banner landmark one line above, and repeating it
+          here read as a mistake rather than a hierarchy. It is still in the
+          document title, the OG tags and the Person JSON-LD, which is where a
+          machine looks for it.
+        */}
         <p className="home__role u-caps">
           {PROFILE.currentRole.title}, {PROFILE.currentRole.company}
         </p>
-        <h2 className="home__positioning">{PROFILE.positioning}</h2>
+        <h1 className="home__positioning">{PROFILE.positioning}</h1>
         {PROFILE.intro.map((para) => (
           <p className="home__intro" key={para.slice(0, 24)}>
             {para}
@@ -108,7 +114,7 @@ export default function Home() {
             </li>
           ))}
         </ul>
-        <Link className="home__more" href="/projects">
+        <Link className="home__more" href="/lab">
           All five experiments
           <span aria-hidden="true"> &rarr;</span>
         </Link>

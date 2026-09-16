@@ -60,6 +60,6 @@ jobs:
             ${CHROMEDRIVER_TEST_PATH:+--chromedriver-path "$CHROMEDRIVER_TEST_PATH"} \
             http://localhost:3000/ \
             http://localhost:3000/work \
-            http://localhost:3000/projects \
+            http://localhost:3000/lab \
             http://localhost:3000/contact \
             --exit

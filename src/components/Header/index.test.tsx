@@ -36,14 +36,14 @@ describe('Header', () => {
   });
 
   it('adds the active class only to the current route', () => {
-    mockPathname.mockReturnValue('/projects');
+    mockPathname.mockReturnValue('/lab');
     renderHeader();
 
     const active = screen.getAllByRole('link').filter((a) =>
       a.className.split(' ').includes('active')
     );
     expect(active).toHaveLength(1);
-    expect(active[0].getAttribute('href')).toBe('/projects');
+    expect(active[0].getAttribute('href')).toBe('/lab');
   });
 
   it('marks nothing current on a route that is not in the nav', () => {

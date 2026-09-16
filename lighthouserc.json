@@ -6,7 +6,7 @@
       "url": [
         "http://localhost:3000/",
         "http://localhost:3000/work",
-        "http://localhost:3000/projects",
+        "http://localhost:3000/lab",
         "http://localhost:3000/contact"
       ],
       "numberOfRuns": 3,

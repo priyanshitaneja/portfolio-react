@@ -1,0 +1,76 @@
+@use '../../styles/breakpoints' as *;
+
+.lab {
+  padding-block: var(--space-xl);
+}
+
+.lab__head {
+  padding-block-end: var(--space-l);
+}
+
+.lab__lede {
+  margin: var(--space-2xs) 0 0;
+  color: var(--fg-muted);
+}
+
+.lab__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lab__entry {
+  padding-block: var(--space-l);
+  border-block-start: var(--border-hair) solid var(--rule);
+}
+
+.lab__entry-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2xs);
+  margin-block-end: var(--space-xs);
+}
+
+.lab__name {
+  margin: 0;
+  font-size: var(--step-3);
+}
+
+.lab__meta {
+  margin: 0;
+  font-size: var(--step--1);
+  color: var(--fg-muted);
+}
+
+/* The question is the entry. It gets the display face and the clay rule; the
+   description underneath is support. */
+.lab__question {
+  margin: 0 0 var(--space-2xs);
+  max-width: var(--measure-lede);
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  line-height: var(--leading-normal);
+  letter-spacing: var(--tracking-tight);
+  color: var(--fg-heading);
+}
+
+.lab__what,
+.lab__finding {
+  margin: 0 0 var(--space-2xs);
+  max-width: var(--measure);
+  font-size: var(--step--1);
+  color: var(--fg-muted);
+}
+
+.lab__links {
+  display: flex;
+  gap: var(--space-m);
+  margin: var(--space-xs) 0 0;
+  font-size: var(--step--1);
+}
+
+.lab__links a {
+  text-underline-offset: 0.18em;
+}

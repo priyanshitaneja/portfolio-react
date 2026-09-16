@@ -30,22 +30,12 @@ const nextConfig: NextConfig = {
   devIndicators: false,
 
   /*
-   * /projects hot-links 15 of its 19 covers from imgur, and next/image will
-   * only optimise a remote host that is explicitly allowed. Scoped to the
-   * exact protocol, host and empty search rather than left to the implied
-   * `**` wildcards, so this cannot be used to proxy arbitrary URLs.
+   * No `images.remotePatterns`. It used to allow i.imgur.com, because the old
+   * /projects grid hot-linked most of its covers from there. /lab renders no
+   * images at all, so the allowlist is empty again and the image optimiser
+   * cannot be pointed at a third-party host. Re-adding a host is now a
+   * deliberate act rather than an inherited default.
    */
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'i.imgur.com',
-        port: '',
-        pathname: '/**',
-        search: '',
-      },
-    ],
-  },
 
   async redirects() {
     return [
@@ -54,6 +44,20 @@ const nextConfig: NextConfig = {
         // and duplicate content in the index. / is canonical.
         source: '/about',
         destination: '/',
+        permanent: true, // 308
+      },
+      {
+        /*
+         * /projects is now /lab. Permanent, so the link equity of anything
+         * already pointing at /projects transfers.
+         *
+         * Note that /projects must NOT stay in lighthouserc.json or the axe
+         * URL list: Lighthouse follows the redirect, the `redirects` audit
+         * fires, and the SEO category drops below the minScore: 1 assertion.
+         * The failure reads as an unrelated regression.
+         */
+        source: '/projects',
+        destination: '/lab',
         permanent: true, // 308
       },
     ];

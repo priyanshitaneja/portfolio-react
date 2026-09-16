@@ -1,26 +1,11 @@
-/* ── Home ──
- *
- * The h1 is her name and the h2 is the positioning line, but the visual
- * weight is the other way round. That is deliberate: the accessibility tree
- * and search results want the name first, and a reader wants to know what she
- * does. Nothing is faked with CSS — both are real headings in the right
- * order, sized for their job rather than their level.
- */
+/* ── Home ── */
 
 .home__hero {
   padding-block: var(--space-2xl) var(--space-xl);
 }
 
-.home__name {
-  margin: 0;
-  font-family: var(--font-text);
-  font-size: var(--step-1);
-  letter-spacing: var(--tracking-normal);
-  color: var(--fg-heading);
-}
-
 .home__role {
-  margin: var(--space-3xs) 0 var(--space-l);
+  margin: 0 0 var(--space-m);
 }
 
 .home__positioning {
@@ -29,10 +14,6 @@
   font-size: var(--step-6);
   line-height: var(--leading-tight);
   letter-spacing: var(--tracking-display);
-  /* A clay rule under the statement rather than a coloured heading: --clay is
-     not a legal text colour on every ground, but it is always legal as a
-     fill. */
-  border-block-end: 0;
 }
 
 .home__intro {
