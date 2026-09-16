@@ -48,17 +48,14 @@
   /*
    * Font *roles* are mapped onto the next/font variables declared in
    * src/app/fonts.ts, which carries the hashed family names. Components consume
-   * roles (--font-body, --font-nav, ...) and next/font owns what a family
+   * roles (--font-display, --font-text) and next/font owns what a family
    * actually is, which is why adding self-hosted fonts required no change to
    * any component stylesheet.
    */
-  --font-heading: var(--font-pinyon), cursive;
-  --font-heading-alt: var(--font-cinzel), Georgia, serif;
-  --font-body: var(--font-eb-garamond), Georgia, serif;
-  --font-nav: var(--font-eb-garamond), Georgia, serif;
-  --font-accent: var(--font-bodoni), Georgia, serif;
+  --font-display: var(--font-instrument), 'Iowan Old Style', Georgia, serif;
+  --font-text: var(--font-garamond), 'Iowan Old Style', Georgia, serif;
+  --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
   --fw-heading-primary: 400;
-  --fw-heading-secondary: 400;
   --texture-opacity: 0.04;
 }
 
@@ -81,7 +78,6 @@
 html {
   background-color: var(--color-bg);
   color: var(--color-text);
-  font-style: italic;
   scrollbar-width: thin;
   scrollbar-color: var(--color-scrollbar-thumb) var(--color-scrollbar-track);
 }
@@ -107,7 +103,7 @@ html::-webkit-scrollbar-thumb:hover {
 body {
   margin: 0;
   background-color: var(--color-bg);
-  font-family: var(--font-body);
+  font-family: var(--font-text);
 }
 
 /* Paper grain — subtle noise over parchment. */
@@ -180,7 +176,6 @@ a:active {
 }
 
 .nav_link {
-  font-style: italic;
   letter-spacing: 0.5px;
 }
 

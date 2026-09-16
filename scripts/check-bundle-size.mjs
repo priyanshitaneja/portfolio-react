@@ -17,20 +17,41 @@ const CHUNKS = '.next/static/chunks';
 const MEDIA = '.next/static/media';
 
 /*
- * Measured at the time of writing, on the commit that added this file:
- *   client JS   205.7 kB gzip
- *   client CSS    8.5 kB gzip
- *   largest chunk 69.7 kB gzip  (react-dom)
- *   preloaded fonts 115 kB      (EB Garamond roman + italic, Cinzel)
+ * The header block here used to quote 205.7 kB of client JS and 8.5 kB of CSS.
+ * Both were stale — dropping GSAP lowered the JS and nobody updated the
+ * comment — which matters, because a budget nobody can reconcile against a
+ * real measurement stops being read.
  *
- * Headroom is roughly 7% — enough to absorb a dependency patch bump, tight
- * enough that adding a UI library or a second icon set trips it.
+ * Measured on origin/main immediately before the redesign:
+ *   client JS     188.5 kB gzip
+ *   client CSS      8.6 kB gzip
+ *   largest chunk  69.7 kB gzip  (react-dom)
+ *   preloaded fonts 115.1 kB     (EB Garamond roman + italic, Cinzel)
+ *
+ * Measured now:
+ *   client JS     183.8 kB gzip
+ *   client CSS      5.2 kB gzip
+ *   largest chunk  69.7 kB gzip
+ *   preloaded fonts 57.8 kB      (EB Garamond roman, Instrument Serif)
+ *
+ * Caveat worth knowing before spending the JS headroom: 42.3 kB of the client
+ * JS total is the core-js polyfill bundle, which Next emits with `noModule`
+ * and no module-supporting browser ever downloads, plus 3.6 kB reachable only
+ * from _global-error. Real modern-browser JS is roughly 141 kB on / and
+ * 146 kB on /projects. Summing the chunks directory overstates what ships by
+ * about a quarter.
  */
 const BUDGET = {
   jsGzipKB: 220,
-  cssGzipKB: 14,
+  /* Tightened from 14. The design-token layer will add a few kB back; if this
+     has to rise, raise it in the commit that spends it, with the measurement. */
+  cssGzipKB: 12,
   largestChunkGzipKB: 76,
-  preloadedFontKB: 130,
+  /* Tightened from 130, banking the 57 kB that splitting EB Garamond's italic
+     out of the preload freed. Two files preload: EB Garamond roman and
+     Instrument Serif. A third would be a deliberate decision, and this number
+     is what forces it to be one. */
+  preloadedFontKB: 75,
 };
 
 function gzipKB(file) {
