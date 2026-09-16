@@ -1,201 +1,38 @@
 /* ── Global stylesheet ──
  *
- * One theme. src/theme/ (theme-variables.css, poetcore.css,
- * theme-transition.css, themes.ts, ThemeContext.tsx) is gone: the site had a
- * manual poetcore/dark-minimal toggle, and maintaining two full palettes meant
- * two contrast surfaces to verify against a CI gate of accessibility = 1.0,
- * for a switch almost nobody flipped. The surviving poetcore rules are inlined
- * here unprefixed, and the tokens key :root instead of html[data-theme].
+ * A manifest. Everything it pulls in lives under src/styles:
  *
- * Deliberately a visual no-op apart from the toggle disappearing. The palette
- * and type scale change in a later commit; keeping the two apart is what lets
- * a Lighthouse or axe movement be attributed to one of them.
+ *   tokens/       the design system as custom properties
+ *   base/         element defaults
+ *   compositions/ layout primitives with no cosmetics
+ *
+ * Order is load-bearing. Tokens declare the custom properties that base and
+ * compositions read, and base sets element defaults that components override.
  */
 
-:root {
-  --color-bg: #E3DADB;
-  --color-bg-alt: #D9D0D1;
-  --color-text: #2D2420;
-  --color-text-muted: #786D64;
-  --color-accent: #7B6354;
-  --color-accent-hover: #8E7466;
-  --color-border: #BFB3A5;
-  --color-link: #5C473B;
-  /* Hover *raises* contrast rather than lowering it: 6.33:1 -> 8.08:1 on the
-     #E3DADB ground. The previous #7B6354 dropped it to 4.08:1, below AA for
-     the 14-18px nav. Still a warm brown, and distinct from --color-text. */
-  --color-link-hover: #4A382D;
-  --color-selection-bg: #C4B5A7;
-  --color-selection-text: #2D2420;
-  --color-scrollbar-track: #D9D0D1;
-  --color-scrollbar-thumb: #BFB3A5;
-  --color-scrollbar-thumb-hover: #7B6354;
-  --color-loader-bg: #E3DADB;
-  --color-card-bg: #D9D0D1;
-  --color-card-border: #BFB3A5;
-  --color-timeline-dot: #7B6354;
-  --color-timeline-tail: #BFB3A5;
+@import '../styles/tokens/color.css';
+@import '../styles/tokens/type.css';
+@import '../styles/tokens/space.css';
+@import '../styles/tokens/motion.css';
 
-  /*
-   * There is no --body-opacity. `p { opacity: 0.8 }` gave paragraphs a faded
-   * ink look by compositing them against the page ground, which silently ate
-   * contrast: --color-link #5C473B is 6.33:1 on its own and 4.08:1 through
-   * that veil, below AA. axe factors element opacity into its foreground
-   * computation and flagged it on every route the moment a link appeared
-   * inside a <p>. Faded ink is a colour decision, so it belongs in a colour
-   * token.
-   */
-  /*
-   * Font *roles* are mapped onto the next/font variables declared in
-   * src/app/fonts.ts, which carries the hashed family names. Components consume
-   * roles (--font-display, --font-text) and next/font owns what a family
-   * actually is, which is why adding self-hosted fonts required no change to
-   * any component stylesheet.
-   */
-  --font-display: var(--font-instrument), 'Iowan Old Style', Georgia, serif;
-  --font-text: var(--font-garamond), 'Iowan Old Style', Georgia, serif;
-  --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
-  --fw-heading-primary: 400;
-  --texture-opacity: 0.04;
-}
+@import '../styles/base/reset.css';
+@import '../styles/base/elements.css';
+@import '../styles/base/motion.css';
+@import '../styles/base/utilities.css';
 
-/*
- * These rules used to live on the universal selector:
- *
- *   * { background-color: var(--color-bg); color: var(--color-text); ... }
- *
- * That was incompatible with inline SVG icons. `*` *declares* colour on every
- * element including every <path>, and a declaration at (0,0,0) still beats an
- * inherited value — so the moment the icon font became <svg fill="currentColor">,
- * MainLoader's five brand colours and SkillsList's muted grey would all have
- * collapsed to --color-text. Nothing would have errored.
- *
- * Painting the ground on html/body and letting colour inherit does the same
- * visible job, and it makes surface hierarchy possible again: --color-bg-alt
- * had zero consumers precisely because `*` painted everything identically.
- */
+@import '../styles/compositions/shell.css';
 
-html {
-  background-color: var(--color-bg);
-  color: var(--color-text);
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-scrollbar-thumb) var(--color-scrollbar-track);
-}
-
-html::-webkit-scrollbar {
-  display: block;
-  width: 6px;
-}
-
-html::-webkit-scrollbar-track {
-  background: var(--color-scrollbar-track);
-}
-
-html::-webkit-scrollbar-thumb {
-  background: var(--color-scrollbar-thumb);
-  border-radius: 3px;
-}
-
-html::-webkit-scrollbar-thumb:hover {
-  background: var(--color-scrollbar-thumb-hover);
-}
-
-body {
-  margin: 0;
-  background-color: var(--color-bg);
-  font-family: var(--font-text);
-}
-
-/* Paper grain — subtle noise over parchment. */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 10000;
-  opacity: var(--texture-opacity, 0.04);
-  mix-blend-mode: multiply;
-  background: repeating-conic-gradient(
-    #8B7B6B 0% 25%,
-    transparent 0% 50%
-  ) 0 0 / 3px 3px;
-}
-
-::selection {
-  background: var(--color-selection-bg);
-  color: var(--color-selection-text);
-}
-
-ul {
-  list-style-type: none;
-}
-
-/*
- * Anchor colour has to live here rather than beside the palette.
- *
- * It used to be supplied two different ways at once: `*` painted every element
- * --color-text, and poetcore.css separately styled `a`. Removing `*` exposed
- * the gap.
- *
- * :visited and :active are stated explicitly rather than left to inherit from
- * `a`, because the UA stylesheet targets those pseudo-classes directly.
- */
-a {
-  color: var(--color-link);
-}
-
-a:visited {
-  color: var(--color-link);
-}
-
-a:hover,
-a:focus-visible,
-a:active {
-  color: var(--color-link-hover);
-}
-
+/* The page wrapper. The ambient inset glow it used to carry is gone: a 200px
+   blur radius on a min-height: 100vh element is a large, permanently repainted
+   shadow for an effect the paper grain already provides. */
 .app-content-enter {
   position: relative;
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
-  /* Ambient warmth — an inset shadow rather than a pseudo-element, which would
-     add a scrollable box on a min-height: 100vh element. */
-  box-shadow: inset 0 0 200px rgba(201, 168, 124, 0.08);
+  min-height: 100svh;
 }
 
-/* Card frames — leather-bound book edge effect. */
-.project_card {
-  box-shadow: inset 0 0 0 1px var(--color-card-border),
-              inset 0 0 0 3px var(--color-card-bg),
-              inset 0 0 0 4px var(--color-card-border);
-}
-
-.project_card:hover {
-  transform: translateY(-4px);
-  box-shadow: inset 0 0 0 1px var(--color-accent),
-              0 8px 24px rgba(43, 29, 14, 0.15);
-}
-
-.nav_link {
-  letter-spacing: 0.5px;
-}
-
-.nav_link:after {
-  background: var(--color-accent) !important;
-}
-
-/*
- * Promoted from MainLoader/index.css, where it was scoped to
- * `.main-loader .sr-only` and therefore unusable anywhere else. Needed
- * site-wide now that link text carries context for screen readers.
- */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
+.app-content-enter > main {
+  flex: 1 0 auto;
 }

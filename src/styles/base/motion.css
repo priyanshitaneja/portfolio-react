@@ -1,0 +1,26 @@
+/* ── Motion ──
+ *
+ * One reduced-motion guard for the whole site, replacing per-component copies.
+ *
+ * This is NOT the universal-selector mistake that the colour reset avoids.
+ * That bug was `*` declaring an *inherited* property, where a (0,0,0)
+ * declaration beat an inherited value. Durations and timelines have no
+ * declared-versus-inherited hazard: shortening a duration cannot change what
+ * anything looks like at rest.
+ *
+ * 0.01ms rather than 0 so `animationend` still fires and animations filled
+ * `both` still land on their end state. Setting them to 0 silently strands any
+ * code waiting on that event.
+ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-timeline: auto !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

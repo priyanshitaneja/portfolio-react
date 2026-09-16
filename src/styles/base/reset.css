@@ -1,0 +1,47 @@
+/* ── Reset ──
+ *
+ * Deliberately not a universal-selector reset of colour. An earlier version of
+ * this stylesheet did `* { background-color: ...; color: ... }`, which broke
+ * the moment icons became <svg fill="currentColor">: `*` *declares* colour on
+ * every element including every <path>, and a declaration at specificity
+ * (0,0,0) still beats an inherited value. Ground is painted on html and body
+ * and allowed to inherit.
+ *
+ * box-sizing is safe on `*` because it is not an inherited property, so there
+ * is no declared-versus-inherited hazard.
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+img,
+picture,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}

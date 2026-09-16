@@ -6,7 +6,7 @@
   position: sticky;
   top: 0;
   z-index: 90;
-  background-color: var(--color-bg);
+  background-color: var(--bg);
 }
 
 .header {
@@ -29,7 +29,7 @@
     display: block;
     height: 1.5px;
     margin-top: 2px;
-    background: var(--color-text);
+    background: var(--clay);
     transform: scaleX(0);
     transform-origin: right;
     transition: transform 0.3s;
@@ -43,7 +43,7 @@
 }
 
 .active {
-  color: var(--color-text) !important;
+  color: var(--fg) !important;
 
   &:after {
     transform: scaleX(1);
@@ -88,4 +88,8 @@
   .nav_link {
     font-size: 24px;
   }
+}
+
+.nav_link {
+  letter-spacing: 0.5px;
 }

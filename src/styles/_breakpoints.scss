@@ -1,0 +1,32 @@
+@use 'sass:map';
+
+/* ── Breakpoints ──
+ *
+ * Sass, not custom properties, and not by preference: `@media (min-width:
+ * var(--bp-md))` is invalid CSS. Media query features are evaluated before
+ * the cascade runs, so there is no element for a custom property to resolve
+ * against. This is the one part of the token system that has to be
+ * build-time.
+ *
+ * Two of the old breakpoints are gone. `min-width: 320px` wrapped rules that
+ * fired on every device — a no-op around the mobile base. `460px` existed
+ * only to step .nav_link through 14/16/18/24px, which the fluid type scale
+ * now does with no breakpoint at all.
+ */
+$bp: (
+  sm: 30rem,
+  // 480
+  md: 48rem,
+  // 768
+  lg: 64rem,
+  // 1024
+  xl: 80rem,
+  // 1280
+  xxl: 100rem, // 1600
+);
+
+@mixin mq($key) {
+  @media (min-width: map.get($bp, $key)) {
+    @content;
+  }
+}

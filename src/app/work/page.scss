@@ -39,7 +39,7 @@ $dot-border: 2px;
   top: 0.6em;
   bottom: 0.6em;
   width: 2px;
-  background-color: var(--color-timeline-tail);
+  background-color: var(--rule-strong);
 }
 
 /* display: contents lets each row's two cells land directly in the parent
@@ -53,10 +53,11 @@ $dot-border: 2px;
   grid-column: 1;
   text-align: right;
   padding-bottom: 28px;
-  /* Not --color-text-muted: #786D64 on the #E3DADB page ground fails contrast.
-     The antd labels rendered at full --color-text regardless, because
-     index.css declares colour on the universal selector. */
-  color: var(--color-text);
+  /* Full --fg, not --fg-muted. The old muted tone was #786D64 on a #E3DADB
+     ground, which failed contrast; the replacement --ink-muted clears it at
+     6.27:1, but timeline dates are small and sit next to the rail, so they
+     stay at full ink. */
+  color: var(--fg);
 }
 
 /* The dot hangs off the label because a display: contents element generates
@@ -68,9 +69,9 @@ $dot-border: 2px;
   top: 0.42em;
   width: $dot-size;
   height: $dot-size;
-  border: $dot-border solid var(--color-timeline-dot);
+  border: $dot-border solid var(--clay);
   border-radius: 50%;
-  background-color: var(--color-bg);
+  background-color: var(--bg);
 }
 
 .timeline__content {
@@ -102,7 +103,7 @@ $dot-border: 2px;
    the dashed ring — still visibly distinct from the solid dots below it. */
 @media (prefers-reduced-motion: reduce) {
   .timeline__item--pending .timeline__label::after {
-    border-top-color: var(--color-timeline-dot);
+    border-top-color: var(--clay);
     border-style: dashed;
     animation: none;
   }
@@ -153,7 +154,7 @@ $dot-border: 2px;
 }
 
 .collapse summary:focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline: 2px solid var(--focus-ring);
   outline-offset: 3px;
 }
 

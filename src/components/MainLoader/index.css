@@ -9,7 +9,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--color-loader-bg);
+  background-color: var(--paper);
   z-index: 9999;
   /* Decorative overlay — never intercept interaction with the content below. */
   pointer-events: none;

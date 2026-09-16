@@ -4,12 +4,12 @@
  * which is why every route carried a `- 45px` term in its height calc and why
  * nothing could scroll naturally. */
 .site-footer {
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--rule-strong);
   margin-top: 48px;
   padding: 24px 5vw 32px;
   font-family: var(--font-text);
   font-size: 14px;
-  color: var(--color-text);
+  color: var(--fg);
 }
 
 .site-footer__label {
@@ -19,7 +19,7 @@
   font-weight: 400;
   letter-spacing: 0.11em;
   text-transform: uppercase;
-  color: var(--color-text);
+  color: var(--fg);
 }
 
 .site-footer__list {
@@ -44,7 +44,7 @@
   width: 2px;
   height: 2px;
   border-radius: 50%;
-  background: var(--color-accent);
+  background: var(--clay);
 }
 
 .site-footer__colophon {

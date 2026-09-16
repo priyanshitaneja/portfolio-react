@@ -18,7 +18,7 @@
 
   svg {
     display: block;
-    color: var(--color-text-muted);
+    color: var(--fg-muted);
     opacity: 0;
     /* Default entrance */
     transform: translateY(-5px);
@@ -93,7 +93,7 @@
   }
 
   svg:hover {
-    color: var(--color-text);
+    color: var(--fg);
     transform: scale(1.25) translateY(-5px);
     transition: color 0.2s, transform 0.2s;
     opacity: 1;

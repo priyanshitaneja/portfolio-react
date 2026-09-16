@@ -1,7 +1,7 @@
 .project_card {
   width: 320px;
   overflow: hidden;
-  border: 1px solid var(--color-card-border);
+  border: 1px solid var(--rule-strong);
   border-radius: 8px;
   transition: transform 200ms ease, box-shadow 200ms ease;
 }
@@ -18,8 +18,8 @@
 .project_card__description,
 .project_card__action,
 .project_card svg {
-  background-color: var(--color-card-bg);
-  color: var(--color-text);
+  background-color: var(--paper-raised);
+  color: var(--fg);
 }
 
 .project_card__cover {
@@ -36,7 +36,7 @@
    against --color-card-bg in both themes: #BFB3A5 on #D9D0D1, #454545 on
    #000000. */
 .project_card__cover--placeholder {
-  background-color: var(--color-border);
+  background-color: var(--rule-strong);
 }
 
 .project_card__body {
@@ -55,12 +55,12 @@
      #D9D0D1 card, which fails contrast — axe flags it on all 18 cards. The
      antd version rendered this at full --color-text anyway, forced by a
      descendant !important rule, so this is also the faithful colour. */
-  color: var(--color-text);
+  color: var(--fg);
 }
 
 .project_card__actions {
   display: flex;
-  border-top: 0.5px solid var(--color-card-border);
+  border-top: 0.5px solid var(--rule-strong);
 }
 
 .project_card__action {
@@ -69,21 +69,21 @@
   align-items: center;
   justify-content: center;
   padding: 12px 0;
-  color: var(--color-text-muted);
+  color: var(--fg-muted);
   transition: color 200ms ease;
 }
 
 .project_card__action + .project_card__action {
-  border-left: 0.5px solid var(--color-card-border);
+  border-left: 0.5px solid var(--rule-strong);
 }
 
 a.project_card__action:hover,
 a.project_card__action:focus-visible {
-  color: var(--color-accent);
+  color: var(--clay-deep);
 }
 
 a.project_card__action:focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline: 2px solid var(--focus-ring);
   outline-offset: -2px;
 }
 
@@ -97,4 +97,22 @@ a.project_card__action:focus-visible {
   .project_card__action {
     transition: none;
   }
+}
+
+/* Card frame — a leather book-edge effect built from nested inset rings, moved
+   here from the global stylesheet where it sat only because the theme layer
+   used to own it. Inset rather than an outer shadow so nothing paints outside
+   the card's own box. */
+.project_card {
+  box-shadow: inset 0 0 0 1px var(--rule-strong),
+              inset 0 0 0 3px var(--paper-raised),
+              inset 0 0 0 4px var(--rule-strong);
+  transition: transform var(--dur-base) var(--ease-standard),
+              box-shadow var(--dur-base) var(--ease-standard);
+}
+
+.project_card:hover {
+  transform: translateY(-4px);
+  box-shadow: inset 0 0 0 1px var(--clay),
+              var(--shadow-md);
 }

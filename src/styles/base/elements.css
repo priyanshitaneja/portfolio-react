@@ -1,0 +1,116 @@
+/* ── Elements ── */
+
+html {
+  background-color: var(--bg);
+  color: var(--fg);
+  scrollbar-width: thin;
+  scrollbar-color: var(--rule-strong) var(--paper-raised);
+  -webkit-text-size-adjust: 100%;
+}
+
+html::-webkit-scrollbar {
+  display: block;
+  width: 6px;
+}
+
+html::-webkit-scrollbar-track {
+  background: var(--paper-raised);
+}
+
+html::-webkit-scrollbar-thumb {
+  background: var(--rule-strong);
+  border-radius: var(--radius-xs);
+}
+
+html::-webkit-scrollbar-thumb:hover {
+  background: var(--clay);
+}
+
+body {
+  background-color: var(--bg);
+  font-family: var(--font-text);
+  font-size: var(--step-0);
+  line-height: var(--leading-body);
+  /* Old-style figures are what EB Garamond is for; lining numerals in a
+     Garamond setting look borrowed from a spreadsheet. Metric-heavy copy
+     opts back into tabular lining figures with .u-figures. */
+  font-variant-numeric: oldstyle-nums;
+}
+
+/* Paper grain. Moved off z-index: 10000 with mix-blend-mode: multiply, which
+   forced a composited blend over the whole viewport on every frame and painted
+   above the header. At z-index -1 behind a transparent body it costs one
+   static layer. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: var(--texture-opacity);
+  background: repeating-conic-gradient(#8B7B6B 0% 25%, transparent 0% 50%) 0 0 /
+    3px 3px;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: var(--fg-heading);
+}
+
+h1 {
+  font-size: var(--step-5);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-display);
+}
+
+h2 {
+  font-size: var(--step-4);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-tight);
+}
+
+h3 {
+  font-size: var(--step-3);
+  line-height: var(--leading-normal);
+  letter-spacing: var(--tracking-tight);
+}
+
+p {
+  max-width: var(--measure);
+}
+
+ul {
+  list-style-type: none;
+}
+
+::selection {
+  background: var(--selection-bg);
+  color: var(--selection-fg);
+}
+
+/*
+ * Anchor colour is stated for every pseudo-class rather than left to inherit.
+ * The UA stylesheet targets :visited and :active directly, so an `a` rule
+ * alone leaves them at #0000EE and red.
+ */
+a {
+  color: var(--link);
+}
+
+a:visited {
+  color: var(--link);
+}
+
+a:hover,
+a:focus-visible,
+a:active {
+  color: var(--link-hover);
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}

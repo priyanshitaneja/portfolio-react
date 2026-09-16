@@ -1,0 +1,18 @@
+/* ── Motion ── */
+
+:root {
+  --dur-instant: 90ms;
+  --dur-fast: 160ms;
+  --dur-base: 240ms;
+  --dur-slow: 420ms;
+  --dur-reveal: 640ms;
+
+  /* Named for intent rather than for the curve. --ease-exit is faster out
+     because something leaving should not make you wait for it. */
+  --ease-standard: cubic-bezier(0.32, 0.08, 0.24, 1);
+  --ease-entrance: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+
+  --shift-reveal: 1.25rem;
+  --shift-nudge: 0.1875rem;
+}

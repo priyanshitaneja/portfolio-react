@@ -1,0 +1,36 @@
+/* ── Compositions ──
+ *
+ * Layout primitives with no cosmetics, so they can wrap anything.
+ */
+
+/* The page measure. Replaces the per-route `width: 90vw / 80vw / 60vw / 65vw`
+   ladder, which put a different measure on every breakpoint of every route and
+   meant no two pages lined up. */
+.shell {
+  width: 100%;
+  max-width: var(--shell-max);
+  margin-inline: auto;
+  padding-inline: var(--shell-gutter);
+}
+
+.shell--prose {
+  max-width: var(--shell-prose);
+}
+
+/* Vertical rhythm as a property of the container rather than a margin on every
+   child, so nothing depends on margin collapsing. */
+.stack > * + * {
+  margin-block-start: var(--stack-space, var(--space-s));
+}
+
+.stack--m > * + * {
+  --stack-space: var(--space-m);
+}
+
+.stack--l > * + * {
+  --stack-space: var(--space-l);
+}
+
+.section {
+  padding-block: var(--space-3xl);
+}
