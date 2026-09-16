@@ -4,6 +4,7 @@ import type { Company, Highlight } from '@/content/types';
 import RichText from '@/components/RichText';
 import { METRICS } from '@/content/metrics';
 import { isPublished } from '@/content/case-studies';
+import Diagram from '@/components/Diagram';
 import {
   dateTimeAttr,
   formatShort,
@@ -46,6 +47,8 @@ const HighlightItem = ({ highlight }: { highlight: Highlight }) => (
         ))}
       </p>
     ) : null}
+
+    {highlight.diagram ? <Diagram id={highlight.diagram} /> : null}
 
     {highlight.caseStudy && isPublished(highlight.caseStudy) ? (
       <Link

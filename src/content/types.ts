@@ -66,10 +66,17 @@ export type Block =
    */
   | { readonly kind: 'draft'; readonly question: string; readonly ref?: string };
 
-export type DiagramId =
-  | 'support-app-before-after'
-  | 'career-progression'
-  | 'impact-overview';
+/*
+ * Only one id, deliberately.
+ *
+ * Two further diagrams were planned — career progression and an impact
+ * overview — and both were dropped once the components existed, because each
+ * would have drawn a second picture of something already on the page. The
+ * Timeline *is* the career progression, with the promotion intervals stated
+ * as text rather than inferred from a shape, and MetricStrip is the impact
+ * overview. A diagram that restates its neighbour is decoration.
+ */
+export type DiagramId = 'support-app-rebuild';
 
 /* ── Case studies ── */
 export interface CaseStudySection {
@@ -125,6 +132,8 @@ export interface Highlight {
   readonly metricIds?: readonly MetricId[];
   /** Renders a link through to the deep page when one exists. */
   readonly caseStudy?: string;
+  /** Renders the diagram registered under this id beneath the highlight. */
+  readonly diagram?: DiagramId;
 }
 
 export interface Company {

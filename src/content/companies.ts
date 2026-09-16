@@ -47,6 +47,7 @@ export const COMPANIES: readonly Company[] = [
       {
         text: 'Rebuilt the support agent app in React and TypeScript as a Kustomer iframe, replacing a legacy AngularJS Zendesk app, and moved its data layer from REST to GraphQL.',
         metricIds: ['supportAppTti'],
+        diagram: 'support-app-rebuild',
       },
       {
         text: 'Built the Collections payment portal end to end across the customer app and Admin, for businesses on repayment plans.',
