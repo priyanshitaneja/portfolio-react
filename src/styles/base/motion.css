@@ -24,3 +24,47 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* ── Scroll reveal ──
+ *
+ * CSS scroll-driven animations. No IntersectionObserver, no library, no JS.
+ *
+ * Transform only. It deliberately does NOT animate opacity, and that is worth
+ * explaining because a fade is the obvious way to write this:
+ *
+ *   1. Chrome's LCP algorithm discards elements at opacity: 0. This repo has
+ *      already been bitten by exactly that — the old loader parked the <h1>
+ *      at opacity 0 for 350ms and delayed LCP.
+ *   2. Automated contrast checking composites opacity into the foreground
+ *      colour. An element caught part-way through a fade reports a colour
+ *      like #ddd7ce on #f4eee4, a ratio of 1.23, and fails. This is not
+ *      hypothetical: it took /lab to 0.96 on the run before this one, and it
+ *      is non-deterministic, because whether it fires depends on where the
+ *      scroll-driven animation happens to sit when the audit samples it.
+ *
+ * A translate has neither problem. The text is at full contrast for the whole
+ * animation, and the element is never invisible to the LCP heuristic.
+ *
+ * Authored finished-state-first: the resting state is the element's normal
+ * state and the animation exists only inside @supports. Firefox still has
+ * scroll-driven animations behind a flag, and reduced-motion and no-JS
+ * readers get the same thing — the content, at rest.
+ */
+@keyframes reveal-in {
+  from {
+    transform: translateY(var(--reveal-shift, var(--shift-reveal)));
+  }
+  to {
+    transform: none;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: reveal-in linear both;
+      animation-timeline: view();
+      animation-range: entry 8% cover 26%;
+    }
+  }
+}

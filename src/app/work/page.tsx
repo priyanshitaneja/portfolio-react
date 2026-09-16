@@ -4,6 +4,8 @@ import Timeline from '@/components/Timeline';
 import SectionHeading from '@/components/SectionHeading';
 import { COMPANIES } from '@/content/companies';
 import { CERTIFICATIONS, EDUCATION } from '@/content/profile';
+import JsonLd from '@/components/JsonLd';
+import { workGraph } from '@/content/structured-data';
 
 import './page.scss';
 
@@ -28,6 +30,7 @@ export const metadata: Metadata = {
 export default function Work() {
   return (
     <div className="work shell">
+      <JsonLd data={workGraph} />
       <header className="work__head">
         <h1 className="work__title">Work</h1>
         <p className="work__lede u-lede">

@@ -8,6 +8,8 @@ import { PROFILE } from '@/content/profile';
 import { COMPANIES } from '@/content/companies';
 import { LAB } from '@/content/lab';
 import { METRICS } from '@/content/metrics';
+import JsonLd from '@/components/JsonLd';
+import { homeGraph } from '@/content/structured-data';
 
 import './page.css';
 
@@ -26,6 +28,7 @@ const SELECTED = novo.highlights.slice(0, 6);
 export default function Home() {
   return (
     <div className="home">
+      <JsonLd data={homeGraph} />
       <section className="home__hero shell">
         {/*
           The h1 is the positioning line, not the name. The name is already
@@ -58,7 +61,7 @@ export default function Home() {
         <MetricStrip ids={PROOF} />
       </section>
 
-      <section className="home__selected shell section">
+      <section className="home__selected shell section reveal">
         <SectionHeading eyebrow="Selected work">
           What I shipped at Novo
         </SectionHeading>
@@ -87,7 +90,7 @@ export default function Home() {
         </Link>
       </section>
 
-      <section className="home__before shell section">
+      <section className="home__before shell section reveal">
         <SectionHeading eyebrow="Before Novo">Where I learned it</SectionHeading>
         <ul className="home__list">
           {COMPANIES.slice(1).map((c) => (
@@ -101,7 +104,7 @@ export default function Home() {
         </ul>
       </section>
 
-      <section className="home__lab shell section">
+      <section className="home__lab shell section reveal">
         <SectionHeading eyebrow="Lab">
           Things I build to answer a question
         </SectionHeading>
@@ -120,7 +123,7 @@ export default function Home() {
         </Link>
       </section>
 
-      <section className="home__contact shell section">
+      <section className="home__contact shell section reveal">
         <SectionHeading eyebrow="Contact">
           Hiring for a senior or staff frontend role?
         </SectionHeading>

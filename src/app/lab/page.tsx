@@ -34,8 +34,12 @@ export default function Lab() {
       </header>
 
       <ol className="lab__list">
-        {LAB.map((entry) => (
-          <li className="lab__entry" key={entry.slug}>
+        {LAB.map((entry, index) => (
+          /* First entry is above the fold; see Timeline for why it is
+             excluded. */
+          <li
+            className={`lab__entry${index > 0 ? ' reveal' : ''}`}
+            key={entry.slug}>
             <div className="lab__entry-head">
               <h2 className="lab__name">{entry.name}</h2>
               <p className="lab__meta u-figures">

@@ -68,12 +68,18 @@ const HighlightItem = ({ highlight }: { highlight: Highlight }) => (
  */
 const Timeline = ({ companies }: { companies: readonly Company[] }) => (
   <ol className="timeline">
-    {companies.map((company) => {
+    {companies.map((company, index) => {
       const newest = company.roles[0];
       const oldest = company.roles[company.roles.length - 1];
 
       return (
-        <li className="timeline__company" key={company.id}>
+        /* The first block is inside the first viewport, so it never
+           reveals — an element partially in view starts mid-animation below
+           full opacity, and Chrome's LCP algorithm discards anything at
+           opacity 0. */
+        <li
+          className={`timeline__company${index > 0 ? ' reveal' : ''}`}
+          key={company.id}>
           <div className="timeline__company-head">
             {/* h2, not h3. The page h1 is "Work", so a company is the next
                 level down; h3 here skipped a level and failed axe's

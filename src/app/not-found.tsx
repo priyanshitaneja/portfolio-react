@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import Icon from '@/components/Icon';
-import { iconArrowUp } from '@/components/Icon/icons';
+import Link from 'next/link';
+
 import './not-found.scss';
 
 /* Static metadata object only; async generateMetadata is not supported in
@@ -10,14 +10,34 @@ export const metadata: Metadata = {
   title: '404 — Page Not Found',
 };
 
+/*
+ * Was "Please select a page from header" beside a bouncing arrow. That asked
+ * the reader to go and find the navigation; this offers the pages that
+ * do exist.
+ */
 export default function NotFound() {
   return (
-    <div className="error">
-      <h1>404</h1>
-      <h3>
-        Please select a page from header &nbsp;{' '}
-        <Icon icon={iconArrowUp} className="error__arrow" />
-      </h3>
+    <div className="error shell shell--prose">
+      <p className="error__code u-caps">404</p>
+      <h1 className="error__title">That page is not here</h1>
+      <p className="error__body">
+        It may have moved, or the link may be old. These are the ones that
+        exist:
+      </p>
+      <ul className="error__links">
+        <li>
+          <Link href="/">Home</Link>
+        </li>
+        <li>
+          <Link href="/work">Work</Link>
+        </li>
+        <li>
+          <Link href="/lab">Lab</Link>
+        </li>
+        <li>
+          <Link href="/contact">Contact</Link>
+        </li>
+      </ul>
     </div>
   );
 }
