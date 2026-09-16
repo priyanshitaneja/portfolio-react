@@ -26,10 +26,11 @@ const Header = () => {
   /*
    * The <header>/<nav> wrappers carry two landmarks that the document was
    * missing entirely. The measure stays on .header (60vw, centred) rather than
-   * moving out to the wrapper, so nothing about the current layout changes.
+   * moving out to the wrapper — the wrapper's job is the sticky frosted band,
+   * which has to span the full viewport width to work.
    */
   return (
-    <header>
+    <header className="site-header glass">
       <nav aria-label="Main">
         <ul className="header">
           {NAV.map(({ href, label }) => (

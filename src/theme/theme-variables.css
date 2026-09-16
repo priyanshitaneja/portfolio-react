@@ -47,6 +47,25 @@ html[data-theme="poetcore"] {
   --font-accent: var(--font-bodoni), Georgia, serif;
   --fw-heading-primary: 400;
   --fw-heading-secondary: 400;
+
+  /* ── Frosted surfaces ──
+     Alpha on the page ground rather than a grey, so the tint stays in the
+     palette rather than muddying it. Saturation is pushed back up because
+     blur desaturates whatever shows through. */
+  --glass-bg: rgba(227, 218, 219, 0.48);
+  --glass-border: rgba(191, 179, 165, 0.55);
+  /* brightness() is the part that separates this from flat frosted plastic:
+     it lifts whatever is behind the panel so the surface reads as lit rather
+     than merely blurred. saturate() compensates for blur desaturating. */
+  --glass-blur: blur(22px) saturate(185%) brightness(1.07);
+  /* Specular edge — a single bright hairline along the top, the way light
+     catches the lip of a real pane. */
+  --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.62);
+  /* Opaque equivalents, used where backdrop-filter is unsupported or the
+     reader has asked for reduced transparency. */
+  --glass-bg-solid: #E3DADB;
+  --glass-card-bg: rgba(217, 208, 209, 0.66);
+  --glass-card-bg-solid: #D9D0D1;
   --body-opacity: 0.8;
   --texture-opacity: 0.04;
   --ornament-display: block;
@@ -88,6 +107,21 @@ html[data-theme="dark-minimal"] {
   --font-accent: var(--font-poppins), system-ui, sans-serif;
   --fw-heading-primary: 100;
   --fw-heading-secondary: 200;
+
+  /* Dark needs a *lighter* veil than poetcore, not a darker one: black on
+     black reads as a flat panel and the blur stops being visible at all. */
+  --glass-bg: rgba(22, 22, 22, 0.52);
+  --glass-border: rgba(69, 69, 69, 0.7);
+  /* A harder brightness push here: lifting a near-black backdrop takes more
+     to become visible at all, and saturation is kept lower so it does not
+     tint the greys. */
+  --glass-blur: blur(22px) saturate(140%) brightness(1.28);
+  /* Far fainter highlight — at poetcore's 0.62 a white hairline on black
+     reads as a drawn line rather than a reflection. */
+  --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  --glass-bg-solid: #000000;
+  --glass-card-bg: rgba(18, 18, 18, 0.62);
+  --glass-card-bg-solid: #000000;
   --body-opacity: 1;
   --texture-opacity: 0;
   --ornament-display: none;

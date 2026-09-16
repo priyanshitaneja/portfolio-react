@@ -1,6 +1,8 @@
 .theme-toggle {
-  background: transparent !important;
-  border: none;
+  /* Was `background: transparent !important` to beat index.css's universal
+     selector, which no longer exists. The frost now comes from .glass, and an
+     !important here would override it. */
+  border-radius: 999px;
   cursor: pointer;
   padding: 4px 8px;
   font-size: 18px;
@@ -8,10 +10,6 @@
   transition: color 0.2s, transform 0.2s;
   display: flex;
   align-items: center;
-
-  i {
-    background: transparent !important;
-  }
 
   &:hover {
     color: var(--color-accent);

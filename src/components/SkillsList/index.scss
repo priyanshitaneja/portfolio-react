@@ -5,6 +5,10 @@
   right: 0;
   height: 50px;
   z-index: 100;
+  /* No border. The icons are 32px tall in a 50px strip and overhang its top
+     edge by 11px, so a top border draws a line straight through them. The
+     frost alone is what separates the strip from the cards scrolling behind. */
+  border: 0;
 }
 
 .skills_list {

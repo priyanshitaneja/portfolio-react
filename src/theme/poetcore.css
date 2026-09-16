@@ -52,8 +52,12 @@ html[data-theme="poetcore"] p {
    used to live here has been removed. */
 
 /* Card frames — leather-bound book edge effect */
+/* This rule is (0,2,1) and .glass is (0,1,0), so it wins outright — the
+   specular highlight has to be restated here or the cards silently lose it
+   while the header and footer keep theirs. */
 html[data-theme="poetcore"] .project_card {
-  box-shadow: inset 0 0 0 1px var(--color-card-border),
+  box-shadow: var(--glass-highlight),
+              inset 0 0 0 1px var(--color-card-border),
               inset 0 0 0 3px var(--color-card-bg),
               inset 0 0 0 4px var(--color-card-border);
 }
@@ -63,11 +67,16 @@ html[data-theme="poetcore"] .app-content-enter {
   box-shadow: inset 0 0 200px rgba(201, 168, 124, 0.08);
 }
 
-/* Card hover — lift with warm shadow */
+/* Card hover — lift, accent ring, and deliberately no drop shadow.
+   An outer shadow paints *behind* the card. That was invisible while the card
+   was opaque, but the card is frosted now, so the shadow showed through its
+   lower half as a dark band. The inset ring does the same job without
+   anything rendering behind translucent pixels. */
 html[data-theme="poetcore"] .project_card:hover {
   transform: translateY(-4px);
-  box-shadow: inset 0 0 0 1px var(--color-accent),
-              0 8px 24px rgba(43, 29, 14, 0.15);
+  box-shadow: var(--glass-highlight),
+              inset 0 0 0 1px var(--color-accent),
+              inset 0 0 0 4px var(--color-card-border);
 }
 
 /* Loader icon — sepia warmth */

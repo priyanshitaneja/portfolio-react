@@ -1,7 +1,6 @@
 .project_card {
   width: 320px;
   overflow: hidden;
-  border: 1px solid var(--color-card-border);
   border-radius: 8px;
   transition: transform 200ms ease, box-shadow 200ms ease;
 }
@@ -11,6 +10,9 @@
    These selectors are (0,1,0)+ and beat `*` at (0,0,0) on specificity alone —
    the !important that used to be here was never needed. The whole block goes
    away with the universal selector. */
+/* These used to repaint --color-card-bg to beat the universal selector that
+   index.css set. That selector is gone (559a826), and now the card is frosted
+   an opaque repaint would hide the blur entirely — so they only carry colour. */
 .project_card,
 .project_card__body,
 .project_card__actions,
@@ -18,8 +20,25 @@
 .project_card__description,
 .project_card__action,
 .project_card svg {
-  background-color: var(--color-card-bg);
   color: var(--color-text);
+}
+
+/* Slightly stronger than the header/footer veil: a card sits on the flat page
+   rather than over moving content, so it needs more body to read as a surface. */
+.project_card.glass {
+  background-color: var(--glass-card-bg-solid);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .project_card.glass {
+    background-color: var(--glass-card-bg);
+  }
+
+  @media (prefers-reduced-transparency: reduce) {
+    .project_card.glass {
+      background-color: var(--glass-card-bg-solid);
+    }
+  }
 }
 
 .project_card__cover {

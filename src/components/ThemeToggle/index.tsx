@@ -18,7 +18,7 @@ const ThemeToggle = () => {
   return (
     <button
       type="button"
-      className="theme-toggle"
+      className="theme-toggle glass"
       onClick={() => setTheme(nextId)}
       aria-label={`Switch to ${nextLabel} theme`}
       title={`Switch to ${nextLabel} theme`}

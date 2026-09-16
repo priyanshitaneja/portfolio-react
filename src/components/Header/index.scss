@@ -1,3 +1,18 @@
+/* Sticky rather than fixed: sticky stays in normal flow, so it still occupies
+   the height every route's scroll container already subtracts (the 74px and
+   114px in the calc() rules). Fixed would remove it from flow and every one of
+   those heights would need redoing. */
+.site-header {
+  position: sticky;
+  top: 0;
+  /* Above the page content, below the loader overlay (9999) and the fixed
+     footer strip (100). */
+  z-index: 90;
+  /* No border. A hairline under a frosted band reads as a seam rather than an
+     edge — the blur boundary is what separates it from the content beneath. */
+  border: 0;
+}
+
 .header {
   width: 100%;
   padding: 30px 0;

@@ -55,7 +55,7 @@ const SkillsList = () => {
      * The element carries the existing class, so the fixed positioning and the
      * nth-child entrance stagger are untouched.
      */
-    <footer className="skills_list-wrapper" aria-label="Technologies">
+    <footer className="skills_list-wrapper glass" aria-label="Technologies">
       <div className="skills_list">
         {SKILLS.map(({ key, icon }) => (
           <Icon key={key} icon={icon} size="2xl" />

@@ -118,6 +118,10 @@ $dot-border: 2px;
 
 .collapse {
   width: 80%;
+  /* The timeline rail runs behind these, so the frost has something to pick
+     up rather than sitting on flat ground. */
+  border-radius: 8px;
+  padding: 14px 18px;
 }
 
 .collapse summary {

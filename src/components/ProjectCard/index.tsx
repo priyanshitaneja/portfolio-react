@@ -46,7 +46,7 @@ const ProjectCard = ({
   const title = name ? name : 'Project Name';
 
   return (
-    <article className="project_card">
+    <article className="project_card glass">
       {/*
         A raw <img> here shipped every cover at full size: 15 of the 19 are
         hot-linked from imgur and the three local ones are 0.5-1.6 MB PNGs,

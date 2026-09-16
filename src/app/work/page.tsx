@@ -42,7 +42,7 @@ export default function Work() {
         <li className="timeline__item">
           <time className="timeline__label">October 2024 - Present</time>
           <div className="timeline__content">
-            <details className="collapse">
+            <details className="collapse glass">
               <summary>Software Development Engineer II @NOVO</summary>
               <div className="collapse__body">
                 <p>
@@ -78,7 +78,7 @@ export default function Work() {
         <li className="timeline__item">
           <time className="timeline__label">August 2023</time>
           <div className="timeline__content">
-            <details className="collapse">
+            <details className="collapse glass">
               <summary>Software Development Engineer L3 @NOVO</summary>
               <div className="collapse__body">
                 <p>
@@ -105,7 +105,7 @@ export default function Work() {
         <li className="timeline__item">
           <time className="timeline__label">June 2022</time>
           <div className="timeline__content">
-            <details className="collapse">
+            <details className="collapse glass">
               <summary>UI Developer @ ANATTA</summary>
               <div className="collapse__body">
                 <p>
@@ -135,7 +135,7 @@ export default function Work() {
         <li className="timeline__item">
           <time className="timeline__label">April 2021</time>
           <div className="timeline__content">
-            <details className="collapse">
+            <details className="collapse glass">
               <summary>Software Engineer @ ORISERVE</summary>
               <div className="collapse__body">
                 <p>

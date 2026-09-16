@@ -86,3 +86,39 @@ a:active {
   white-space: nowrap;
   border: 0;
 }
+
+/* ── Frosted surfaces ──
+ *
+ * One class, five surfaces. The fallback order matters:
+ *
+ *   1. Default to the *opaque* colour. A browser with no backdrop-filter
+ *      support then shows a solid panel rather than a translucent one with
+ *      nothing blurred behind it, which would put text over live content.
+ *   2. Only inside @supports do we switch to the translucent fill and turn
+ *      the blur on, so the two always arrive together.
+ *   3. prefers-reduced-transparency takes it back to opaque. Some people get
+ *      motion sickness or simply cannot read text over busy backdrops, and
+ *      the OS-level switch for that is this query.
+ */
+.glass {
+  background-color: var(--glass-bg-solid);
+  border: 1px solid var(--glass-border);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .glass {
+    background-color: var(--glass-bg);
+    -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: var(--glass-blur);
+    box-shadow: var(--glass-highlight);
+  }
+
+  @media (prefers-reduced-transparency: reduce) {
+    .glass {
+      background-color: var(--glass-bg-solid);
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+      box-shadow: none;
+    }
+  }
+}
