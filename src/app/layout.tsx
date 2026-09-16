@@ -2,28 +2,13 @@ import type { Metadata, Viewport } from 'next';
 import { GoogleAnalytics } from '@next/third-parties/google';
 
 import Header from '@/components/Header';
-import SkillsList from '@/components/SkillsList';
-import MainLoader from '@/components/MainLoader';
-import { ThemeProvider } from '@/theme/ThemeContext';
+import Footer from '@/components/Footer';
 import { fontVariables } from './fonts';
 
 import './globals.css';
 import '@/components/Header/index.scss';
 
 const SITE_URL = 'https://www.priyanshitaneja.com';
-
-/*
- * The prerendered HTML carries data-theme="poetcore"; only the browser knows
- * whether this visitor chose otherwise. So the markup ships the default and
- * this script only ever *overrides* it — a first-time visitor sees no effect
- * at all, and the flash window is bounded to returning visitors who picked the
- * non-default theme.
- *
- * The value is validated rather than trusted: localStorage is user-writable,
- * and an unrecognised string would otherwise put data-theme into a state no
- * stylesheet matches.
- */
-const THEME_INIT = `try{var t=localStorage.getItem('theme');if(t==='dark-minimal'||t==='poetcore'){document.documentElement.setAttribute('data-theme',t)}}catch(e){}`;
 
 const DESCRIPTION =
   'AI Frontend Engineer building React and TypeScript interfaces for fintech and ' +
@@ -76,62 +61,32 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  /*
+   * There is one theme, so there is nothing for a pre-paint script to restore
+   * and nothing for a provider to hold. That removes the inline
+   * localStorage read from <head>, the data-theme attribute, the
+   * suppressHydrationWarning it required, and a client context from the root
+   * layout — the palette is now plain CSS on :root and works with JavaScript
+   * disabled, which is what the old THEME_INIT comment was working to
+   * approximate.
+   */
   return (
-    /*
-     * data-theme is server-rendered rather than set by a pre-paint script.
-     * In CRA, index.html was a fixed template and React never owned <html>, so
-     * an inline script was the only option. Here the attribute is baked into
-     * the prerendered HTML: no flash, no hydration mismatch, and it survives
-     * with JavaScript disabled.
-     *
-     * The script comes back — and is genuinely load-bearing — only once theme
-     * persistence lands, since the prerendered HTML is theme-agnostic and only
-     * the browser knows the stored value.
-     */
-    <html
-      lang="en"
-      data-theme="poetcore"
-      className={fontVariables}
-      /* Scoped to <html> only, one level deep — the sole node THEME_INIT
-         mutates. It does not leak to descendants. */
-      suppressHydrationWarning>
-      <head>
-        {/*
-          A raw inline script, deliberately not next/script
-          strategy="beforeInteractive".
-
-          What is needed here is a spec guarantee, not a framework one: a
-          classic, non-async, non-defer inline script blocks the parser at its
-          exact position and runs before any subsequent node is constructed,
-          therefore always before first paint. beforeInteractive gives no
-          positional guarantee, drags a client boundary into the root layout,
-          and behaves differently in `next dev` than in a production build —
-          which would make "I checked for flash locally" meaningless.
-        */}
-        <script dangerouslySetInnerHTML={{ __html: THEME_INIT }} />
-      </head>
+    <html lang="en" className={fontVariables}>
       <body>
-        <ThemeProvider>
-          <div className="app-content-enter">
-            <Header />
-            {/*
-              Every route's content goes inside one <main>. axe runs with no
-              --tags, so its best-practice rules are live: `region` wants every
-              node in a landmark and `landmark-one-main` wants exactly one
-              <main>, and both were failing on all four routes because the
-              document had no landmarks at all. Lighthouse never caught it —
-              its gatherer runs only wcag2a/wcag2aa, which excludes `region`,
-              and scores `landmark-one-main` at weight 0.
-            */}
-            <main>{children}</main>
-            <SkillsList />
-          </div>
+        <div className="app-content-enter">
+          <Header />
           {/*
-            Rendered in the layout, not a page, so it plays once per hard load
-            instead of replaying on every client-side navigation.
+            Every route's content goes inside one <main>. axe runs with no
+            --tags, so its best-practice rules are live: `region` wants every
+            node in a landmark and `landmark-one-main` wants exactly one
+            <main>, and both were failing on all four routes because the
+            document had no landmarks at all. Lighthouse never caught it —
+            its gatherer runs only wcag2a/wcag2aa, which excludes `region`,
+            and scores `landmark-one-main` at weight 0.
           */}
-          <MainLoader />
-        </ThemeProvider>
+          <main>{children}</main>
+          <Footer />
+        </div>
 
         {/*
           Replaces the hand-rolled gtag snippet. Besides loading non-blocking,

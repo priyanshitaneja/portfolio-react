@@ -8,16 +8,11 @@ const mockPathname = vi.fn<() => string>();
 vi.mock('next/navigation', () => ({ usePathname: () => mockPathname() }));
 
 import Header from './index';
-import { ThemeProvider } from '@/theme/ThemeContext';
 
-/* Header nests ThemeToggle, which calls useTheme, so the provider is part of
-   the unit whether or not the nav logic cares about it. */
-const renderHeader = () =>
-  render(
-    <ThemeProvider>
-      <Header />
-    </ThemeProvider>
-  );
+/* Header used to nest ThemeToggle, which called useTheme, so every case had to
+   be wrapped in the theme provider. The site has one theme now and the header
+   renders standalone. */
+const renderHeader = () => render(<Header />);
 
 describe('Header', () => {
   it('exposes the nav as a named landmark', () => {

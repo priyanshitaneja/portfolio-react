@@ -1,6 +1,58 @@
-@import '../theme/theme-variables.css';
-@import '../theme/theme-transition.css';
-@import '../theme/poetcore.css';
+/* ── Global stylesheet ──
+ *
+ * One theme. src/theme/ (theme-variables.css, poetcore.css,
+ * theme-transition.css, themes.ts, ThemeContext.tsx) is gone: the site had a
+ * manual poetcore/dark-minimal toggle, and maintaining two full palettes meant
+ * two contrast surfaces to verify against a CI gate of accessibility = 1.0,
+ * for a switch almost nobody flipped. The surviving poetcore rules are inlined
+ * here unprefixed, and the tokens key :root instead of html[data-theme].
+ *
+ * Deliberately a visual no-op apart from the toggle disappearing. The palette
+ * and type scale change in a later commit; keeping the two apart is what lets
+ * a Lighthouse or axe movement be attributed to one of them.
+ */
+
+:root {
+  --color-bg: #E3DADB;
+  --color-bg-alt: #D9D0D1;
+  --color-text: #2D2420;
+  --color-text-muted: #786D64;
+  --color-accent: #7B6354;
+  --color-accent-hover: #8E7466;
+  --color-border: #BFB3A5;
+  --color-link: #5C473B;
+  /* Hover *raises* contrast rather than lowering it: 6.33:1 -> 8.08:1 on the
+     #E3DADB ground. The previous #7B6354 dropped it to 4.08:1, below AA for
+     the 14-18px nav. Still a warm brown, and distinct from --color-text. */
+  --color-link-hover: #4A382D;
+  --color-selection-bg: #C4B5A7;
+  --color-selection-text: #2D2420;
+  --color-scrollbar-track: #D9D0D1;
+  --color-scrollbar-thumb: #BFB3A5;
+  --color-scrollbar-thumb-hover: #7B6354;
+  --color-loader-bg: #E3DADB;
+  --color-card-bg: #D9D0D1;
+  --color-card-border: #BFB3A5;
+  --color-timeline-dot: #7B6354;
+  --color-timeline-tail: #BFB3A5;
+
+  /*
+   * Font *roles* are mapped onto the next/font variables declared in
+   * src/app/fonts.ts, which carries the hashed family names. Components consume
+   * roles (--font-body, --font-nav, ...) and next/font owns what a family
+   * actually is, which is why adding self-hosted fonts required no change to
+   * any component stylesheet.
+   */
+  --font-heading: var(--font-pinyon), cursive;
+  --font-heading-alt: var(--font-cinzel), Georgia, serif;
+  --font-body: var(--font-eb-garamond), Georgia, serif;
+  --font-nav: var(--font-eb-garamond), Georgia, serif;
+  --font-accent: var(--font-bodoni), Georgia, serif;
+  --fw-heading-primary: 400;
+  --fw-heading-secondary: 400;
+  --body-opacity: 0.8;
+  --texture-opacity: 0.04;
+}
 
 /*
  * These rules used to live on the universal selector:
@@ -21,7 +73,27 @@
 html {
   background-color: var(--color-bg);
   color: var(--color-text);
-  scrollbar-width: none; /* Firefox */
+  font-style: italic;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-scrollbar-thumb) var(--color-scrollbar-track);
+}
+
+html::-webkit-scrollbar {
+  display: block;
+  width: 6px;
+}
+
+html::-webkit-scrollbar-track {
+  background: var(--color-scrollbar-track);
+}
+
+html::-webkit-scrollbar-thumb {
+  background: var(--color-scrollbar-thumb);
+  border-radius: 3px;
+}
+
+html::-webkit-scrollbar-thumb:hover {
+  background: var(--color-scrollbar-thumb-hover);
 }
 
 body {
@@ -30,23 +102,41 @@ body {
   font-family: var(--font-body);
 }
 
-html::-webkit-scrollbar,
-body::-webkit-scrollbar {
-  display: none; /* Chrome/Safari/Opera */
+/* Paper grain — subtle noise over parchment. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10000;
+  opacity: var(--texture-opacity, 0.04);
+  mix-blend-mode: multiply;
+  background: repeating-conic-gradient(
+    #8B7B6B 0% 25%,
+    transparent 0% 50%
+  ) 0 0 / 3px 3px;
+}
+
+::selection {
+  background: var(--color-selection-bg);
+  color: var(--color-selection-text);
 }
 
 ul {
   list-style-type: none;
 }
 
+/* Body text opacity — slightly faded ink look. */
+p {
+  opacity: var(--body-opacity, 0.8);
+}
+
 /*
- * Anchor colour has to live here, theme-independently.
+ * Anchor colour has to live here rather than beside the palette.
  *
  * It used to be supplied two different ways at once: `*` painted every element
- * --color-text, and poetcore.css separately styled `a`. dark-minimal had no
- * anchor rule of its own and never needed one, because `*` covered it. Removing
- * `*` exposed that gap, and links in dark-minimal fell all the way back to the
- * browser defaults — #0000EE unvisited, purple visited, red active.
+ * --color-text, and poetcore.css separately styled `a`. Removing `*` exposed
+ * the gap.
  *
  * :visited and :active are stated explicitly rather than left to inherit from
  * `a`, because the UA stylesheet targets those pseudo-classes directly.
@@ -68,6 +158,31 @@ a:active {
 .app-content-enter {
   position: relative;
   min-height: 100vh;
+  /* Ambient warmth — an inset shadow rather than a pseudo-element, which would
+     add a scrollable box on a min-height: 100vh element. */
+  box-shadow: inset 0 0 200px rgba(201, 168, 124, 0.08);
+}
+
+/* Card frames — leather-bound book edge effect. */
+.project_card {
+  box-shadow: inset 0 0 0 1px var(--color-card-border),
+              inset 0 0 0 3px var(--color-card-bg),
+              inset 0 0 0 4px var(--color-card-border);
+}
+
+.project_card:hover {
+  transform: translateY(-4px);
+  box-shadow: inset 0 0 0 1px var(--color-accent),
+              0 8px 24px rgba(43, 29, 14, 0.15);
+}
+
+.nav_link {
+  font-style: italic;
+  letter-spacing: 0.5px;
+}
+
+.nav_link:after {
+  background: var(--color-accent) !important;
 }
 
 /*
