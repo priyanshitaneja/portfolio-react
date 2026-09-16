@@ -1,3 +1,4 @@
+import { ViewTransition } from 'react';
 import type { Metadata, Viewport } from 'next';
 import { GoogleAnalytics } from '@next/third-parties/google';
 
@@ -84,7 +85,19 @@ export default function RootLayout({
             its gatherer runs only wcag2a/wcag2aa, which excludes `region`,
             and scores `landmark-one-main` at weight 0.
           */}
-          <main>{children}</main>
+          {/*
+            React's <ViewTransition> over the browser's View Transitions API.
+            Route navigations in the App Router are React Transitions, so this
+            activates on its own with no configuration and no dependency.
+
+            This is why `motion` is not installed. The one thing CSS genuinely
+            could not do here was a cross-route transition, and the platform
+            now does it for zero bytes. Where support is missing the app works
+            normally and simply does not animate.
+          */}
+          <ViewTransition>
+            <main>{children}</main>
+          </ViewTransition>
           <Footer />
         </div>
 

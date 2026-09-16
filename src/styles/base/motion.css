@@ -68,3 +68,26 @@
     }
   }
 }
+
+/* ── Route transitions ──
+ *
+ * The crossfade between routes. Kept to a short dissolve with no movement:
+ * a slide implies direction, and this navigation has none.
+ *
+ * ::view-transition-* pseudo-elements are NOT matched by the universal
+ * selector, so the reduced-motion guard above does not reach them. They need
+ * their own rule, which is easy to miss because everything else on the page
+ * is already covered.
+ */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: var(--dur-base);
+  animation-timing-function: var(--ease-standard);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}
