@@ -31,6 +31,21 @@ const Projects = () => {
       <div className="projects-grid">
         <ProjectCard
           eager
+          name="PDF to EPUB"
+          description="Converts a PDF to a Kindle-ready EPUB in the browser — cover intact, nothing uploaded"
+          imageUrl="/images/pdf-to-epub.png"
+          deployedUrl="https://pdf-to-epub-blue.vercel.app/"
+          githubUrl="https://github.com/priyanshitaneja/pdf-to-epub"
+        />
+        <ProjectCard
+          eager
+          name="Story Pointer"
+          description="Planning poker on the Jira issue — a Forge app replacing a paid Marketplace add-on"
+          imageUrl="/images/story-pointer.png"
+          githubUrl="https://github.com/priyanshitaneja/jira-story-point-planner"
+        />
+        <ProjectCard
+          eager
           name="AI Micro Therapist"
           description="AI-powered mood tracker & personal mental health companion with daily insights"
           imageUrl="/images/ai-micro-therapist.png"
@@ -38,7 +53,6 @@ const Projects = () => {
           githubUrl="https://github.com/priyanshitaneja/ai-micro-therapist"
         />
         <ProjectCard
-          eager
           name="AI Color Analysis"
           description="AI-powered seasonal color palette analyzer — upload a photo to discover your best colors"
           imageUrl="/images/ai-color-analysis.png"
@@ -46,7 +60,6 @@ const Projects = () => {
           githubUrl="https://github.com/priyanshitaneja/ai-color-analysis"
         />
         <ProjectCard
-          eager
           name="Pure Pilates"
           description="A Pilates studio website with class booking, virtual sessions & pre/post-natal programs"
           imageUrl="/images/pure-pilates.png"
@@ -56,105 +69,42 @@ const Projects = () => {
         <ProjectCard
           name="MGemi"
           imageUrl="https://i.imgur.com/I0CGwKO.jpg"
-          description={<>Optimised the website of MGemi<br/><br/></>}
+          description="Ground-up rebuild of the storefront — Lighthouse performance 56 to 77"
           deployedUrl="https://mgemi.com/"
         />
         <ProjectCard
           name="Beeya Wellness"
-          description="Optimised website for a women wellness Brand"
+          description="Built solo for a women's wellness brand — WCAG-compliant, pixel-perfect"
           imageUrl="https://i.imgur.com/aJG9ETY.jpg"
           deployedUrl="https://beeyawellness.com/"
           githubUrl=""
         />
         <ProjectCard
           name="Oriserve"
-          description="Developed the website of Oriserve (Wordpress)"
+          description="Company site built and shipped end to end, from build to deploy"
           imageUrl="https://i.imgur.com/3mbLuai.png"
           deployedUrl="https://www.oriserve.com/"
         />
         <ProjectCard
           name="Aventon"
-          description={<>Pixel Perfected the Aventon website<br/><br/></>}
+          description="Pixel-perfect build of the Aventon storefront, matched to design spec"
           imageUrl="https://i.imgur.com/EBdMxB5.png"
           deployedUrl="https://www.aventon.com/"
           githubUrl=""
         />
         <ProjectCard
-          name="React Dashboard"
-          description="React Dashboard with Google OAuth Login"
-          imageUrl="https://i.imgur.com/jeOdxcT.png"
-          deployedUrl="https://react-db-black.vercel.app/"
-          githubUrl={"https://github.com/priyanshitaneja/react-db"}
-        />
-        <ProjectCard
           name="Generator-AI"
-          description="A blog writer that writes content on a topic based on tags and tone provided"
+          description="Blog-post generator — give it a topic, tags and tone, it drafts the piece"
           imageUrl="https://i.imgur.com/TOARWBF.png"
           deployedUrl="https://generator-ai-smoky.vercel.app/"
           githubUrl="https://github.com/priyanshitaneja/Generator-AI"
         />
         <ProjectCard
-          name="Glyde Rides"
-          description={<>Website for Glyde Rides Pvt Ltd<br/><br/></>}
-          imageUrl="https://i.imgur.com/F13ILYK.png"
-          deployedUrl="https://glyderides.com/"
-          githubUrl=""
-        />
-        <ProjectCard
-          name="Real Time Clock"
-          description={<>Optimised Real time Digital Clock<br/><br/></>}
-          imageUrl="https://i.imgur.com/P4nNPRc.png"
-          deployedUrl="https://priyanshitaneja.github.io/realTimeClock/"
-          githubUrl="https://github.com/priyanshitaneja/realTimeClock"
-        />
-        <ProjectCard
-          name="Blurry Loading"
-          description={<>A blurry loading webpage<br/><br/></>}
-          imageUrl="https://i.imgur.com/zOzfczB.png"
-          deployedUrl="https://priyanshitaneja.github.io/Blurry-Loading/"
-          githubUrl="https://github.com/priyanshitaneja/Blurry-Loading"
-        />
-        <ProjectCard
-          name="Javascript Carousel"
-          description={<>A minimal JavaScript Carousel<br/><br/></>}
-          imageUrl="https://i.imgur.com/j7uxqhV.png"
-          deployedUrl="https://priyanshitaneja.github.io/js-carousel/"
-          githubUrl="https://github.com/priyanshitaneja/js-carousel"
-        />
-        <ProjectCard
-          name="React Carousel"
-          description={<>A minimal React Carousel<br/><br/></>}
-          imageUrl="https://i.imgur.com/WVHISn0.png"
-          deployedUrl="https://golden-bienenstitch-8c4c8e.netlify.app/"
-          githubUrl="https://github.com/priyanshitaneja/react-carousel"
-        />
-        <ProjectCard
           name="Compensation Projection"
-          description="Graphical representation of compensation on yearly basis"
+          description="Projects 4-year total comp — toggle base, equity and bonuses to compare offers"
           imageUrl="https://i.imgur.com/hAUN1Nk.png"
           deployedUrl="https://compensation-projection.netlify.app/"
           githubUrl="https://github.com/priyanshitaneja/compensation-projection"
-        />
-        <ProjectCard
-          name="Keeper"
-          description={<>Clone of Google Keep web app<br/><br/></>}
-          imageUrl="https://i.imgur.com/aXNMlMf.png"
-          deployedUrl="https://j96po7.csb.app/"
-          githubUrl="https://github.com/priyanshitaneja/keeper"
-        />
-        <ProjectCard
-          name="To-Do List"
-          description={<>To-Do List<br/><br/></>}
-          imageUrl="https://i.imgur.com/IuOdymq.png"
-          deployedUrl="https://7upub7.csb.app/"
-          githubUrl="https://github.com/priyanshitaneja/todoList"
-        />
-        <ProjectCard
-          name="Simon Game"
-          description={<>Simon- A Memory Game<br/><br/></>}
-          imageUrl="https://i.imgur.com/w5PsY2N.png"
-          deployedUrl="https://priyanshitaneja.github.io/SimonGame/"
-          githubUrl="https://github.com/priyanshitaneja/SimonGame"
         />
         {/* <ProjectCard
           name=""
