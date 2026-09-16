@@ -1,198 +1,46 @@
-/* The fixed height and overflow-y are gone. An inner scroll container breaks
-   browser find-in-page scrolling, breaks anchor links and deep linking into a
-   role, and cannot hold long-form content — which is what the case study pages
-   will be. The document scrolls instead. */
-.work {
-  padding: 48px 0;
+/* No fixed height and no overflow-y. An inner scroll container breaks browser
+   find-in-page scrolling, breaks anchor links and deep linking into a role,
+   and cannot hold long-form content — which is what the case study pages will
+   be. The document scrolls instead.
 
-  a {
-    color: inherit;
-    text-decoration: underline;
-  }
+   The blanket `a { color: inherit; text-decoration: underline }` is gone with
+   it: it existed for the old hand-written markup and would have overridden
+   every link style the Timeline component sets. */
+.work {
+  padding-block: var(--space-xl);
 }
 
-/* ── Timeline ──
-   Replaces antd's <Timeline mode="left">. Labels sit in the left column,
-   content in the right, with a continuous rail between them. */
+/* ── Page head ── */
+.work__head {
+  padding-block-end: var(--space-l);
+}
 
-$rail-gap: 44px;
-$dot-size: 9px;
-$dot-border: 2px;
+.work__title {
+  margin: 0 0 var(--space-2xs);
+}
 
-.timeline {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  column-gap: $rail-gap;
-  list-style: none;
+.work__lede {
+  margin: 0;
+  color: var(--fg-muted);
+}
+
+/* ── Appendix ──
+   Education and certifications sit at the end rather than as peers of a job on
+   the timeline. Graduation shown level with employment is a new-grad pattern,
+   and this is not a new-grad resume. */
+.work__education {
+  margin: 0 0 var(--space-m);
+}
+
+.work__certs {
   margin: 0;
   padding: 0;
-}
-
-/* One continuous rail rather than antd's per-item tails — same result, and it
-   cannot leave a stray tail hanging off the final item. */
-.timeline::before {
-  content: '';
-  position: absolute;
-  left: 50%;
-  transform: translateX(-1px);
-  top: 0.6em;
-  bottom: 0.6em;
-  width: 2px;
-  background-color: var(--rule-strong);
-}
-
-/* display: contents lets each row's two cells land directly in the parent
-   grid, so the rail stays continuous and the columns stay aligned. */
-.timeline__item {
-  display: contents;
-}
-
-.timeline__label {
-  position: relative;
-  grid-column: 1;
-  text-align: right;
-  padding-bottom: 28px;
-  /* Full --fg, not --fg-muted. The old muted tone was #786D64 on a #E3DADB
-     ground, which failed contrast; the replacement --ink-muted clears it at
-     6.27:1, but timeline dates are small and sit next to the rail, so they
-     stay at full ink. */
-  color: var(--fg);
-}
-
-/* The dot hangs off the label because a display: contents element generates
-   no box of its own, and therefore no pseudo-elements. */
-.timeline__label::after {
-  content: '';
-  position: absolute;
-  right: calc(-1 * ($rail-gap / 2) - ($dot-size / 2) - $dot-border);
-  top: 0.42em;
-  width: $dot-size;
-  height: $dot-size;
-  border: $dot-border solid var(--clay);
-  border-radius: 50%;
-  background-color: var(--bg);
-}
-
-.timeline__content {
-  grid-column: 2;
-  padding-bottom: 28px;
-
-  p {
-    margin: 0 0 0.6em;
-  }
-}
-
-/* The pending marker was antd's <Timeline pending> dot: a LoadingOutlined that
-   spun continuously. Replacing the Timeline (c6bb373) left a static dashed
-   ring in its place, which reads as a rendering artefact rather than "still
-   going". This restores the motion with no JS and no dependency — one
-   transparent side turns the ring into an arc, and the arc rotates. */
-.timeline__item--pending .timeline__label::after {
-  border-top-color: transparent;
-  animation: timeline-pending-spin 0.9s linear infinite;
-}
-
-@keyframes timeline-pending-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* Motion is the whole point of the marker, so with it suppressed fall back to
-   the dashed ring — still visibly distinct from the solid dots below it. */
-@media (prefers-reduced-motion: reduce) {
-  .timeline__item--pending .timeline__label::after {
-    border-top-color: var(--clay);
-    border-style: dashed;
-    animation: none;
-  }
-}
-
-/* ── Collapsible entries ──
-   <details>/<summary> replaces antd's ghost <Collapse>: keyboard operable and
-   announced correctly with no JavaScript. */
-
-.collapse {
-  width: 80%;
-}
-
-.collapse summary {
-  display: flex;
-  align-items: baseline;
-  gap: 12px;
-  cursor: pointer;
   list-style: none;
+  display: grid;
+  gap: var(--space-2xs);
+  font-size: var(--step--1);
 }
 
-/* Suppress the native disclosure triangle in both engines. */
-.collapse summary::-webkit-details-marker {
-  display: none;
-}
-
-.collapse summary::before {
-  content: '';
-  flex: 0 0 auto;
-  width: 6px;
-  height: 6px;
-  margin-top: 0.35em;
-  border-right: 1.5px solid currentColor;
-  border-bottom: 1.5px solid currentColor;
-  transform: rotate(-45deg);
-  transform-origin: center;
-  transition: transform 200ms ease;
-}
-
-.collapse[open] summary::before {
-  transform: rotate(45deg);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .collapse summary::before {
-    transition: none;
-  }
-}
-
-.collapse summary:focus-visible {
-  outline: 2px solid var(--focus-ring);
-  outline-offset: 3px;
-}
-
-.collapse__body {
-  padding: 8px 0 0 18px;
-}
-
-/* ── Narrow screens ──
-   antd stacked to a single column below its md breakpoint; match that rather
-   than squeezing two columns into 320px. */
-@media screen and (max-width: 767px) {
-  .timeline {
-    grid-template-columns: 1fr;
-    column-gap: 0;
-    padding-left: 22px;
-  }
-
-  .timeline::before {
-    left: 4px;
-    transform: none;
-  }
-
-  .timeline__label,
-  .timeline__content {
-    grid-column: 1;
-    text-align: left;
-  }
-
-  .timeline__label {
-    padding-bottom: 4px;
-  }
-
-  .timeline__label::after {
-    right: auto;
-    left: -22px;
-  }
-
-  .collapse {
-    width: 100%;
-  }
+.work__cert-meta {
+  color: var(--fg-muted);
 }

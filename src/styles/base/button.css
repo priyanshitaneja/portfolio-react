@@ -1,0 +1,45 @@
+/* ── Button ──
+ *
+ * Always an <a> on this site; nothing here submits anything. Kept as a class
+ * rather than a component because it is pure cosmetics over a real link, and
+ * wrapping an anchor in a component is how middle-click and cmd-click get
+ * broken.
+ */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  padding: var(--space-2xs) var(--space-s);
+  border: var(--border-hair) solid var(--rule-strong);
+  border-radius: var(--radius-sm);
+  font-size: var(--step--1);
+  text-decoration: none;
+  color: var(--fg);
+  background: transparent;
+  transition: background-color var(--dur-fast) var(--ease-standard),
+    border-color var(--dur-fast) var(--ease-standard),
+    color var(--dur-fast) var(--ease-standard);
+}
+
+.button:hover,
+.button:focus-visible {
+  background: var(--paper-raised);
+  border-color: var(--clay);
+  color: var(--fg);
+}
+
+/* --on-clay is 5.27:1 on --clay, so white text on the filled variant clears
+   AA. --clay itself is never used as a text colour; see tokens/color.css. */
+.button--primary {
+  background: var(--clay);
+  border-color: var(--clay);
+  color: var(--on-clay);
+}
+
+.button--primary:hover,
+.button--primary:focus-visible {
+  background: var(--clay-press);
+  border-color: var(--clay-press);
+  color: var(--on-clay);
+}

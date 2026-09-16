@@ -1,0 +1,12 @@
+.section-heading {
+  margin-block-end: var(--space-m);
+}
+
+.section-heading__eyebrow {
+  margin: 0 0 var(--space-2xs);
+}
+
+.section-heading__title {
+  margin: 0;
+  max-width: var(--measure-tight);
+}

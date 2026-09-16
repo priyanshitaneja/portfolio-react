@@ -18,6 +18,7 @@
 @import '../styles/base/reset.css';
 @import '../styles/base/elements.css';
 @import '../styles/base/motion.css';
+@import '../styles/base/button.css';
 @import '../styles/base/utilities.css';
 
 @import '../styles/compositions/shell.css';

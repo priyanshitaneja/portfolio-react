@@ -1,53 +1,95 @@
 /* ── Home ──
  *
- * The hero used to be `height: calc(100vh - 74px)` inside a wrapper that never
- * scrolled. min-height replaces it so the section can grow past the viewport
- * once there is more than a name on the page, and svh replaces vh because vh
- * on mobile measures the viewport *without* browser chrome, which pushed the
- * bottom of the hero under Safari's toolbar. The vh line is the fallback for
- * engines that do not know svh; a later declaration of the same property wins
- * where it is understood.
+ * The h1 is her name and the h2 is the positioning line, but the visual
+ * weight is the other way round. That is deliberate: the accessibility tree
+ * and search results want the name first, and a reader wants to know what she
+ * does. Nothing is faked with CSS — both are real headings in the right
+ * order, sized for their job rather than their level.
  */
 
-.homepage_wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.home__hero {
+  padding-block: var(--space-2xl) var(--space-xl);
 }
 
-.homepage {
-    margin: 0 auto;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.home__name {
+  margin: 0;
+  font-family: var(--font-text);
+  font-size: var(--step-1);
+  letter-spacing: var(--tracking-normal);
+  color: var(--fg-heading);
 }
 
-@media screen and (min-width: 320px) {
-    .homepage {
-        width: 90vw;
-        min-height: calc(100vh - 74px);
-        min-height: calc(100svh - 74px);
-    }
+.home__role {
+  margin: var(--space-3xs) 0 var(--space-l);
 }
 
-@media screen and (min-width: 460px) {
-    .homepage {
-        width: 80vw;
-    }
-  }
-
-@media screen and (min-width: 768px) {
-    .homepage {
-        width: 60vw;
-    }
+.home__positioning {
+  margin: 0 0 var(--space-m);
+  max-width: 20ch;
+  font-size: var(--step-6);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-display);
+  /* A clay rule under the statement rather than a coloured heading: --clay is
+     not a legal text colour on every ground, but it is always legal as a
+     fill. */
+  border-block-end: 0;
 }
 
-@media screen and (min-width: 1024px) {
-    .homepage {
-        width: 65vw;
-        max-width: 800px;
-        min-height: calc(100vh - 114px);
-        min-height: calc(100svh - 114px);
-    }
+.home__intro {
+  margin: 0 0 var(--space-s);
+  max-width: var(--measure);
+  color: var(--fg);
+}
+
+.home__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs);
+  margin-block-start: var(--space-l);
+}
+
+/* ── Shared list treatment ──
+   Rules rather than cards. A card is a box you have to justify; a rule is what
+   an editorial page already uses to separate two things. */
+.home__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.home__list-item {
+  padding-block: var(--space-s);
+  border-block-start: var(--border-hair) solid var(--rule);
+}
+
+.home__list-item:first-child {
+  border-block-start: 0;
+}
+
+.home__list-text {
+  margin: 0;
+  max-width: var(--measure);
+}
+
+.home__list-metrics {
+  margin: var(--space-3xs) 0 0;
+  font-size: var(--step--1);
+  color: var(--fg-muted);
+  max-width: var(--measure);
+}
+
+.home__list-metrics strong {
+  color: var(--clay-deep);
+  font-weight: 600;
+}
+
+.home__more {
+  display: inline-block;
+  margin-block-start: var(--space-m);
+  font-size: var(--step--1);
+  text-underline-offset: 0.18em;
+}
+
+.home__proof {
+  padding-block-start: 0;
 }

@@ -1,0 +1,179 @@
+@use '../../styles/breakpoints' as *;
+
+.timeline {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ── Company block ── */
+.timeline__company {
+  padding-block: var(--space-l);
+  border-block-start: var(--border-hair) solid var(--rule);
+}
+
+.timeline__company:first-child {
+  border-block-start: 0;
+  padding-block-start: 0;
+}
+
+.timeline__company-head {
+  display: grid;
+  gap: var(--space-3xs);
+  margin-block-end: var(--space-m);
+}
+
+@include mq(md) {
+  .timeline__company-head {
+    grid-template-columns: 1fr max-content;
+    align-items: baseline;
+  }
+
+  .timeline__context {
+    grid-column: 1 / -1;
+  }
+}
+
+.timeline__company-name {
+  margin: 0;
+  font-size: var(--step-3);
+}
+
+.timeline__company-name a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.timeline__company-name a:hover,
+.timeline__company-name a:focus-visible {
+  color: var(--link-hover);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.timeline__context {
+  margin: 0;
+  font-size: var(--step--1);
+  color: var(--fg-muted);
+}
+
+.timeline__range {
+  font-size: var(--step--1);
+  color: var(--fg-muted);
+  white-space: nowrap;
+}
+
+/* ── Roles, with the progression rail ──
+   The rail is a border on the list rather than a pseudo-element per item, so
+   it cannot leave a stray tail hanging off the last role. */
+.timeline__roles {
+  margin: 0 0 var(--space-m);
+  padding: 0 0 0 var(--space-m);
+  list-style: none;
+  border-inline-start: var(--border-rule) solid var(--rule);
+}
+
+.timeline__role {
+  position: relative;
+  padding-block-end: var(--space-s);
+}
+
+.timeline__role:last-child {
+  padding-block-end: 0;
+}
+
+.timeline__role::before {
+  content: '';
+  position: absolute;
+  inset-inline-start: calc(-1 * var(--space-m) - 6px);
+  inset-block-start: 0.5em;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 2px solid var(--clay);
+  background: var(--bg);
+}
+
+/* The current role is the filled one. */
+.timeline__role:first-child::before {
+  background: var(--clay);
+}
+
+.timeline__role-title {
+  margin: 0;
+  font-size: var(--step-0);
+  color: var(--fg-heading);
+}
+
+/* The whole reason the roles nest inside a company instead of flattening into
+   six identical timeline nodes. */
+.timeline__promotion {
+  margin: var(--space-3xs) 0 0;
+  font-size: var(--step--2);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--clay-deep);
+}
+
+/* ── Highlights ── */
+.timeline__body summary {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2xs);
+  cursor: pointer;
+  list-style: none;
+  font-size: var(--step--1);
+  color: var(--fg-muted);
+}
+
+.timeline__body summary::-webkit-details-marker {
+  display: none;
+}
+
+.timeline__body summary::before {
+  content: '';
+  flex: 0 0 auto;
+  width: 6px;
+  height: 6px;
+  margin-block-start: 0.35em;
+  border-inline-end: 1.5px solid currentColor;
+  border-block-end: 1.5px solid currentColor;
+  transform: rotate(-45deg);
+  transition: transform var(--dur-fast) var(--ease-standard);
+}
+
+.timeline__body[open] summary::before {
+  transform: rotate(45deg);
+}
+
+.timeline__highlights {
+  margin: var(--space-s) 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--space-m);
+}
+
+.timeline__highlight-text {
+  margin: 0;
+  max-width: var(--measure);
+}
+
+.timeline__highlight-metrics {
+  margin: var(--space-3xs) 0 0;
+  font-size: var(--step--1);
+  color: var(--fg-muted);
+  max-width: var(--measure);
+}
+
+.timeline__highlight-metrics strong {
+  color: var(--clay-deep);
+  font-weight: 600;
+}
+
+.timeline__case-link {
+  display: inline-block;
+  margin-block-start: var(--space-3xs);
+  font-size: var(--step--1);
+  text-underline-offset: 0.18em;
+}
