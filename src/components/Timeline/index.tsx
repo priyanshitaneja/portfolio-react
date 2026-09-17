@@ -69,9 +69,19 @@ const HighlightItem = ({ highlight }: { highlight: Highlight }) => (
  * invisible: six identically-weighted dots, and the reader left to subtract
  * dates. Here the interval is stated outright.
  */
-const Timeline = ({ companies }: { companies: readonly Company[] }) => (
+const Timeline = ({
+  companies,
+  headingLevel = 2,
+}: {
+  companies: readonly Company[];
+  /* The level a company name renders at. It depends on what is above it in
+     the document, not on the component, so the caller owns it — that is the
+     only way heading order stays correct when the page structure changes. */
+  headingLevel?: 2 | 3;
+}) => (
   <ol className="timeline">
     {companies.map((company, index) => {
+      const CompanyHeading = (headingLevel === 3 ? 'h3' : 'h2') as 'h2' | 'h3';
       const newest = company.roles[0];
       const oldest = company.roles[company.roles.length - 1];
 
@@ -84,10 +94,7 @@ const Timeline = ({ companies }: { companies: readonly Company[] }) => (
           className={`timeline__company${index > 0 ? ' reveal' : ''}`}
           key={company.id}>
           <div className="timeline__company-head">
-            {/* h2, not h3. The page h1 is "Work", so a company is the next
-                level down; h3 here skipped a level and failed axe's
-                heading-order rule and the matching Lighthouse audit. */}
-            <h2 className="timeline__company-name">
+            <CompanyHeading className="timeline__company-name">
               {company.url ? (
                 <a
                   href={company.url}
@@ -100,7 +107,7 @@ const Timeline = ({ companies }: { companies: readonly Company[] }) => (
               ) : (
                 company.name
               )}
-            </h2>
+            </CompanyHeading>
             <Range start={oldest.start} end={newest.end} />
             <p className="timeline__context">{company.context}</p>
           </div>
