@@ -1,136 +1,152 @@
-import Link from 'next/link';
-
-import SectionHeading from '@/components/SectionHeading';
-import MetricStrip from '@/components/MetricStrip';
-import SocialIcons from '@/components/SocialIcons';
-import RichText from '@/components/RichText';
-import { PROFILE } from '@/content/profile';
+import Timeline from '@/components/Timeline';
+import JsonLd from '@/components/JsonLd';
+import { PROFILE, CERTIFICATIONS, EDUCATION } from '@/content/profile';
 import { COMPANIES } from '@/content/companies';
 import { LAB } from '@/content/lab';
-import { METRICS } from '@/content/metrics';
-import JsonLd from '@/components/JsonLd';
 import { homeGraph } from '@/content/structured-data';
 
 import './page.css';
 
-/* The four figures that carry the most weight, in the order they are read. */
-const PROOF = [
-  'ragOnboardingBusinesses',
-  'cardSettledVolume',
-  'supportAppTti',
-  'closureSupportHours',
-] as const;
-
-const novo = COMPANIES[0];
-/* The five Novo highlights worth homepage space. The rest live on /work. */
-const SELECTED = novo.highlights.slice(0, 6);
-
+/*
+ * One document.
+ *
+ * The previous homepage was landing-page anatomy: a display-size statement
+ * above the fold, a four-across band of large figures, a filled primary button
+ * beside a ghost secondary, and an uppercase eyebrow over every section. Those
+ * are persuasion devices. They read as a product being sold, which is the
+ * wrong register for someone being evaluated on what they have built.
+ *
+ * What replaces them: the name and the role, two paragraphs at reading size,
+ * the address as plain text, and then the work itself. The figures stay, but
+ * inline against the thing they measure, where they are evidence rather than
+ * a headline.
+ */
 export default function Home() {
   return (
-    <div className="home">
+    <div className="doc" id="top">
       <JsonLd data={homeGraph} />
-      <section className="home__hero shell">
-        {/*
-          The h1 is the positioning line, not the name. The name is already
-          the wordmark in the banner landmark one line above, and repeating it
-          here read as a mistake rather than a hierarchy. It is still in the
-          document title, the OG tags and the Person JSON-LD, which is where a
-          machine looks for it.
-        */}
-        <p className="home__role u-caps">
-          {PROFILE.currentRole.title}, {PROFILE.currentRole.company}
+
+      <header className="doc__head shell">
+        <h1 className="doc__name">{PROFILE.name}</h1>
+        <p className="doc__role">
+          {PROFILE.currentRole.title},{' '}
+          <a
+            href={PROFILE.currentRole.companyUrl}
+            aria-label="Novo (opens in a new tab)"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {PROFILE.currentRole.company}
+          </a>
         </p>
-        <h1 className="home__positioning">{PROFILE.positioning}</h1>
+
         {PROFILE.intro.map((para) => (
-          <p className="home__intro" key={para.slice(0, 24)}>
+          <p className="doc__intro" key={para.slice(0, 24)}>
             {para}
           </p>
         ))}
-        <div className="home__actions">
-          <Link className="button button--primary" href="/work">
-            See the work
-          </Link>
-          <a className="button" href={`mailto:${PROFILE.email}`}>
-            {PROFILE.email}
+
+        <p className="doc__contact">
+          <a href={`mailto:${PROFILE.email}`}>{PROFILE.email}</a>
+          <span aria-hidden="true"> · </span>
+          <a
+            href={PROFILE.socials[0].url}
+            aria-label="LinkedIn profile (opens in a new tab)"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            LinkedIn
           </a>
-        </div>
-      </section>
-
-      <section className="home__proof shell section">
-        <h2 className="sr-only">By the numbers</h2>
-        <MetricStrip ids={PROOF} />
-      </section>
-
-      <section className="home__selected shell section reveal">
-        <SectionHeading eyebrow="Selected work">
-          What I shipped at Novo
-        </SectionHeading>
-        <ul className="home__list">
-          {SELECTED.map((h, i) => (
-            <li className="home__list-item" key={i}>
-              <p className="home__list-text">
-                <RichText value={h.text} />
-              </p>
-              {h.metricIds?.length ? (
-                <p className="home__list-metrics u-figures">
-                  {h.metricIds.map((id, j) => (
-                    <span key={id}>
-                      {j > 0 ? <span aria-hidden="true"> &middot; </span> : null}
-                      <strong>{METRICS[id].value}</strong> {METRICS[id].label}
-                    </span>
-                  ))}
-                </p>
-              ) : null}
-            </li>
-          ))}
-        </ul>
-        <Link className="home__more" href="/work">
-          The full timeline
-          <span aria-hidden="true"> &rarr;</span>
-        </Link>
-      </section>
-
-      <section className="home__before shell section reveal">
-        <SectionHeading eyebrow="Before Novo">Where I learned it</SectionHeading>
-        <ul className="home__list">
-          {COMPANIES.slice(1).map((c) => (
-            <li className="home__list-item" key={c.id}>
-              <p className="home__list-text">
-                <strong>{c.name}</strong>. {c.context}.{' '}
-                {c.highlights[0].text as string}
-              </p>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="home__lab shell section reveal">
-        <SectionHeading eyebrow="Lab">
-          Things I build to answer a question
-        </SectionHeading>
-        <ul className="home__list">
-          {LAB.slice(0, 3).map((entry) => (
-            <li className="home__list-item" key={entry.slug}>
-              <p className="home__list-text">
-                <strong>{entry.name}</strong>. {entry.question}
-              </p>
-            </li>
-          ))}
-        </ul>
-        <Link className="home__more" href="/lab">
-          All five experiments
-          <span aria-hidden="true"> &rarr;</span>
-        </Link>
-      </section>
-
-      <section className="home__contact shell section reveal">
-        <SectionHeading eyebrow="Contact">
-          Hiring for a senior or staff frontend role?
-        </SectionHeading>
-        <p className="u-lede">
-          The fastest way to reach me is email. I read everything.
+          <span aria-hidden="true"> · </span>
+          <a
+            href={PROFILE.socials[1].url}
+            aria-label="GitHub profile (opens in a new tab)"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub
+          </a>
         </p>
-        <SocialIcons />
+      </header>
+
+      <section className="doc__section shell" id="work">
+        <h2 className="doc__section-title">Work</h2>
+        <Timeline companies={COMPANIES} headingLevel={3} />
+      </section>
+
+      <section className="doc__section shell" id="lab">
+        <h2 className="doc__section-title">Lab</h2>
+        <p className="doc__section-note">
+          Things I build to answer a question I cannot answer by reading. Most
+          took a weekend. None of them are products.
+        </p>
+
+        <ol className="lab">
+          {LAB.map((entry, index) => (
+            <li className={`lab__row${index > 0 ? ' reveal' : ''}`} key={entry.slug}>
+              <h3 className="lab__name">{entry.name}</h3>
+              <p className="lab__year u-figures">{entry.year}</p>
+              <div className="lab__detail">
+                <p className="lab__question">{entry.question}</p>
+                <p className="lab__what">{entry.what}</p>
+                {entry.finding ? (
+                  <p className="lab__what">{entry.finding}</p>
+                ) : null}
+                <p className="lab__links">
+                  {entry.liveUrl ? (
+                    <a
+                      href={entry.liveUrl}
+                      aria-label={`${entry.name}, live site (opens in a new tab)`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Live
+                    </a>
+                  ) : null}
+                  {entry.sourceUrl ? (
+                    <a
+                      href={entry.sourceUrl}
+                      aria-label={`${entry.name}, source on GitHub (opens in a new tab)`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Source
+                    </a>
+                  ) : null}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section className="doc__section shell" id="also">
+        <h2 className="doc__section-title">Education</h2>
+        <p className="doc__edu">
+          {EDUCATION.degree}, {EDUCATION.field}
+          <span className="doc__muted">
+            {' '}
+            — {EDUCATION.institution}, {EDUCATION.year}
+          </span>
+        </p>
+        <ul className="doc__certs">
+          {CERTIFICATIONS.map((c) => (
+            <li key={c.name}>
+              {c.name}
+              <span className="doc__muted">
+                {' '}
+                — {c.issuer}, {c.year}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="doc__section shell" id="contact">
+        <h2 className="doc__section-title">Contact</h2>
+        <p className="doc__contact-line">
+          <a href={`mailto:${PROFILE.email}`}>{PROFILE.email}</a>
+        </p>
       </section>
     </div>
   );

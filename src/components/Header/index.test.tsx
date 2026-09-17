@@ -1,55 +1,34 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
-
-/* Header is a client component that reads the current route. Stubbing the hook
-   is the whole point of the unit: the mapping from pathname to active state is
-   the logic, and App Router navigation is not. */
-const mockPathname = vi.fn<() => string>();
-vi.mock('next/navigation', () => ({ usePathname: () => mockPathname() }));
 
 import Header from './index';
 
-/* Header used to nest ThemeToggle, which called useTheme, so every case had to
-   be wrapped in the theme provider. The site has one theme now and the header
-   renders standalone. */
-const renderHeader = () => render(<Header />);
-
 describe('Header', () => {
   it('exposes the nav as a named landmark', () => {
-    mockPathname.mockReturnValue('/');
-    renderHeader();
+    render(<Header />);
     /* The <header>/<nav> pair is what satisfies axe's `region` rule; a plain
        <ul> put every link outside a landmark. */
-    expect(screen.getByRole('navigation', { name: 'Main' })).toBeDefined();
+    expect(screen.getByRole('navigation', { name: 'Sections' })).toBeDefined();
     expect(screen.getByRole('banner')).toBeDefined();
   });
 
-  it('marks exactly the current route with aria-current', () => {
-    mockPathname.mockReturnValue('/work');
-    renderHeader();
-
-    const current = screen.getAllByRole('link').filter(
-      (a) => a.getAttribute('aria-current') === 'page'
-    );
-    expect(current).toHaveLength(1);
-    expect(current[0].getAttribute('href')).toBe('/work');
+  it('links to in-page sections, not routes', () => {
+    render(<Header />);
+    const hrefs = screen
+      .getAllByRole('link')
+      .map((a) => a.getAttribute('href'));
+    /* Every target is a fragment. A route href here would 404 on the
+       single-page document, and would do it silently. */
+    expect(hrefs.every((h) => h?.startsWith('#'))).toBe(true);
+    expect(hrefs).toContain('#work');
+    expect(hrefs).toContain('#lab');
+    expect(hrefs).toContain('#contact');
   });
 
-  it('adds the active class only to the current route', () => {
-    mockPathname.mockReturnValue('/lab');
-    renderHeader();
-
-    const active = screen.getAllByRole('link').filter((a) =>
-      a.className.split(' ').includes('active')
-    );
-    expect(active).toHaveLength(1);
-    expect(active[0].getAttribute('href')).toBe('/lab');
-  });
-
-  it('marks nothing current on a route that is not in the nav', () => {
-    /* /404 and any future unlisted route: no link should claim to be current. */
-    mockPathname.mockReturnValue('/nowhere');
-    renderHeader();
+  it('marks nothing as the current page', () => {
+    /* There is one page, so no link can be "current". aria-current on an
+       in-page anchor would be a lie. */
+    render(<Header />);
     expect(
       screen.getAllByRole('link').filter((a) => a.hasAttribute('aria-current'))
     ).toHaveLength(0);

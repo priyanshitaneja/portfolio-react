@@ -12,12 +12,36 @@ something — those are marked **Trap**, with what actually went wrong.
 
 ## Direction
 
-White ground, near-black ink, one red. Swiss: a strict grid, tight grotesk set
-large, square corners, rules instead of boxes. Nothing else carries colour,
-which is what makes the red mean something when it appears.
+White ground, near-black ink, one red. Square corners, rules instead of boxes,
+no shadows. Nothing else carries colour, which is what makes the red mean
+something when it appears.
+
+**It is a document, not a landing page.** One page, read top to bottom. This is
+the rule most likely to erode, because every instinct for "improving" a
+homepage pushes back toward marketing. The banned patterns, each of which was
+built once and removed:
+
+| Don't | Because |
+|---|---|
+| A display-size statement above the fold | That is a hero. Headings are reading-size; `h1` is `--step-3`. |
+| A row of large figures with rules over them | That is a stats band. Figures go inline, against the thing they measure. |
+| A filled primary button beside a ghost secondary | That is a CTA pair. Links are links. |
+| An uppercase eyebrow over each section | That is section-labelling from a brochure. A heading and a rule is enough. |
+| Short punchy one-metric sentences | That is feature-benefit copy. Write the sentence the work deserves. |
 
 Restraint is the whole idea. If a change needs a second accent, a gradient, a
 shadow or a rounded corner to work, the change is wrong.
+
+### Structure
+
+One route: `/`. `/work`, `/lab`, `/contact`, `/projects` and `/about` all 308
+to it, and the nav is in-page fragments. Case study pages are the only
+additional routes planned.
+
+The `h1` is the name. Sections (`Work`, `Lab`, `Education`, `Contact`) are
+`h2`. Company names and lab entries are `h3` — `Timeline` takes the level as a
+prop, because the correct level depends on what is above the component, not on
+the component.
 
 ---
 
@@ -62,7 +86,11 @@ Computed with the WCAG 2.x relative-luminance formula against all four grounds.
 One family: **Inter**, variable, `--font-inter`, filling both `--font-display`
 and `--font-text`. `--font-mono` is the system stack and costs nothing.
 
-- Fluid scale `--step--2` … `--step-7`, for a 360 → 1440px viewport.
+- Fluid scale `--step--2` … `--step-7`, for a 360 → 1440px viewport. Body is
+  `--step-0`, 16 → 17px.
+- Headings sit three steps lower than a marketing layout would put them: `h1`
+  `--step-3`, `h2` `--step-1`, `h3` `--step-0`. Hierarchy is carried by weight
+  and by the rule above each section, which costs no vertical space.
 - Weights: `--fw-display: 700`, `--fw-heading: 600`. A grotesk carries
   hierarchy through weight; the previous serif carried it through size alone.
 - Tracking is **optical compensation, not style**: letterfit correct at 17px is
@@ -185,11 +213,11 @@ a job the platform now does for zero bytes.
 ## Verification
 
 ```bash
+lsof -ti:3000 | xargs kill -9          # see the trap below — do this first
 npm run typecheck && npm test && npm run build && node scripts/check-bundle-size.mjs
 npm run start &
 npx wait-on http://localhost:3000
-npx @axe-core/cli@4 http://localhost:3000/ http://localhost:3000/work \
-  http://localhost:3000/lab http://localhost:3000/contact --exit
+npx @axe-core/cli@4 http://localhost:3000/ --exit
 npx @lhci/cli@0.14.x autorun
 ```
 
@@ -203,17 +231,24 @@ return ((Math.max(x,y)+.05)/(Math.min(x,y)+.05)).toFixed(2)};
 console.log(R("#B31E1E","#FFFFFF"))'
 ```
 
-> **Trap — kill the old server before running Lighthouse.** A stale
-> `next start` holding port 3000 serves the previous build's HTML against the
-> new build's files. Every stylesheet 500s, the page renders unstyled, and you
-> get a plausible-looking wall of `target-size` and contrast failures that have
-> nothing to do with your change. `lsof -ti:3000 | xargs kill -9` first.
+> **Trap — kill the old server before running Lighthouse. This has now cost
+> two separate debugging rounds.** A stale `next start` holding port 3000
+> serves the previous build's HTML against the new build's files. Every
+> stylesheet 500s, the page renders unstyled, and an unstyled `<a>` is 18px
+> tall — so you get a wall of `target-size` and contrast failures that look
+> completely plausible and have nothing to do with your change.
+>
+> **Tell:** `errors-in-console` shows `500` on `/_next/static/chunks/*.css`.
+> If you see that, stop reading the other failures; they are all phantoms.
+>
+> `lsof -ti:3000 | xargs kill -9` before every run.
 
-> **Trap — a redirected URL must not stay in the audit lists.** `/projects` is
-> a 308 to `/lab`. Leaving it in `lighthouserc.json` or the axe list in
-> `.github/workflows/perf.yml` makes Lighthouse follow the redirect, fire the
-> `redirects` audit, and drop SEO below the `minScore: 1` assertion — which
-> reads as an unrelated regression.
+> **Trap — a redirected URL must not stay in the audit lists.** `/work`,
+> `/lab`, `/contact`, `/projects` and `/about` all 308 to `/`. Leaving any of
+> them in `lighthouserc.json` or the axe list in `.github/workflows/perf.yml`
+> makes Lighthouse follow the redirect, fire the `redirects` audit, and drop
+> SEO below the `minScore: 1` assertion — which reads as an unrelated
+> regression.
 
 ---
 

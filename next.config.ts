@@ -46,20 +46,24 @@ const nextConfig: NextConfig = {
         destination: '/',
         permanent: true, // 308
       },
-      {
-        /*
-         * /projects is now /lab. Permanent, so the link equity of anything
-         * already pointing at /projects transfers.
-         *
-         * Note that /projects must NOT stay in lighthouserc.json or the axe
-         * URL list: Lighthouse follows the redirect, the `redirects` audit
-         * fires, and the SEO category drops below the minScore: 1 assertion.
-         * The failure reads as an unrelated regression.
-         */
-        source: '/projects',
-        destination: '/lab',
-        permanent: true, // 308
-      },
+      /*
+       * The site is one document now, so /work, /lab and /contact are
+       * sections rather than routes. Each redirects to / permanently.
+       *
+       * They do NOT redirect to /#work and friends: a fragment never reaches
+       * the server, so a redirect cannot preserve one. The browser lands at
+       * the top of the document, which for a page this size is the honest
+       * outcome rather than a broken-feeling jump.
+       *
+       * None of these may stay in lighthouserc.json or the axe URL list.
+       * Lighthouse follows the redirect, the `redirects` audit fires, and SEO
+       * drops below the minScore: 1 assertion — which reads as an unrelated
+       * regression rather than as this.
+       */
+      { source: '/projects', destination: '/', permanent: true },
+      { source: '/work', destination: '/', permanent: true },
+      { source: '/lab', destination: '/', permanent: true },
+      { source: '/contact', destination: '/', permanent: true },
     ];
   },
 };

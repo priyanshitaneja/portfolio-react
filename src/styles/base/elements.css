@@ -48,22 +48,28 @@ h3 {
   text-wrap: balance;
 }
 
+/*
+ * Three steps down from where these started. A heading at --step-5 is a
+ * marketing headline; the same heading at --step-3 is a document's. The
+ * hierarchy is carried by weight and by the rules above each section, which
+ * costs no vertical space and does not shout.
+ */
 h1 {
-  font-size: var(--step-5);
+  font-size: var(--step-3);
   line-height: var(--leading-snug);
-  letter-spacing: var(--tracking-display);
+  letter-spacing: var(--tracking-tight);
 }
 
 h2 {
-  font-size: var(--step-4);
-  line-height: var(--leading-snug);
+  font-size: var(--step-1);
+  line-height: var(--leading-normal);
   letter-spacing: var(--tracking-tight);
 }
 
 h3 {
-  font-size: var(--step-3);
+  font-size: var(--step-0);
   line-height: var(--leading-normal);
-  letter-spacing: var(--tracking-tight);
+  letter-spacing: var(--tracking-normal);
 }
 
 p {

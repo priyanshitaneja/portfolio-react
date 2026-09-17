@@ -21,21 +21,24 @@ export default function NotFound() {
       <p className="error__code u-caps">404</p>
       <h1 className="error__title">That page is not here</h1>
       <p className="error__body">
-        It may have moved, or the link may be old. These are the ones that
-        exist:
+        It may have moved, or the link may be old. Everything lives on one
+        page now:
       </p>
+      {/* Fragments, not routes. /work and friends now 308 to /, so linking
+          them here would send someone through a redirect to reach a section
+          that a fragment reaches directly. */}
       <ul className="error__links">
         <li>
-          <Link href="/">Home</Link>
+          <Link href="/">Start</Link>
         </li>
         <li>
-          <Link href="/work">Work</Link>
+          <Link href="/#work">Work</Link>
         </li>
         <li>
-          <Link href="/lab">Lab</Link>
+          <Link href="/#lab">Lab</Link>
         </li>
         <li>
-          <Link href="/contact">Contact</Link>
+          <Link href="/#contact">Contact</Link>
         </li>
       </ul>
     </div>

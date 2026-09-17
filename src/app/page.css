@@ -1,79 +1,141 @@
-/* ── Home ── */
+/* ── The document ──
+ *
+ * Reads top to bottom as one piece, not as a sequence of pitched sections.
+ * Everything here is in service of density and quiet: no section is
+ * introduced, nothing is framed, and the only chrome is a hairline rule
+ * between sections.
+ */
 
-.home__hero {
-  padding-block: var(--space-2xl) var(--space-xl);
+.doc {
+  padding-block-end: var(--space-2xl);
 }
 
-.home__role {
+/* ── Head ── */
+.doc__head {
+  padding-block: var(--space-xl) var(--space-l);
+}
+
+.doc__name {
+  margin: 0;
+}
+
+.doc__role {
   margin: 0 0 var(--space-m);
+  color: var(--fg-muted);
 }
 
-.home__positioning {
-  margin: 0 0 var(--space-m);
-  font-size: var(--step-6);
-  font-weight: var(--fw-display);
-  line-height: var(--leading-tight);
-  letter-spacing: var(--tracking-display);
-  /* Wider than the default measure: the statement is the page, and at this
-     size 20ch broke it across too many short lines. */
-  max-width: 17ch;
-}
-
-.home__intro {
+.doc__intro {
   margin: 0 0 var(--space-s);
   max-width: var(--measure);
-  color: var(--fg);
 }
 
-.home__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2xs);
-  margin-block-start: var(--space-l);
+.doc__contact {
+  margin: var(--space-m) 0 0;
 }
 
-/* ── Shared list treatment ──
-   Rules rather than cards. A card is a box you have to justify; a rule is what
-   an editorial page already uses to separate two things. */
-.home__list {
+/* ── Sections ──
+   A rule and a small heading. No eyebrow, no lede, no call to action. */
+.doc__section {
+  padding-block: var(--space-l);
+  border-block-start: var(--border-hair) solid var(--rule);
+}
+
+.doc__section-title {
+  margin: 0 0 var(--space-m);
+  /* The one place red appears in running structure: a short rule under the
+     section name. --clay is a fill here, never text. */
+  padding-block-end: var(--space-3xs);
+  border-block-end: var(--border-rule) solid var(--clay);
+  display: inline-block;
+}
+
+.doc__section-note {
+  margin: 0 0 var(--space-m);
+  max-width: var(--measure);
+  color: var(--fg-muted);
+}
+
+/* ── Lab ──
+   Three columns on wide screens: name, year, detail. A table's structure
+   without a table's semantics, since these are entries rather than data. */
+.lab {
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.home__list-item {
+.lab__row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3xs) var(--space-m);
   padding-block: var(--space-s);
   border-block-start: var(--border-hair) solid var(--rule);
 }
 
-.home__list-item:first-child {
+.lab__row:first-child {
   border-block-start: 0;
+  padding-block-start: 0;
 }
 
-.home__list-text {
+.lab__name {
   margin: 0;
-  max-width: var(--measure);
+  font-weight: var(--fw-heading);
 }
 
-.home__list-metrics {
-  margin: var(--space-3xs) 0 0;
+.lab__year {
+  margin: 0;
   font-size: var(--step--1);
   color: var(--fg-muted);
+}
+
+.lab__question {
+  margin: 0 0 var(--space-3xs);
   max-width: var(--measure);
 }
 
-.home__list-metrics strong {
-  color: var(--clay-deep);
-  font-weight: 600;
-}
-
-.home__more {
-  display: inline-block;
-  margin-block-start: var(--space-m);
+.lab__what {
+  margin: 0 0 var(--space-3xs);
+  max-width: var(--measure);
   font-size: var(--step--1);
-  text-underline-offset: 0.18em;
+  color: var(--fg-muted);
 }
 
-.home__proof {
-  padding-block-start: 0;
+.lab__links {
+  display: flex;
+  gap: var(--space-s);
+  margin: var(--space-2xs) 0 0;
+  font-size: var(--step--1);
+}
+
+@media (min-width: 48rem) {
+  .lab__row {
+    grid-template-columns: 14rem 5rem 1fr;
+    align-items: baseline;
+  }
+
+  .lab__detail {
+    grid-column: 3;
+  }
+}
+
+/* ── Education ── */
+.doc__edu {
+  margin: 0 0 var(--space-s);
+}
+
+.doc__certs {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--space-3xs);
+}
+
+.doc__muted {
+  color: var(--fg-muted);
+}
+
+.doc__contact-line {
+  margin: 0;
+  font-size: var(--step-1);
 }

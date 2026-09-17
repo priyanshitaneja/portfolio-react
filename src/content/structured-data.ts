@@ -55,13 +55,3 @@ export const homeGraph = {
     },
   ],
 };
-
-export const workGraph = {
-  '@context': 'https://schema.org',
-  '@type': 'ProfilePage',
-  '@id': `${SITE_URL}/work#profilepage`,
-  url: `${SITE_URL}/work`,
-  name: 'Work',
-  isPartOf: { '@id': WEBSITE_ID },
-  mainEntity: { '@id': PERSON_ID },
-};

@@ -8,7 +8,7 @@
 
 /* ── Company block ── */
 .timeline__company {
-  padding-block: var(--space-l);
+  padding-block: var(--space-m);
   border-block-start: var(--border-hair) solid var(--rule);
 }
 
@@ -36,7 +36,12 @@
 
 .timeline__company-name {
   margin: 0;
-  font-size: var(--step-3);
+  /* Matches the section title it sits under. It was --step-3, which was
+     correct while this was a page h1's direct child and is inverted
+     hierarchy now — a company was rendering larger than "Work" above it.
+     Weight carries the distinction instead. */
+  font-size: var(--step-1);
+  font-weight: var(--fw-display);
 }
 
 .timeline__company-name a {
