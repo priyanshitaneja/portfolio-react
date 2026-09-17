@@ -1,59 +1,53 @@
 /* ── Colour ──
  *
- * One theme. Adapted from the Claude design system's canvas and ink ramps,
- * pulled warmer and one step darker to keep the aged-page feel the site
- * already had.
+ * White ground, near-black ink, one red. Nothing else carries colour, which
+ * is what makes the red mean something when it appears.
  *
- * Every pair below was computed with the WCAG 2.x relative-luminance formula
- * against all four grounds before being written down. CI asserts Lighthouse
+ * Every pair was computed with the WCAG 2.x relative-luminance formula against
+ * all four grounds before being written down. CI asserts Lighthouse
  * accessibility = 1.0, so a ratio here is a build gate, not a guideline.
  *
- *              --paper   --paper-raised  --paper-sunken  --paper-deep
- *   --ink        14.34       13.24           12.19          11.09
- *   --ink-body   10.66        9.84            9.06           8.24
- *   --ink-muted   6.27        5.79            5.33           4.85
- *   --clay         4.57 !      4.22 X          3.88 X         3.53 X
- *   --clay-deep    6.69        6.17            5.68           5.17
- *   --clay-press   9.08        8.39            7.72           7.02
+ *                --paper  --raised  --sunken  --deep
+ *   --ink          19.80    18.14     16.57    14.95
+ *   --ink-body     14.16    12.97     11.85    10.69
+ *   --ink-muted     7.00     6.42      5.86     5.29
+ *   --clay          5.01     4.59      4.19 X   3.78 X
+ *   --clay-deep     6.73     6.16      5.63     5.08
+ *   --clay-press    9.12     8.35      7.63     6.88
  */
 
 :root {
-  /* ── Ground ──
-     Warmer than the old #E3DADB, which was fractionally *cool* — its blue
-     channel sat above its green, making it a pink-grey rather than a paper.
-     All four of these run B < G. */
-  --paper: #F4EEE4;
-  --paper-raised: #EDE5D8;
-  --paper-sunken: #E6DCCB;
-  --paper-deep: #DED2BE;
+  /* ── Ground ── */
+  --paper: #FFFFFF;
+  --paper-raised: #F5F5F3;
+  --paper-sunken: #EBEBE8;
+  --paper-deep: #E0E0DB;
 
   /* ── Ink ── */
-  --ink: #221E1A;
-  --ink-body: #3A342C;
-  --ink-muted: #5E5648;
+  --ink: #0A0A0A;
+  --ink-body: #2B2B2B;
+  --ink-muted: #595959;
 
-  /* ── Clay: the one accent ──
-     LOAD-BEARING, do not treat these as interchangeable.
+  /* ── Red: the one accent ──
+     LOAD-BEARING, and the three are not interchangeable.
 
-     --clay is 4.22:1 on --paper-raised and 3.88:1 on --paper-sunken. It is
-     NOT a text colour on anything but --paper, and even there it only just
-     clears AA. Use --clay for FILLS and ORNAMENT: rules, dots, underlines,
-     button backgrounds, the timeline marker. Use --clay-deep for any
-     clay-coloured TEXT, on any ground.
+     --clay is 4.19:1 on --paper-sunken and 3.78:1 on --paper-deep. It is a
+     FILL and ORNAMENT colour: rules, dots, underlines, button backgrounds,
+     the timeline marker. Any red TEXT uses --clay-deep, on any ground.
 
-     This is the same bug the repo has already fixed twice: --color-text-muted
-     at 3.67:1 on eighteen project cards, and --color-accent at 4.08:1 in the
-     nav. Both looked right and both failed. */
-  --clay: #9C5B3F;
-  --clay-deep: #7A4530;
-  /* Hover *raises* contrast rather than lowering it — 6.69:1 to 9.08:1. */
-  --clay-press: #5F3424;
+     This is the bug this repo has already shipped twice — a muted tone at
+     3.67:1 on eighteen cards, and an accent at 4.08:1 in the nav. Both looked
+     correct and both failed. */
+  --clay: #D62828;
+  --clay-deep: #B31E1E;
+  /* Hover *raises* contrast rather than lowering it: 6.73 -> 9.12. */
+  --clay-press: #8F1717;
 
   /* ── Lines ──
-     1.36:1. Decorative only. A border that carries meaning on its own needs
-     3:1 against its background, so it uses --rule-strong or an ink. */
-  --rule: #D8CDBA;
-  --rule-strong: #C4B49A;
+     1.99:1 against white. Decorative only. A border that carries meaning on
+     its own needs 3:1, so it uses an ink instead. */
+  --rule: #E2E2DF;
+  --rule-strong: #B8B8B3;
 
   /* ── Roles ──
      Components consume these, never the palette above. */
@@ -63,14 +57,12 @@
   --fg-muted: var(--ink-muted);
   --link: var(--clay-deep);
   --link-hover: var(--clay-press);
-  --on-clay: #FFFFFF; /* 5.27:1 on --clay */
-  --focus-ring: var(--clay-deep); /* 6.69:1, twice the 3:1 non-text minimum */
-  --selection-bg: #E0CDB8;
+  --on-clay: #FFFFFF; /* 5.01:1 on --clay */
+  --focus-ring: var(--clay-deep); /* 6.73:1, twice the 3:1 non-text minimum */
+  --selection-bg: #FFE0E0;
   --selection-fg: var(--ink);
 
-  /* Checked through the paper grain as well: multiply-blending #8B7B6B at 8%
-     over --paper moves --ink to 13.11:1 and --ink-muted to 5.73:1, both still
-     clear. Lighthouse computes contrast from CSS values and never sees the
-     texture, so this one is for readers rather than the gate. */
-  --texture-opacity: 0.045;
+  /* No paper texture. The grain belonged to the warm-editorial direction; on
+     a white Swiss ground it reads as a rendering artefact. */
+  --texture-opacity: 0;
 }

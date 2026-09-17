@@ -47,11 +47,11 @@ const BUDGET = {
      has to rise, raise it in the commit that spends it, with the measurement. */
   cssGzipKB: 12,
   largestChunkGzipKB: 76,
-  /* Tightened from 130, banking the 57 kB that splitting EB Garamond's italic
-     out of the preload freed. Two files preload: EB Garamond roman and
-     Instrument Serif. A third would be a deliberate decision, and this number
-     is what forces it to be one. */
-  preloadedFontKB: 75,
+  /* One file preloads: Inter, 47.3 kB. Adding Inter Tight for the display
+     role took it to 91.2 kB and tripped this check, which is how that
+     decision got made rather than drifted into. A second family is now a
+     deliberate act. */
+  preloadedFontKB: 55,
 };
 
 function gzipKB(file) {

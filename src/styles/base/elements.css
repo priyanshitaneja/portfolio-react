@@ -31,33 +31,21 @@ body {
   font-family: var(--font-text);
   font-size: var(--step-0);
   line-height: var(--leading-body);
-  /* Old-style figures are what EB Garamond is for; lining numerals in a
-     Garamond setting look borrowed from a spreadsheet. Metric-heavy copy
-     opts back into tabular lining figures with .u-figures. */
-  font-variant-numeric: oldstyle-nums;
-}
-
-/* Paper grain. Moved off z-index: 10000 with mix-blend-mode: multiply, which
-   forced a composited blend over the whole viewport on every frame and painted
-   above the header. At z-index -1 behind a transparent body it costs one
-   static layer. */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  opacity: var(--texture-opacity);
-  background: repeating-conic-gradient(#8B7B6B 0% 25%, transparent 0% 50%) 0 0 /
-    3px 3px;
+  /* Inter's default figures are lining, which is correct here. The old-style
+     figures the previous serif wanted are gone with it. .u-figures still opts
+     into tabular for anything meant to be compared down a column. */
 }
 
 h1,
 h2,
 h3 {
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: var(--fw-heading);
   color: var(--fg-heading);
+  /* Balances the last line against the ones above it instead of leaving a
+     single orphaned word. Only worth it on short, wrapping text — the browser
+     caps how many lines it will balance, and it is a no-op past that. */
+  text-wrap: balance;
 }
 
 h1 {
@@ -80,6 +68,9 @@ h3 {
 
 p {
   max-width: var(--measure);
+  /* Prevents a one-word last line in running copy. Unlike `balance` this is
+     cheap on long text, because it only adjusts the final lines. */
+  text-wrap: pretty;
 }
 
 ul {

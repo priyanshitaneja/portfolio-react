@@ -9,9 +9,14 @@
  */
 
 :root {
-  --font-display: var(--font-instrument), 'Iowan Old Style', Georgia, serif;
-  --font-text: var(--font-garamond), 'Iowan Old Style', Georgia, serif;
+  --font-display: var(--font-inter), 'Helvetica Neue', Arial, sans-serif;
+  --font-text: var(--font-inter), 'Helvetica Neue', Arial, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
+
+  /* Display weights. A grotesk carries hierarchy through weight, where the
+     previous serif carried it through size alone. */
+  --fw-display: 700;
+  --fw-heading: 600;
 
   --step--2: clamp(0.75rem, 0.7292rem + 0.0926vw, 0.8125rem);   /*  12 -> 13 */
   --step--1: clamp(0.875rem, 0.8542rem + 0.0926vw, 0.9375rem);  /*  14 -> 15 */
@@ -24,16 +29,18 @@
   --step-6: clamp(2.625rem, 2rem + 2.7778vw, 4.5rem);           /*  42 -> 72 */
   --step-7: clamp(3.25rem, 2.1667rem + 4.8148vw, 6.5rem);       /*  52 -> 104 */
 
-  --leading-tight: 1.06;   /* --step-6 / --step-7 */
-  --leading-snug: 1.18;    /* --step-4 / --step-5 */
-  --leading-normal: 1.32;  /* --step-2 / --step-3 */
-  --leading-body: 1.62;    /* running text */
+  /* Tighter than the serif setting throughout. A grotesk at display size has
+     shorter extenders and looks gappy at serif leading. */
+  --leading-tight: 0.98;   /* --step-6 / --step-7 */
+  --leading-snug: 1.06;    /* --step-4 / --step-5 */
+  --leading-normal: 1.22;  /* --step-2 / --step-3 */
+  --leading-body: 1.55;    /* running text */
 
-  /* Negative tracking on display sizes is the single biggest lever between
-     "editorial" and "default browser serif". The reference sets -1.5px at
-     64px, which is -0.023em. */
-  --tracking-display: -0.022em;
-  --tracking-tight: -0.014em;
+  /* Optical compensation, not a style choice: letterfit that reads correctly
+     at 17px is visibly loose at 72px, because tracking is set for text sizes
+     and does not scale with the type. Large sizes need it pulled back in. */
+  --tracking-display: -0.035em;
+  --tracking-tight: -0.02em;
   --tracking-normal: 0;
   --tracking-caps: 0.11em; /* the one uppercase role: eyebrows and meta */
 

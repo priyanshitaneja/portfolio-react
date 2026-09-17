@@ -10,10 +10,13 @@
 
 .home__positioning {
   margin: 0 0 var(--space-m);
-  max-width: 20ch;
   font-size: var(--step-6);
+  font-weight: var(--fw-display);
   line-height: var(--leading-tight);
   letter-spacing: var(--tracking-display);
+  /* Wider than the default measure: the statement is the page, and at this
+     size 20ch broke it across too many short lines. */
+  max-width: 17ch;
 }
 
 .home__intro {
